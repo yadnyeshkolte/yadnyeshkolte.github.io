@@ -1,75 +1,55 @@
-import { useState, useEffect } from 'react';
-import App2 from './App2';
+import React, { useRef, useState, useEffect } from 'react';
+import './App.css';
 
-const Portal = () => {
-  const [position, setPosition] = useState({ x: 100, y: 100 });
+function Portal() {
+  const portalRef = useRef(null);
+  const [position, setPosition] = useState({ x: 50, y: 50 });
   const [isDragging, setIsDragging] = useState(false);
-  const [showPortal, setShowPortal] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setShowPortal(true), 1000);
+    const timer = setTimeout(() => {
+      setPosition({ x: window.innerWidth / 2 - 50, y: window.innerHeight });
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = () => {
     setIsDragging(true);
-    e.preventDefault();
-  };
-
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      setPosition({
-        x: e.clientX - 50,
-        y: e.clientY - 50
-      });
-    }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
   };
 
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    setPosition({
+      x: e.clientX - portalRef.current.offsetWidth / 2,
+      y: e.clientY - portalRef.current.offsetHeight / 2,
+    });
+  };
+
   useEffect(() => {
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    }
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging]);
+  });
 
   return (
-    <div className="portal-container">
-      {/* Background Layer (App2) */}
-      <div className="background-layer">
-        <App2 />
-      </div>
-
-      {/* Foreground Layer (App) with mask */}
-      <div 
-        className="foreground-layer"
-        style={{
-          maskImage: `radial-gradient(circle at ${position.x}px ${position.y}px, transparent 50px, black 51px)`,
-          WebkitMaskImage: `radial-gradient(circle at ${position.x}px ${position.y}px, transparent 50px, black 51px)`
-        }}
-      >
-        <div className="content">
-          <h1>Foreground Content</h1>
-        </div>
-      </div>
-
-      {/* Portal Ring */}
-      <div
-        className={`portal-ring ${showPortal ? 'show' : ''}`}
-        style={{
-          left: position.x,
-          top: position.y,
-        }}
-        onMouseDown={handleMouseDown}
-      />
-    </div>
+    <div
+      ref={portalRef}
+      className="portal"
+      style={{
+        top: position.y,
+        left: position.x,
+        backgroundPosition: `${-position.x}px ${-position.y}px`,
+      }}
+      onMouseDown={handleMouseDown}
+    ></div>
   );
-};
+}
 
 export default Portal;

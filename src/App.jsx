@@ -1,11 +1,11 @@
+import React from 'react';
 import './App.css';
-import Portal from './Portal';
 
 function App() {
   return (
-    <div className="App">
-      <Portal />
-      <h1>jggj</h1>
+    <div className="app-container">
+      <h1>Hello World</h1>
+      <p>This is the front page (App.jsx).</p>
     </div>
   );
 }

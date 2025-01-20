@@ -1,8 +1,11 @@
+import React from 'react';
+import './App.css';
+
 function App2() {
   return (
-    <div className="content">
-      <h1>Bacnnnground Content</h1>
-      {/* Add any content you want visible through the portal */}
+    <div className="app2-container">
+      <h1>Welcome to the Hidden Page</h1>
+      <p>This is content from App2.jsx.</p>
     </div>
   );
 }
