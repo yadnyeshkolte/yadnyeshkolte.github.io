@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import App2 from './App2.jsx';
+import './App2.css';
 
 function App() {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -32,8 +33,7 @@ function App() {
           '--y': `${circlePosition.y + 50}px`
         }}
       >
-        <h1>Hello World</h1>
-        <h2>ffffffffffff</h2>
+        <h1 className="app1-heading">Hello World</h1>
         <div
           className="circle"
           style={{ top: circlePosition.y, left: circlePosition.x }}
