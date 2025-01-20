@@ -3,9 +3,8 @@ import './App.css';
 
 function App() {
   return (
-    <div className="app-container">
+    <div className="orange-bg">
       <h1>Hello World</h1>
-      <p>This is the front page (App.jsx).</p>
     </div>
   );
 }
