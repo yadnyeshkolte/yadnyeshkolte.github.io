@@ -1,15 +1,174 @@
-/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  width: 100%;
 }
-
 
 body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
   color: var(--text-color);
+}
 
+.relative {
+  position: relative;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.bg-blue-500 {
+  background-color: #3b82f6;
+}
+
+.cursor-move {
+  cursor: move;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.hover\:bg-blue-600:hover {
+  background-color: #2563eb;
+}
+
+.active\:bg-blue-700:active {
+  background-color: #1d4ed8;
+}
+
+.-translate-y-full {
+  transform: translateY(-100%);
+}
+
+.portal-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.background-layer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* This ensures the background is only visible through the portal */
+  clip-path: circle(50px at var(--portal-x, 100px) var(--portal-y, 100px));
+}
+
+.foreground-layer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+.content {
+  padding: 20px;
+}
+
+.portal-ring {
+  position: fixed;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 2px solid #3b82f6;
+  cursor: move;
+  transform: translate(-50%, -50%);
+  pointer-events: all;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.portal-ring.show {
+  opacity: 1;
+}
+
+/* Modify App2.jsx styles to ensure content is visible through portal */
+.background-layer .content {
+  color: black;
+  background-color: #f0f0f0;
+  height: 100%;
+  width: 100%;
 }

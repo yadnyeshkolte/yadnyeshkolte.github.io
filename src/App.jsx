@@ -1,9 +1,11 @@
 import './App.css';
+import Portal from './Portal';
 
 function App() {
   return (
-    <div className="app-container">
-      <h1>Hello World</h1>
+    <div className="App">
+      <Portal />
+      <h1>jggj</h1>
     </div>
   );
 }
