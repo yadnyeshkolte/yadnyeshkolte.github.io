@@ -6,7 +6,14 @@ const App1 = () => {
   const [scrollY, setScrollY] = useState(0);
 
   const handleScroll = (e) => {
-    setScrollY(e.target.scrollTop);
+    const scrollTop = e.target.scrollTop;
+    setScrollY(scrollTop);
+    
+    // Sync scroll with App2
+    const app2Container = document.querySelector('.app2-container');
+    if (app2Container && app2Container.scrollTop !== scrollTop) {
+      app2Container.scrollTop = scrollTop;
+    }
   };
 
   const handleMouseMove = (e) => {
@@ -35,7 +42,7 @@ const App1 = () => {
             '--y': `${circlePosition.y + 50}px`,
           }}
         >
-          {/* Introduction Section */}
+          {/* Rest of the App1 content remains the same */}
           <section className="section intro-section">
             <div className="content-wrapper">
               <h1 className="text-5xl font-bold mb-4">John Doe</h1>
@@ -44,7 +51,6 @@ const App1 = () => {
             </div>
           </section>
 
-          {/* About Section */}
           <section className="section about-section">
             <div className="content-wrapper">
               <h2 className="text-4xl font-bold mb-6">About Me</h2>
@@ -55,7 +61,6 @@ const App1 = () => {
             </div>
           </section>
 
-          {/* Skills Section */}
           <section className="section skills-section">
             <div className="content-wrapper">
               <h2 className="text-4xl font-bold mb-6">Skills</h2>
@@ -76,7 +81,6 @@ const App1 = () => {
             </div>
           </section>
 
-          {/* Experience Section */}
           <section className="section experience-section">
             <div className="content-wrapper">
               <h2 className="text-4xl font-bold mb-6">Experience</h2>

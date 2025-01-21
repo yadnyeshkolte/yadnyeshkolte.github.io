@@ -2,9 +2,17 @@ import React from 'react';
 import './App2.css';
 
 const App2 = () => {
+  const handleScroll = (e) => {
+    // Sync scroll with App1
+    const app1Scrollable = document.querySelector('.app1-scrollable');
+    if (app1Scrollable && app1Scrollable.scrollTop !== e.target.scrollTop) {
+      app1Scrollable.scrollTop = e.target.scrollTop;
+    }
+  };
+
   return (
-    <div className="app2-container">
-      {/* Introduction Section */}
+    <div className="app2-container" onScroll={handleScroll}>
+      {/* Rest of the App2 content remains the same */}
       <section className="section intro-section">
         <div className="content-wrapper">
           <h1 className="text-5xl font-bold mb-4">John Doe</h1>
@@ -13,7 +21,6 @@ const App2 = () => {
         </div>
       </section>
 
-      {/* About Section */}
       <section className="section about-section">
         <div className="content-wrapper">
           <h2 className="text-4xl font-bold mb-6">About Me</h2>
@@ -24,7 +31,6 @@ const App2 = () => {
         </div>
       </section>
 
-      {/* Skills Section */}
       <section className="section skills-section">
         <div className="content-wrapper">
           <h2 className="text-4xl font-bold mb-6">Skills</h2>
@@ -45,7 +51,6 @@ const App2 = () => {
         </div>
       </section>
 
-      {/* Experience Section */}
       <section className="section experience-section">
         <div className="content-wrapper">
           <h2 className="text-4xl font-bold mb-6">Experience</h2>

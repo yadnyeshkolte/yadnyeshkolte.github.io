@@ -30,7 +30,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 2px solid white;
+  border: 0px solid white;
   pointer-events: none;
   z-index: 10;
 }
