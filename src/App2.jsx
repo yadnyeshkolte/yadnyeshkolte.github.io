@@ -33,7 +33,7 @@ const App2 = () => {
           <h1 className="intro-title">John Doe</h1>
           <h2 className="intro-subtitle">DevOps Engineer</h2>
           <p className="intro-description">
-            Automatingents and reliable operations
+            Dedicated DevOps Engineer specializing in streamlining deployment processes and enhancing efficiency. Experienced in continuous integration, Kubernetes, and workflow automation
           </p>
           <button className="contact-button" onClick={scrollToContact}>
             Contact Me

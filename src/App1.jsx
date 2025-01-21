@@ -59,7 +59,7 @@ const App1 = () => {
               <h1 className="intro-title">John Doe</h1>
               <h2 className="intro-subtitle">Software Engineer</h2>
               <p className="intro-description">
-                Buildinlems with modern technologies
+                Motivated Software Engineer with expertise in developing and deploying high-quality solutions. Proficient in full stack development, AI integration, and continuous delivery
               </p>
               <button className="contact-button" onClick={scrollToContact}>
                 Contact Me
