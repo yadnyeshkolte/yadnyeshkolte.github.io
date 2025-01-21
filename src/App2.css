@@ -86,6 +86,7 @@
   backdrop-filter: blur(8px);
   background-color: rgba(0, 0, 0, 0.1);
   border: none;
+  color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -93,10 +94,7 @@
 
 .contact-button:hover {
   background-color: rgba(0, 0, 0, 0.2);
-}
-
-.contact-section {
-  padding: 4rem 2rem;
+  color: rgba(0, 0, 0, 1);
 }
 
 .contact-grid {
@@ -109,6 +107,7 @@
   background-color: rgba(0, 0, 0, 0.05);
   padding: 1.5rem;
   border-radius: 0.5rem;
+  backdrop-filter: blur(8px);
 }
 
 .contact-card h3 {

@@ -15,7 +15,7 @@ const App2 = () => {
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+    };
 
   return (
     <div className="app2-container" onScroll={handleScroll}>
@@ -36,7 +36,7 @@ const App2 = () => {
           <h1 className="intro-title">John Doe</h1>
           <h2 className="intro-subtitle">DevOps Engineer</h2>
           <p className="intro-description">
-            Automating and optimizing infrastructure for seamless deployments and reliable operations
+            Automatingents and reliable operations
           </p>
           <button className="contact-button" onClick={scrollToContact}>
             Contact Me
@@ -83,8 +83,6 @@ const App2 = () => {
             <ul>
               <li>Implemented infrastructure as code using Terraform</li>
               <li>Reduced deployment time by 60%</li>
-              <li>Managed multi-cloud infrastructure across AWS and Azure</li>
-              <li>Implemented zero-downtime deployment strategies</li>
             </ul>
           </div>
         </div>
@@ -96,7 +94,7 @@ const App2 = () => {
           <div className="contact-grid">
             <div className="contact-card">
               <h3>Get in Touch</h3>
-              <p>Available for DevOps consulting and infrastructure optimization</p>
+              <p>Feel free to reach out for collaborations or just a friendly hello</p>
               <div className="contact-info">
                 <p>📧 john.doe@example.com</p>
                 <p>📱 +1 (555) 123-4567</p>

@@ -33,7 +33,7 @@ const App1 = () => {
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+    };
 
   return (
     <div className="app1-container" onMouseMove={handleMouseMove}>
@@ -62,7 +62,7 @@ const App1 = () => {
               <h1 className="intro-title">John Doe</h1>
               <h2 className="intro-subtitle">Software Engineer</h2>
               <p className="intro-description">
-                Building elegant solutions to complex problems with modern technologies
+                Buildinlems with modern technologies
               </p>
               <button className="contact-button" onClick={scrollToContact}>
                 Contact Me
