@@ -1,29 +1,52 @@
 import React from 'react';
+import NavigationBar from './Components/NavigationBar';
 import './App2.css';
 
 const App2 = () => {
   const handleScroll = (e) => {
-    // Sync scroll with App1
     const app1Scrollable = document.querySelector('.app1-scrollable');
     if (app1Scrollable && app1Scrollable.scrollTop !== e.target.scrollTop) {
       app1Scrollable.scrollTop = e.target.scrollTop;
     }
   };
 
+  const scrollToContact = () => {
+    const contactSection = document.querySelector('.contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="app2-container" onScroll={handleScroll}>
-      {/* Rest of the App2 content remains the same */}
+      <NavigationBar 
+        githubUrl="https://github.com/yourusername"
+        blogUrl="https://yourblog.com"
+      />
+      
       <section className="section intro-section">
         <div className="content-wrapper">
-          <h1 className="text-5xl font-bold mb-4">John Doe</h1>
-          <h2 className="text-3xl mb-6">DevOps Engineer</h2>
-          <p className="text-xl">Automating and optimizing infrastructure</p>
+          <div className="profile-image-container">
+            <img 
+              src="/api/placeholder/192/192" 
+              alt="Profile"
+              className="profile-image"
+            />
+          </div>
+          <h1 className="intro-title">John Doe</h1>
+          <h2 className="intro-subtitle">DevOps Engineer</h2>
+          <p className="intro-description">
+            Automating and optimizing infrastructure for seamless deployments and reliable operations
+          </p>
+          <button className="contact-button" onClick={scrollToContact}>
+            Contact Me
+          </button>
         </div>
       </section>
 
       <section className="section about-section">
         <div className="content-wrapper">
-          <h2 className="text-4xl font-bold mb-6">About Me</h2>
+          <h2 className="section-title">About Me</h2>
           <p className="text-lg mb-4">
             DevOps engineer focused on building robust CI/CD pipelines and managing cloud infrastructure.
             Expert in automation and infrastructure as code.
@@ -33,18 +56,18 @@ const App2 = () => {
 
       <section className="section skills-section">
         <div className="content-wrapper">
-          <h2 className="text-4xl font-bold mb-6">Skills</h2>
+          <h2 className="section-title">Skills</h2>
           <div className="skills-grid">
             <div className="skill-card">
-              <h3 className="text-xl font-bold mb-2">Cloud Platforms</h3>
+              <h3>Cloud Platforms</h3>
               <p>AWS, Azure, GCP</p>
             </div>
             <div className="skill-card">
-              <h3 className="text-xl font-bold mb-2">CI/CD</h3>
+              <h3>CI/CD</h3>
               <p>Jenkins, GitLab CI, GitHub Actions</p>
             </div>
             <div className="skill-card">
-              <h3 className="text-xl font-bold mb-2">Infrastructure</h3>
+              <h3>Infrastructure</h3>
               <p>Terraform, Ansible, Kubernetes</p>
             </div>
           </div>
@@ -53,14 +76,41 @@ const App2 = () => {
 
       <section className="section experience-section">
         <div className="content-wrapper">
-          <h2 className="text-4xl font-bold mb-6">Experience</h2>
+          <h2 className="section-title">Experience</h2>
           <div className="experience-card">
-            <h3 className="text-2xl font-bold">Lead DevOps Engineer</h3>
-            <p className="text-xl mb-2">Cloud Solutions Ltd | 2019 - Present</p>
-            <ul className="list-disc ml-6">
+            <h3>Lead DevOps Engineer</h3>
+            <p>Cloud Solutions Ltd | 2019 - Present</p>
+            <ul>
               <li>Implemented infrastructure as code using Terraform</li>
               <li>Reduced deployment time by 60%</li>
+              <li>Managed multi-cloud infrastructure across AWS and Azure</li>
+              <li>Implemented zero-downtime deployment strategies</li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="section contact-section">
+        <div className="content-wrapper">
+          <h2 className="section-title">Contact</h2>
+          <div className="contact-grid">
+            <div className="contact-card">
+              <h3>Get in Touch</h3>
+              <p>Available for DevOps consulting and infrastructure optimization</p>
+              <div className="contact-info">
+                <p>📧 john.doe@example.com</p>
+                <p>📱 +1 (555) 123-4567</p>
+                <p>📍 San Francisco, CA</p>
+              </div>
+            </div>
+            <div className="contact-card">
+              <h3>Social Media</h3>
+              <div className="contact-info">
+                <p>LinkedIn: @johndoe</p>
+                <p>Twitter: @johndoe</p>
+                <p>GitHub: @johndoe</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

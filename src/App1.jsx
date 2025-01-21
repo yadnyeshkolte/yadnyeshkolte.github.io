@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import NavigationBar from './Components/NavigationBar';
 import './App1.css';
+
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
   const [scrollY, setScrollY] = useState(0);
 
+  // Previous handlers remain the same
   const handleScroll = (e) => {
     const scrollTop = e.target.scrollTop;
     setScrollY(scrollTop);
     
-    // Sync scroll with App2
     const app2Container = document.querySelector('.app2-container');
     if (app2Container && app2Container.scrollTop !== scrollTop) {
       app2Container.scrollTop = scrollTop;
@@ -26,15 +28,21 @@ const App1 = () => {
     });
   };
 
+  const scrollToContact = () => {
+    const contactSection = document.querySelector('.contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div 
-      className="app1-container"
-      onMouseMove={handleMouseMove}
-    >
-      <div 
-        className="app1-scrollable"
-        onScroll={handleScroll}
-      >
+    <div className="app1-container" onMouseMove={handleMouseMove}>
+      <NavigationBar 
+        githubUrl="https://github.com/yourusername"
+        blogUrl="https://yourblog.com"
+      />
+      
+      <div className="app1-scrollable" onScroll={handleScroll}>
         <div 
           className="app1-overlay"
           style={{
@@ -42,12 +50,23 @@ const App1 = () => {
             '--y': `${circlePosition.y + 50}px`,
           }}
         >
-          {/* Rest of the App1 content remains the same */}
           <section className="section intro-section">
             <div className="content-wrapper">
-              <h1 className="text-5xl font-bold mb-4">John Doe</h1>
-              <h2 className="text-3xl mb-6">Software Engineer</h2>
-              <p className="text-xl">Building elegant solutions to complex problems</p>
+              <div className="profile-image-container">
+                <img 
+                  src="/api/placeholder/192/192" 
+                  alt="Profile"
+                  className="profile-image"
+                />
+              </div>
+              <h1 className="intro-title">John Doe</h1>
+              <h2 className="intro-subtitle">Software Engineer</h2>
+              <p className="intro-description">
+                Building elegant solutions to complex problems with modern technologies
+              </p>
+              <button className="contact-button" onClick={scrollToContact}>
+                Contact Me
+              </button>
             </div>
           </section>
 
@@ -91,6 +110,30 @@ const App1 = () => {
                   <li>Led development of microservices architecture</li>
                   <li>Optimized application performance by 40%</li>
                 </ul>
+              </div>
+            </div>
+          </section>
+          <section className="section contact-section">
+            <div className="content-wrapper">
+              <h2 className="section-title">Contact</h2>
+              <div className="contact-grid">
+                <div className="contact-card">
+                  <h3>Get in Touch</h3>
+                  <p>Feel free to reach out for collaborations or just a friendly hello</p>
+                  <div className="contact-info">
+                    <p>📧 john.doe@example.com</p>
+                    <p>📱 +1 (555) 123-4567</p>
+                    <p>📍 San Francisco, CA</p>
+                  </div>
+                </div>
+                <div className="contact-card">
+                  <h3>Social Media</h3>
+                  <div className="contact-info">
+                    <p>LinkedIn: @johndoe</p>
+                    <p>Twitter: @johndoe</p>
+                    <p>GitHub: @johndoe</p>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
