@@ -18,8 +18,8 @@
 
 .app1-overlay {
   position: relative;
-  background-color: lightblue;
-  color: black;
+  background: linear-gradient(135deg, #1e90ff, #00008b);
+  color: white;
   mask-image: radial-gradient(circle at var(--x) var(--y), transparent 150px, black 50px);
   -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent 150px, black 50px);
 }
@@ -70,17 +70,7 @@
   margin-bottom: 1.5rem;
 }
 
-.logo {
-  height: 12em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+
 /* App1.css */
 /* Keep existing styles and add these new ones */
 
@@ -88,7 +78,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  text-align: left;
 }
 
 .profile-image-container {
@@ -107,25 +97,27 @@
 }
 
 .intro-title {
-  font-size: 3.5rem;
+  font-size: 6.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
 .intro-subtitle {
-  font-size: 2rem;
+  font-size: 4rem;
   margin-bottom: 1.5rem;
 }
 
 .intro-description {
   font-size: 1.25rem;
   max-width: 42rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  font-weight: bold;
+  padding: 0 1rem;
 }
 
 .contact-button {
   padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
+  border-radius: 99px;
   backdrop-filter: blur(8px);
   background-color: rgba(255, 255, 255, 0.3);
   border: none;
@@ -168,6 +160,51 @@
   margin-bottom: 0.75rem;
 }
 
+.intro-section {
+  display: flex;
+  min-height: 100vh;
+  padding: 0 !important;
+  overflow: hidden;
+  
+}
+
+.intro-image-side {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.intro-content-side {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  
+}
+
+.intro-section .profile-image-container {
+  width: 65%;
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0;
+  
+}
+.logo {
+  height: 12em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+
 @media (max-width: 768px) {
   .intro-title {
     font-size: 2.5rem;
@@ -184,12 +221,18 @@
   .contact-grid {
     grid-template-columns: 1fr;
   }
-
   .profile-image-container {
     width: 10rem;
     height: 10rem;
   }
   .logo {
     height: 10em;
+  }
+  .intro-section {
+    flex-direction: column;
+  }
+  .intro-content-side {
+    width: 100%;
+    padding: 1rem;
   }
 }

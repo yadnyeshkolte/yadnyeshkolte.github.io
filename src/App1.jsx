@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import NavigationBar from './Components/NavigationBar';
 import './App1.css';
-import reactLogo from './assets/react.svg'
-
+import reactLogo from './assets/software.jpg'
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -52,18 +51,23 @@ const App1 = () => {
           }}
         >
           <section className="section intro-section">
-            <div className="content-wrapper">
+            <div className="intro-image-side">
               <div className="profile-image-container">
-                <img src={reactLogo} className="logo react" alt="React logo" />
+                <img src={reactLogo} className="profile-image" alt="profile picture" />
               </div>
-              <h1 className="intro-title">John Doe</h1>
-              <h2 className="intro-subtitle">Software Engineer</h2>
-              <p className="intro-description">
-                Motivated Software Engineer with expertise in developing and deploying high-quality solutions. Proficient in full stack development, AI integration, and continuous delivery
-              </p>
-              <button className="contact-button" onClick={scrollToContact}>
-                Contact Me
-              </button>
+            </div>
+            <div className="intro-content-side">
+              <div className="content-wrapper">
+                <h1 className="intro-title">John Doe</h1>
+                <p className="intro-description">
+                  Motivated Software Engineer with expertise in developing and deploying 
+                  high-quality solutions. Proficient in full stack development, AI 
+                  integration, and continuous delivery
+                </p>
+                <button className="contact-button" onClick={scrollToContact}>
+                  Contact Me
+                </button>
+              </div>
             </div>
           </section>
 

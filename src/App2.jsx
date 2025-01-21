@@ -1,7 +1,8 @@
 import React from 'react';
 import NavigationBar from './Components/NavigationBar';
 import './App2.css';
-import reactLogo from './assets/react.svg'
+import reactLogo from './assets/devops.jpg'
+
 
 const App2 = () => {
   const handleScroll = (e) => {
@@ -26,18 +27,23 @@ const App2 = () => {
       />
       
       <section className="section intro-section">
-        <div className="content-wrapper">
+        <div className="intro-image-side">
           <div className="profile-image-container">
-            <img src={reactLogo} className="logo react" alt="React logo" />
+            <img src={reactLogo} className="profile-image" alt="Profile Picture" />
           </div>
-          <h1 className="intro-title">John Doe</h1>
-          <h2 className="intro-subtitle">DevOps Engineer</h2>
-          <p className="intro-description">
-            Dedicated DevOps Engineer specializing in streamlining deployment processes and enhancing efficiency. Experienced in continuous integration, Kubernetes, and workflow automation
-          </p>
-          <button className="contact-button" onClick={scrollToContact}>
-            Contact Me
-          </button>
+        </div>
+        <div className="intro-content-side">
+          <div className="content-wrapper">
+            <h1 className="intro-title">John Doe</h1>
+            <p className="intro-description">
+              Dedicated DevOps Engineer specializing in streamlining deployment processes 
+              and enhancing efficiency. Experienced in continuous integration, 
+              Kubernetes, and workflow automation
+            </p>
+            <button className="contact-button" onClick={scrollToContact}>
+              Contact Me
+            </button>
+          </div>
         </div>
       </section>
 
