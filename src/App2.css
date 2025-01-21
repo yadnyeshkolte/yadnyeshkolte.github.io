@@ -37,7 +37,17 @@
     margin-bottom: 1.5rem;
 }
 
-
+.logo {
+  height: 12em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
 /* App2.css */
 /* Keep existing styles and add these new ones */
 
@@ -144,5 +154,8 @@
   .profile-image-container {
     width: 10rem;
     height: 10rem;
+  }
+  .logo {
+    height: 10em;
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import NavigationBar from './Components/NavigationBar';
 import './App2.css';
+import reactLogo from './assets/react.svg'
 
 const App2 = () => {
   const handleScroll = (e) => {
@@ -27,11 +28,7 @@ const App2 = () => {
       <section className="section intro-section">
         <div className="content-wrapper">
           <div className="profile-image-container">
-            <img 
-              src="/api/placeholder/192/192" 
-              alt="Profile"
-              className="profile-image"
-            />
+            <img src={reactLogo} className="logo react" alt="React logo" />
           </div>
           <h1 className="intro-title">John Doe</h1>
           <h2 className="intro-subtitle">DevOps Engineer</h2>
