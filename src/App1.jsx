@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App1.css';
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
+  const [scrollY, setScrollY] = useState(0);
+
+  const handleScroll = (e) => {
+    setScrollY(e.target.scrollTop);
+  };
 
   const handleMouseMove = (e) => {
+    const scrollContainer = document.querySelector('.app1-scrollable');
+    const scrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+    
     setCirclePosition({
       x: e.clientX - 50,
-      y: e.clientY - 50,
+      y: e.clientY + scrollTop - 50,
     });
   };
 
@@ -18,12 +26,13 @@ const App1 = () => {
     >
       <div 
         className="app1-scrollable"
+        onScroll={handleScroll}
       >
         <div 
           className="app1-overlay"
           style={{
             '--x': `${circlePosition.x + 50}px`,
-            '--y': `${circlePosition.y + 50}px`
+            '--y': `${circlePosition.y + 50}px`,
           }}
         >
           {/* Introduction Section */}
@@ -85,7 +94,10 @@ const App1 = () => {
       </div>
       <div
         className="peek-circle"
-        style={{ top: circlePosition.y, left: circlePosition.x }}
+        style={{
+          top: circlePosition.y - scrollY,
+          left: circlePosition.x
+        }}
       ></div>
     </div>
   );
