@@ -14,3 +14,8 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
+/* Hide the scrollbar for a cleaner look */
+::-webkit-scrollbar {
+  display: none;
+}

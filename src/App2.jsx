@@ -2,6 +2,7 @@ import React from 'react';
 import NavigationBar from './Components/NavigationBar';
 import './App2.css';
 import reactLogo from './assets/devops.jpg'
+import SocialIcons from './Components/SocialIcons';
 
 
 const App2 = () => {
@@ -40,9 +41,7 @@ const App2 = () => {
               and enhancing efficiency. Experienced in continuous integration, 
               Kubernetes, and workflow automation
             </p>
-            <button className="contact-button" onClick={scrollToContact}>
-              Contact Me
-            </button>
+            <SocialIcons />
           </div>
         </div>
       </section>

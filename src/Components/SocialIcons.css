@@ -1,0 +1,165 @@
+/* Container styles */
+.social-icons-container {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+/* Base icon styles */
+.social-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  opacity: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-icon-link::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.social-icon-link:hover::before {
+  transform: scale(1);
+}
+
+.social-icon-link:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.social-icon-link:hover .social-icon {
+  transform: scale(1.1) rotate(8deg);
+}
+
+/* Initial load animations */
+.animate-slide-up {
+  animation: slideUp 0.6s ease forwards;
+}
+
+.animate-pop {
+  animation: pop 0.5s ease forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Light theme modifications (App2) */
+.app2-container .social-icon-link {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.app2-container .social-icon-link:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.app2-container .social-icon {
+  filter: none;
+}
+
+.app2-container .social-icon-link::before {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .social-icons-container {
+    gap: 1rem;
+  }
+  
+  .social-icon-link {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .social-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+/* Optional: Add prefers-reduced-motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up,
+  .animate-pop {
+    animation: none;
+    opacity: 1;
+  }
+  
+  .social-icon-link:hover {
+    transform: none;
+  }
+  
+  .social-icon-link:hover .social-icon {
+    transform: none;
+  }
+}
+
+button.social-icon-link {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Ensure button matches link hover state */
+button.social-icon-link:hover {
+  transform: scale(1.4);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Light theme button styles */
+.app2-container button.social-icon-link {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.app2-container button.social-icon-link:hover {
+  background: rgba(0, 0, 0, 0.2);
+}

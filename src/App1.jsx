@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import NavigationBar from './Components/NavigationBar';
 import './App1.css';
 import reactLogo from './assets/software.jpg'
+import SocialIcons from './Components/SocialIcons';
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -64,9 +65,7 @@ const App1 = () => {
                   high-quality solutions. Proficient in full stack development, AI 
                   integration, and continuous delivery
                 </p>
-                <button className="contact-button" onClick={scrollToContact}>
-                  Contact Me
-                </button>
+                <SocialIcons />
               </div>
             </div>
           </section>
