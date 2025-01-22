@@ -1,9 +1,10 @@
 import React from 'react';
-import NavigationBar from './Components/NavigationBar';
+import NavigationBar from './smallcomponents/NavigationBar';
 import './App2.css';
 import reactLogo from './assets/devops.jpg'
-import SocialIcons from './Components/SocialIcons';
+import SocialIcons from './smallcomponents/SocialIcons';
 
+import ShaderBackground from './ShaderBackground.jsx';
 
 const App2 = () => {
   const handleScroll = (e) => {
@@ -22,6 +23,7 @@ const App2 = () => {
 
   return (
     <div className="app2-container" onScroll={handleScroll}>
+      <ShaderBackground />
       <NavigationBar 
         githubUrl="https://github.com/yourusername"
         blogUrl="https://yourblog.com"

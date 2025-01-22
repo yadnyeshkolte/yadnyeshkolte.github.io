@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import NavigationBar from './Components/NavigationBar';
+import NavigationBar from './smallcomponents/NavigationBar';
 import './App1.css';
 import reactLogo from './assets/software.jpg'
-import SocialIcons from './Components/SocialIcons';
+import SocialIcons from './smallcomponents/SocialIcons';
+import ParticlesBackground from './ParticlesBackground.jsx';
+import ShaderBackground from './ShaderBackground.jsx';
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -38,6 +40,7 @@ const App1 = () => {
 
   return (
     <div className="app1-container" onMouseMove={handleMouseMove}>
+      <ShaderBackground />
       <NavigationBar 
         githubUrl="https://github.com/yourusername"
         blogUrl="https://yourblog.com"
@@ -52,6 +55,7 @@ const App1 = () => {
           }}
         >
           <section className="section intro-section">
+            <ParticlesBackground />
             <div className="intro-image-side">
               <div className="profile-image-container">
                 <img src={reactLogo} className="profile-image" alt="profile picture" />
