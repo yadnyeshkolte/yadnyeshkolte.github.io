@@ -43,7 +43,6 @@ const App1 = () => {
         githubUrl="https://github.com/yourusername"
         blogUrl="https://yourblog.com"
       />
-      
       <div className="app1-scrollable" onScroll={handleScroll}>
         <div 
           className="app1-overlay"
@@ -52,8 +51,9 @@ const App1 = () => {
             '--y': `${circlePosition.y + 50}px`,
           }}
         >
+
           <section className="section intro-section">
- 
+          <ShaderBackground />
             <div className="intro-quote-side">
               <div className="quote-container">
                 <blockquote className="quote">
@@ -80,7 +80,7 @@ const App1 = () => {
                 <SocialIcons />
               </div>
             </div>
-            <ShaderBackground />
+
           </section>
 
           <section className="section about-section">

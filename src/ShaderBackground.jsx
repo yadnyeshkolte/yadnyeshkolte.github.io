@@ -1,4 +1,5 @@
-import { startTransition, useEffect, useRef } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
+import './ShaderBackground.css';
 import {
   AmbientLight,
   DirectionalLight,
@@ -9,24 +10,15 @@ import {
   Scene,
   SphereGeometry,
   UniformsUtils,
-  Vector2,
   WebGLRenderer,
 } from 'three';
-import { throttle } from './shaders/throttle';
 import { cleanRenderer, cleanScene, removeLights } from './shaders/three';
 import fragmentShader from './shaders/fragment.glsl?raw';
 import vertexShader from './shaders/vertex.glsl?raw';
 
-const springConfig = {
-  stiffness: 30,
-  damping: 20,
-  mass: 2,
-};
-
 export const ShaderBackground = props => {
   const start = useRef(Date.now());
   const canvasRef = useRef();
-  const mouse = useRef();
   const renderer = useRef();
   const camera = useRef();
   const scene = useRef();
@@ -35,18 +27,20 @@ export const ShaderBackground = props => {
   const material = useRef();
   const geometry = useRef();
   const sphere = useRef();
-  const rotationX = useRef(0);
-  const rotationY = useRef(0);
+
+  // Smooth rotation tracking
+  const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
+  const smoothRotationX = useRef(0);
+  const smoothRotationY = useRef(0);
 
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
-    mouse.current = new Vector2(0.8, 0.5);
+    
     renderer.current = new WebGLRenderer({
       canvas: canvasRef.current,
       antialias: false,
       alpha: true,
       powerPreference: 'high-performance',
-      failIfMajorPerformanceCaveat: true,
     });
     renderer.current.setSize(innerWidth, innerHeight);
     renderer.current.setPixelRatio(1);
@@ -72,90 +66,87 @@ export const ShaderBackground = props => {
     startTransition(() => {
       geometry.current = new SphereGeometry(32, 128, 128);
       sphere.current = new Mesh(geometry.current, material.current);
-      sphere.current.position.z = 0;
+      sphere.current.position.set(-30, 10, 10);
       sphere.current.modifier = Math.random();
       scene.current.add(sphere.current);
     });
 
-    return () => {
-      cleanScene(scene.current);
-      cleanRenderer(renderer.current);
-    };
-  }, []);
-
-  useEffect(() => {
+    // Lights setup
     const dirLight = new DirectionalLight(0xffffff, 2.0);
     const ambientLight = new AmbientLight(0xffffff, 0.4);
-
-    dirLight.position.z = 200;
-    dirLight.position.x = 100;
-    dirLight.position.y = 100;
-
+    dirLight.position.set(100, 100, 200);
     lights.current = [dirLight, ambientLight];
     lights.current.forEach(light => scene.current.add(light));
 
+    // Mouse movement handler
+    const handleMouseMove = (event) => {
+      const position = {
+        x: event.clientX / window.innerWidth,
+        y: event.clientY / window.innerHeight,
+      };
+      setMousePosition(position);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
     return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cleanScene(scene.current);
+      cleanRenderer(renderer.current);
       removeLights(lights.current);
     };
   }, []);
 
   useEffect(() => {
-    const onMouseMove = throttle(event => {
-      const position = {
-        x: event.clientX / window.innerWidth,
-        y: event.clientY / window.innerHeight,
-      };
-
-      rotationX.current = position.y / 2;
-      rotationY.current = position.x / 2;
-    }, 100);
-
-    window.addEventListener('mousemove', onMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-    };
-  }, []);
-
-  useEffect(() => {
-    let animation;
+    let animationFrame;
 
     const animate = () => {
-      animation = requestAnimationFrame(animate);
+      animationFrame = requestAnimationFrame(animate);
 
-      if (uniforms.current !== undefined) {
-        uniforms.current.time.value = 0.00005 * (Date.now() - start.current);
+      // Smooth, delayed interpolation for rotation
+      smoothRotationX.current += (mousePosition.y - smoothRotationX.current) * 0.03;
+      smoothRotationY.current += (mousePosition.x - smoothRotationY.current) * 0.03;
+
+      if (sphere.current) {
+        // Update uniforms for time-based effects
+        if (uniforms.current) {
+          uniforms.current.time.value = 0.00005 * (Date.now() - start.current);
+        }
+
+        // Apply smooth rotations with reduced intensity
+        sphere.current.rotation.z += 0.001;
+        sphere.current.rotation.x = (smoothRotationX.current - 0.5) / 2;
+        sphere.current.rotation.y = (smoothRotationY.current - 0.5) / 2;
+
+        // Render the scene
+        renderer.current.render(scene.current, camera.current);
       }
-
-      sphere.current.rotation.z += 0.001;
-      sphere.current.rotation.x = rotationX.current;
-      sphere.current.rotation.y = rotationY.current;
-
-      renderer.current.render(scene.current, camera.current);
     };
 
     animate();
 
-    return () => {
-      cancelAnimationFrame(animation);
-    };
-  }, []);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [mousePosition]);
 
   return (
     <canvas
       ref={canvasRef}
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        opacity: 0.7,
-      }}
+      className="shader-background"
       {...props}
     />
   );
 };
+
+//Cyan color
+/*
+vec3 color = vec3(vUv * (0.2 - 2.0 * noise), 1.0); 
+vec3 finalColors = vec3(color.b * 1.5, color.r, color.r); 
+vec4 diffuseColor = vec4(cos(finalColors * noise * 3.0), 1.0); */
+
+//Grey shader model
+/*  vec3 color = vec3(vUv * (0.2 - 2.0 * noise), 1.0);
+vec3 finalColors = vec3(color.b * 1.5);
+vec4 diffuseColor = vec4(cos(finalColors * noise * 3.0), 1.0);
+*/
 
 export default ShaderBackground;

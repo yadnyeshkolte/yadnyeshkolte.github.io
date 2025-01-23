@@ -26,8 +26,8 @@ const App2 = () => {
         githubUrl="https://github.com/yourusername"
         blogUrl="https://yourblog.com"
       />
-      
       <section className="section intro-section">
+        <ShaderBackground />
         <div className="intro-quote-side">
           <div className="quote-container">
             <blockquote className="quote">
@@ -47,14 +47,13 @@ const App2 = () => {
               <h1 className="intro-title">Yadnyesh Kolte</h1>
             </div>
             <p className="intro-description">
-              Dedicated DevOps Engineer specializing in streamlining deployment processes 
+              Aspiring DevOps Engineer specializing in streamlining deployment processes 
               and enhancing efficiency. Experienced in continuous integration, 
               Kubernetes, and workflow automation
             </p>
             <SocialIcons />
           </div>
         </div>
-        <ShaderBackground />
       </section>
 
       <section className="section about-section">
