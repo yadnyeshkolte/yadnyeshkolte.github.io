@@ -53,15 +53,25 @@ const App1 = () => {
           }}
         >
           <section className="section intro-section">
-            <ShaderBackground />
-            <div className="intro-image-side">
-              <div className="profile-image-container">
-                <img src={reactLogo} className="profile-image" alt="profile picture" />
+ 
+            <div className="intro-quote-side">
+              <div className="quote-container">
+                <blockquote className="quote">
+                  "Code is like humor. When you have to explain it, it's bad."
+                </blockquote>
+                <cite className="quote-author">- Cory House</cite>
               </div>
             </div>
             <div className="intro-content-side">
               <div className="content-wrapper">
-                <h1 className="intro-title">John Doe</h1>
+                <div className="profile-title-container">
+                  <img 
+                    src={reactLogo} 
+                    alt="Profile" 
+                    className="profile-image" 
+                  />
+                  <h1 className="intro-title">Yadnyesh Kolte</h1>
+                </div>
                 <p className="intro-description">
                   Motivated Software Engineer with expertise in developing and deploying 
                   high-quality solutions. Proficient in full stack development, AI 
@@ -70,6 +80,7 @@ const App1 = () => {
                 <SocialIcons />
               </div>
             </div>
+            <ShaderBackground />
           </section>
 
           <section className="section about-section">

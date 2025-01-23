@@ -81,25 +81,13 @@
   text-align: left;
 }
 
-.profile-image-container {
-  width: 12rem;
-  height: 12rem;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 2rem;
-  border: 4px solid rgba(255, 255, 255, 0.2);
-}
-
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
 .intro-title {
-  font-size: 6.5rem;
+  font-size: 4.0rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  line-height: 1;
+  margin-bottom: 1;
+  vertical-align: middle;
 }
 
 .intro-subtitle {
@@ -111,7 +99,7 @@
   font-size: 1.25rem;
   max-width: 42rem;
   margin-bottom: 3rem;
-  font-weight: bold;
+  margin-top: 3rem;
   padding: 0 1rem;
 }
 
@@ -159,7 +147,6 @@
 .contact-info p {
   margin-bottom: 0.75rem;
 }
-
 .intro-section {
   display: flex;
   min-height: 100vh;
@@ -167,15 +154,6 @@
   overflow: hidden;
   
 }
-
-.intro-image-side {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-
 .intro-content-side {
   width: 50%;
   display: flex;
@@ -184,26 +162,47 @@
   padding: 2rem;
   
 }
+.intro-quote-side {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.quote-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 300px;
+}
+.quote {
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+.quote-author {
+  display: block;
+  text-align: right;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
 
-.intro-section .profile-image-container {
-  width: 65%;
-  height: auto;
-  aspect-ratio: 1;
-  margin: 0;
-  
-}
-.logo {
-  height: 12em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.profile-title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
+.profile-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 0;
+}
 
 @media (max-width: 768px) {
   .intro-title {
@@ -221,13 +220,7 @@
   .contact-grid {
     grid-template-columns: 1fr;
   }
-  .profile-image-container {
-    width: 10rem;
-    height: 10rem;
-  }
-  .logo {
-    height: 10em;
-  }
+
   .intro-section {
     flex-direction: column;
   }
@@ -235,4 +228,17 @@
     width: 100%;
     padding: 1rem;
   }
+  .intro-quote-side {
+      display: none;
+  }
+  
+  .intro-section .content-wrapper {
+    text-align: center;
+  }
+  .profile-title-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
+
