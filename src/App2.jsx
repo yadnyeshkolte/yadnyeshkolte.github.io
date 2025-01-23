@@ -3,7 +3,6 @@ import NavigationBar from './smallcomponents/NavigationBar';
 import './App2.css';
 import reactLogo from './assets/devops.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
-
 import ShaderBackground from './ShaderBackground.jsx';
 
 const App2 = () => {
@@ -23,13 +22,13 @@ const App2 = () => {
 
   return (
     <div className="app2-container" onScroll={handleScroll}>
-      <ShaderBackground />
       <NavigationBar 
         githubUrl="https://github.com/yourusername"
         blogUrl="https://yourblog.com"
       />
       
       <section className="section intro-section">
+        <ShaderBackground />
         <div className="intro-image-side">
           <div className="profile-image-container">
             <img src={reactLogo} className="profile-image" alt="Profile Picture" />

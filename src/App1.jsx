@@ -3,7 +3,6 @@ import NavigationBar from './smallcomponents/NavigationBar';
 import './App1.css';
 import reactLogo from './assets/software.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
-import ParticlesBackground from './ParticlesBackground.jsx';
 import ShaderBackground from './ShaderBackground.jsx';
 
 const App1 = () => {
@@ -40,7 +39,6 @@ const App1 = () => {
 
   return (
     <div className="app1-container" onMouseMove={handleMouseMove}>
-      <ShaderBackground />
       <NavigationBar 
         githubUrl="https://github.com/yourusername"
         blogUrl="https://yourblog.com"
@@ -55,7 +53,7 @@ const App1 = () => {
           }}
         >
           <section className="section intro-section">
-            <ParticlesBackground />
+            <ShaderBackground />
             <div className="intro-image-side">
               <div className="profile-image-container">
                 <img src={reactLogo} className="profile-image" alt="profile picture" />
