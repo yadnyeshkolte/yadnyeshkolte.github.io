@@ -12,8 +12,8 @@ import {
   Vector2,
   WebGLRenderer,
 } from 'three';
-import { throttle } from './throttle';
-import { cleanRenderer, cleanScene, removeLights } from './three';
+import { throttle } from './shaders/throttle';
+import { cleanRenderer, cleanScene, removeLights } from './shaders/three';
 import fragmentShader from './shaders/fragment.glsl?raw';
 import vertexShader from './shaders/vertex.glsl?raw';
 
