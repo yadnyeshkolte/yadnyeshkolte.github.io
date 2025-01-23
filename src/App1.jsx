@@ -51,9 +51,10 @@ const App1 = () => {
             '--y': `${circlePosition.y + 50}px`,
           }}
         >
-
+          <div className='shader'>
+            <ShaderBackground />
+          </div>
           <section className="section intro-section">
-          <ShaderBackground />
             <div className="intro-quote-side">
               <div className="quote-container">
                 <blockquote className="quote">

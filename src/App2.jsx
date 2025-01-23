@@ -26,8 +26,10 @@ const App2 = () => {
         githubUrl="https://github.com/yourusername"
         blogUrl="https://yourblog.com"
       />
-      <section className="section intro-section">
+      <div className='shader'>
         <ShaderBackground />
+      </div>
+      <section className="section intro-section">
         <div className="intro-quote-side">
           <div className="quote-container">
             <blockquote className="quote">
