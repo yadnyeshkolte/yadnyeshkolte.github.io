@@ -16,22 +16,23 @@
   z-index: 1;
 }
 
+/*
 .app1-overlay {
   position: relative;
   background-color: black;
   color: white;
   mask-image: radial-gradient(circle at var(--x) var(--y), transparent 250px, black 50px);
   -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent 250px, black 50px);
-}
+}*/
 
-/*
+
 .app1-overlay {
   position: relative;
   background-color: black;
   color: white;
   mask-image: radial-gradient(circle at var(--x) var(--y), transparent 0px, black 0px);
   -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent 0px, black 0px);
-}*/
+}
 
 
 .peek-circle {
@@ -309,40 +310,4 @@
   81%, 100% {
     background-image: url('./assets/software-background/software-background5.png');
   }
-}
-
-.projects-container {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  padding: 2rem 0;
-  gap: 2rem;
-  z-index: 2;
-  position: relative;
-}
-
-.project-card {
-  flex: 0 0 300px;
-  scroll-snap-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 1.5rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.project-card:hover {
-  transform: scale(1.05);
-}
-
-/* Hide scrollbar but keep functionality */
-.projects-container {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.projects-container::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, and Opera */
 }

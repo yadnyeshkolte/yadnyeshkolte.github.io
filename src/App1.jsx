@@ -4,6 +4,8 @@ import './App1.css';
 import reactLogo from './assets/software.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
+import ContactForm from './contact/ContactForm.jsx'; // Assuming you save the previous artifact as ContactForm.jsx
+import './contact/ContactForm.css'
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -91,65 +93,23 @@ const App1 = () => {
               <div className="projects-container">
                 {[
                   {
-                    name: "AI-Powered Task Manager",
-                    description: "Developed an intelligent task management system using machine learning to predict task priorities and optimize workflow.",
-                    technologies: ["React", "Python", "Machine Learning"]
+                    name: "CrossDocs, cross-platform Markdown editor with AI assistance",
+                    description: "Developed a cross-platform Markdown editor using Kotlin Compose Multiplatform, integrating Google's Gemini AI for real-time writing assistance. The application provides real-time preview, dark/light themes, and an in-app Markdown guide. By implementing rigorous automated testing and packaging for Windows, macOS, Linux, and Android, I ensured native performance, seamless cross-platform installation, and high-quality code with minimal bugs."
                   },
                   {
-                    name: "Blockchain Payment Gateway",
-                    description: "Created a secure, decentralized payment platform integrating multiple cryptocurrency protocols.",
-                    technologies: ["Solidity", "Web3.js", "Node.js"]
+                    name: "Argo CD Guestbook Application Deployment",
+                    description: "successfully automated the deployment of a Kubernetes-based guestbook application using Argo CD for continuous delivery in a Linux environment. By leveraging Python scripts and implementing advanced deployment strategies, I dramatically reduced manual intervention by 80%, streamlining the deployment process and cutting deployment time to under five minutes. This optimization significantly enhanced operational efficiency and demonstrated advanced proficiency in containerization and continuous delivery technologies."
                   },
                   {
                     name: "Real-time Collaborative Editor",
-                    description: "Built a web-based collaborative text editor with live synchronization and version control.",
-                    technologies: ["WebSockets", "React", "Firebase"]
+                    description: "I developed a Telegram bot integrated with an ESP32 microcontroller to simulate ATM functionalities, enabling remote transactions through seamless hardware-software interaction. By implementing Java, C++, and Python code following SDLC best practices, I optimized communication between the bot and ESP32. My microcontroller programming initiatives enhanced response time efficiency by approximately 40%, significantly improving transactional throughput and system performance."
                   },
-                  {
-                    name: "IoT Home Automation System",
-                    description: "Designed a comprehensive IoT solution for smart home management and energy optimization.",
-                    technologies: ["Raspberry Pi", "MQTT", "React Native"]
-                  }
                 ].map((project, index) => (
                   <div key={index} className="project-card">
                     <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
                     <p className="mb-4">{project.description}</p>
-                    <div className="text-sm">
-                      <strong>Technologies:</strong>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {project.technologies.map((tech, techIndex) => (
-                          <span key={techIndex} className="bg-white/10 px-2 py-1 rounded-full">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 ))}
-              </div>
-            </div>
-          </section>
-          <section className="section contact-section">
-            <div className="content-wrapper">
-              <h2 className="section-title">Contact</h2>
-              <div className="contact-grid">
-                <div className="contact-card">
-                  <h3>Get in Touch</h3>
-                  <p>Feel free to reach out for collaborations or just a friendly hello</p>
-                  <div className="contact-info">
-                    <p>📧 john.doe@example.com</p>
-                    <p>📱 +1 (555) 123-4567</p>
-                    <p>📍 San Francisco, CA</p>
-                  </div>
-                </div>
-                <div className="contact-card">
-                  <h3>Social Media</h3>
-                  <div className="contact-info">
-                    <p>LinkedIn: @johndoe</p>
-                    <p>Twitter: @johndoe</p>
-                    <p>GitHub: @johndoe</p>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
