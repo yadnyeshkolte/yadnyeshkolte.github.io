@@ -58,9 +58,9 @@ const App1 = () => {
             <div className="intro-quote-side">
               <div className="quote-container">
                 <blockquote className="quote">
-                  "Code is like humor. When you have to explain it, it's bad."
+                  "Whatever the mind can conceive and believe, it can achieve."
                 </blockquote>
-                <cite className="quote-author">- Cory House</cite>
+                <cite className="quote-author">- Napolean Hill</cite>
               </div>
             </div>
             <div className="intro-content-side">
@@ -84,46 +84,48 @@ const App1 = () => {
 
           </section>
 
-          <section className="section about-section">
+          <section className="section project-section">
+            <div className="project-section-background"></div>
             <div className="content-wrapper">
-              <h2 className="text-4xl font-bold mb-6">About Me</h2>
-              <p className="text-lg mb-4">
-                Passionate software engineer with 5+ years of experience in full-stack development.
-                Specialized in React, Node.js, and cloud technologies.
-              </p>
-            </div>
-          </section>
-
-          <section className="section skills-section">
-            <div className="content-wrapper">
-              <h2 className="text-4xl font-bold mb-6">Skills</h2>
-              <div className="skills-grid">
-                <div className="skill-card">
-                  <h3 className="text-xl font-bold mb-2">Frontend</h3>
-                  <p>React, Vue.js, TypeScript</p>
-                </div>
-                <div className="skill-card">
-                  <h3 className="text-xl font-bold mb-2">Backend</h3>
-                  <p>Node.js, Python, Java</p>
-                </div>
-                <div className="skill-card">
-                  <h3 className="text-xl font-bold mb-2">Database</h3>
-                  <p>PostgreSQL, MongoDB, Redis</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="section experience-section">
-            <div className="content-wrapper">
-              <h2 className="text-4xl font-bold mb-6">Experience</h2>
-              <div className="experience-card">
-                <h3 className="text-2xl font-bold">Senior Software Engineer</h3>
-                <p className="text-xl mb-2">Tech Corp Inc. | 2020 - Present</p>
-                <ul className="list-disc ml-6">
-                  <li>Led development of microservices architecture</li>
-                  <li>Optimized application performance by 40%</li>
-                </ul>
+              <h2 className="text-4xl font-bold mb-6">Projects</h2>
+              <div className="projects-container">
+                {[
+                  {
+                    name: "AI-Powered Task Manager",
+                    description: "Developed an intelligent task management system using machine learning to predict task priorities and optimize workflow.",
+                    technologies: ["React", "Python", "Machine Learning"]
+                  },
+                  {
+                    name: "Blockchain Payment Gateway",
+                    description: "Created a secure, decentralized payment platform integrating multiple cryptocurrency protocols.",
+                    technologies: ["Solidity", "Web3.js", "Node.js"]
+                  },
+                  {
+                    name: "Real-time Collaborative Editor",
+                    description: "Built a web-based collaborative text editor with live synchronization and version control.",
+                    technologies: ["WebSockets", "React", "Firebase"]
+                  },
+                  {
+                    name: "IoT Home Automation System",
+                    description: "Designed a comprehensive IoT solution for smart home management and energy optimization.",
+                    technologies: ["Raspberry Pi", "MQTT", "React Native"]
+                  }
+                ].map((project, index) => (
+                  <div key={index} className="project-card">
+                    <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
+                    <p className="mb-4">{project.description}</p>
+                    <div className="text-sm">
+                      <strong>Technologies:</strong>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {project.technologies.map((tech, techIndex) => (
+                          <span key={techIndex} className="bg-white/10 px-2 py-1 rounded-full">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
@@ -165,3 +167,38 @@ const App1 = () => {
 };
 
 export default App1;
+
+
+/*          <section className="section skills-section">
+  <div className="content-wrapper">
+    <h2 className="text-4xl font-bold mb-6">Skills</h2>
+    <div className="skills-grid">
+      <div className="skill-card">
+        <h3 className="text-xl font-bold mb-2">Frontend</h3>
+        <p>React, Vue.js, TypeScript</p>
+      </div>
+      <div className="skill-card">
+        <h3 className="text-xl font-bold mb-2">Backend</h3>
+        <p>Node.js, Python, Java</p>
+      </div>
+      <div className="skill-card">
+        <h3 className="text-xl font-bold mb-2">Database</h3>
+        <p>PostgreSQL, MongoDB, Redis</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section className="section experience-section">
+  <div className="content-wrapper">
+    <h2 className="text-4xl font-bold mb-6">Experience</h2>
+    <div className="experience-card">
+      <h3 className="text-2xl font-bold">Senior Software Engineer</h3>
+      <p className="text-xl mb-2">Tech Corp Inc. | 2020 - Present</p>
+      <ul className="list-disc ml-6">
+        <li>Led development of microservices architecture</li>
+        <li>Optimized application performance by 40%</li>
+      </ul>
+    </div>
+  </div>
+</section> */
