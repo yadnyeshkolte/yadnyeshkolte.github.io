@@ -14,6 +14,13 @@ const NavigationBar = ({ githubUrl, blogUrl }) => {
     <nav className="navigation-bar">
       <button onClick={() => scrollToSection("intro")}>Home</button>
       <a
+        href="mailto:yadnyeshkolte@gmail.com" 
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        E-mail
+      </a>
+      <a
         href={"https://cyberconnaught.wordpress.com/"}
         target="_blank"
         rel="noopener noreferrer"
@@ -21,7 +28,7 @@ const NavigationBar = ({ githubUrl, blogUrl }) => {
         Blog
       </a>
       <a
-        href={'https://github.com/yadnyeshkolte'}
+        href={"https://github.com/yadnyeshkolte"}
         target="_blank"
         rel="noopener noreferrer"
         className="github-icon"

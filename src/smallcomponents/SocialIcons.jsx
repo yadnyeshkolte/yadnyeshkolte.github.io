@@ -19,7 +19,7 @@ const SocialIcons = () => {
         style={{"--delay": "0s"}}
         aria-label="Contact"
       >
-        <img src="src/socialicons/contact.svg" alt="Contact" className="social-icon" />
+        <img src="./socialicons/contact.svg" alt="Contact" className="social-icon" />
       </button>
       <a 
         href="mailto:yadnyeshkolte@gmail.com" 
@@ -29,7 +29,7 @@ const SocialIcons = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="src/socialicons/gmail.svg" alt="Email" className="social-icon" />
+        <img src="./socialicons/gmail.svg" alt="Email" className="social-icon" />
       </a>
       <a 
         href="https://linkedin.com/in/yadnyeshkolte" 
@@ -39,7 +39,7 @@ const SocialIcons = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="src/socialicons/linkedin.svg" alt="LinkedIn" className="social-icon" />
+        <img src="./socialicons/linkedin.svg" alt="LinkedIn" className="social-icon" />
       </a>
       <a 
         href="https://x.com/yadnyeshkolte" 
@@ -49,7 +49,7 @@ const SocialIcons = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="src/socialicons/x.svg" alt="Twitter" className="social-icon" />
+        <img src="./socialicons/x.svg" alt="Twitter" className="social-icon" />
       </a>
       <a 
         href="https://www.credly.com/users/yadnyesh-kolte" 
@@ -59,7 +59,7 @@ const SocialIcons = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="src/socialicons/credly.svg" alt="Credly" className="social-icon" />
+        <img src="./socialicons/credly.svg" alt="Credly" className="social-icon" />
       </a>
       <a 
         href="https://join.slack.com/shareDM/zt-2yetf1qht-wG~RsFrPYdQf8965dA~54g" 
@@ -69,7 +69,7 @@ const SocialIcons = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="src/socialicons/slack.svg" alt="Slack" className="social-icon" />
+        <img src="./socialicons/slack.svg" alt="Slack" className="social-icon" />
       </a>
 
     </div>
