@@ -1,4 +1,4 @@
-import React from 'react';
+
 import NavigationBar from './smallcomponents/NavigationBar';
 import './App2.css';
 import reactLogo from './assets/devops.jpg'
@@ -13,13 +13,6 @@ const App2 = () => {
     }
   };
 
-  const scrollToContact = () => {
-    const contactSection = document.querySelector('.contact-section');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    };
-
   return (
     <div className="app2-container" onScroll={handleScroll}>
       <NavigationBar 
@@ -33,7 +26,7 @@ const App2 = () => {
         <div className="intro-quote-side">
           <div className="quote-container">
             <blockquote className="quote">
-              "Code is like humor. When you have to explain it, it's bad."
+              Code is like humor. When you have to explain it, its bad.
             </blockquote>
             <cite className="quote-author">- Cory House</cite>
           </div>
