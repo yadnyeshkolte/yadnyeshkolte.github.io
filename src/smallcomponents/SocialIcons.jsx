@@ -18,7 +18,7 @@ const SocialIcons = () => {
         style={{"--delay": "0s"}}
         aria-label="Contact"
       >
-        <img src="./socialicons/contact.svg" alt="Contact" className="social-icon" />
+        <img src='./socialicons/contact.svg' alt="Contact" className="social-icon" />
       </button>
       <a 
         href="mailto:yadnyeshkolte@gmail.com" 
