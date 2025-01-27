@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NavigationBar from './smallcomponents/NavigationBar';
 import './App1.css';
-import reactLogo from './assets/software.jpg'
+import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
 
