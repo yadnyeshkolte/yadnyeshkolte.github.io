@@ -1,5 +1,9 @@
+
+
+
+
 /* NavigationBar.css */
-.navigation-bar {
+/*.navigation-bar {
   position: fixed;
   top: 1rem;
   left: 50%;
@@ -78,9 +82,9 @@
     padding: 0.5rem 1rem;
     gap: 1rem;
   }
-  
+
   .navigation-bar button,
   .navigation-bar a {
     font-size: 0.875rem;
   }
-}
+}*/
