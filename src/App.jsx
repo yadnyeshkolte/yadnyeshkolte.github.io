@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import App1 from './App1.jsx';
 import App2 from './App2.jsx';

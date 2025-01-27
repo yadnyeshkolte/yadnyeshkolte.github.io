@@ -45,27 +45,14 @@
   flex-direction: column;
   align-items: center;
   text-align: left;
-}
-
-.profile-image-container {
-  width: 12rem;
-  height: 12rem;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 2rem;
-  border: 4px solid rgba(0, 0, 0, 0.1);
-}
-
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  z-index: 4;
 }
 
 .intro-title {
-  font-size: 6.5rem;
+  font-size: 4.0rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  line-height: 1;
+  vertical-align: middle;
   
 }
 
@@ -78,7 +65,7 @@
   font-size: 1.25rem;
   max-width: 42rem;
   margin-bottom: 3rem;
-  font-weight: bold;
+  margin-top: 3rem;
   padding: 0 1rem;
 }
 
@@ -133,14 +120,6 @@
   overflow: hidden;
 }
 
-.intro-image-side {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-
 .intro-content-side {
   width: 50%;
   display: flex;
@@ -149,24 +128,53 @@
   padding: 2rem;
 }
 
-.intro-section .profile-image-container {
-  width: 65%;
-  height: auto;
-  aspect-ratio: 1;
-  margin: 0;
+
+.intro-quote-side {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
-.logo {
-  height: 12em;
-  will-change: filter;
-  transition: filter 300ms;
+.quote-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 300px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.quote {
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+.quote-author {
+  display: block;
+  text-align: right;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
 }
+
+.profile-title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+  
+}
+
 
 @media (max-width: 768px) {
   .intro-title {
@@ -184,13 +192,7 @@
   .contact-grid {
     grid-template-columns: 1fr;
   }
-  .profile-image-container {
-    width: 10rem;
-    height: 10rem;
-  }
-  .logo {
-    height: 10em;
-  }
+
   .intro-section {
     flex-direction: column;
   }
@@ -198,4 +200,108 @@
     width: 100%;
     padding: 1rem;
   }
+  
+  .intro-quote-side {
+    display: none;
+  }
+  
+  .intro-section .content-wrapper {
+    text-align: center;
+  }
+
+  .profile-title-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+
+/* Add to App1.css and App2.css */
+.project-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-section-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/software-background/software-background1.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  z-index: 1;
+  animation: backgroundChange 15s ease-in-out infinite;
+  
+  
+  mask-image: radial-gradient(
+    ellipse at center, 
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,0.8) 50%, 
+    rgba(0,0,0,0.5) 70%, 
+    rgba(0,0,0,0) 100%
+  );
+  
+  filter: 
+    blur(0px) 
+    brightness(0.9) 
+    contrast(1.1);
+}
+
+@keyframes backgroundChange {
+  0%, 20% {
+    background-image: url('./assets/software-background/software-background1.png');
+  }
+  21%, 40% {
+    background-image: url('./assets/software-background/software-background2.png');
+  }
+  41%, 60% {
+    background-image: url('./assets/software-background/software-background3.png');
+  }
+  61%, 80% {
+    background-image: url('./assets/software-background/software-background4.png');
+  }
+  81%, 100% {
+    background-image: url('./assets/software-background/software-background5.png');
+  }
+}
+
+
+.projects-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 2rem 0;
+  gap: 2rem;
+  z-index: 2;
+  position: relative;
+}
+
+.project-card {
+  flex: 0 0 300px;
+  scroll-snap-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: scale(1.05);
+}
+
+/* Hide scrollbar but keep functionality */
+.projects-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.projects-container::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, and Opera */
 }
