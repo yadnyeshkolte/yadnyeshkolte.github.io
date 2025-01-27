@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import NavigationBar from './smallcomponents/NavigationBar';
 import './App1.css';
 import reactLogo from './assets/yadnyesh.jpg'
@@ -30,13 +30,6 @@ const App1 = () => {
     });
   };
 
-  const scrollToContact = () => {
-    const contactSection = document.querySelector('.contact-section');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    };
-
   return (
     <div className="app1-container" onMouseMove={handleMouseMove}>
       <NavigationBar 
@@ -58,7 +51,7 @@ const App1 = () => {
             <div className="intro-quote-side">
               <div className="quote-container">
                 <blockquote className="quote">
-                  "Whatever the mind can conceive and believe, it can achieve."
+                  Whatever the mind can conceive and believe, it can achieve
                 </blockquote>
                 <cite className="quote-author">- Napolean Hill</cite>
               </div>

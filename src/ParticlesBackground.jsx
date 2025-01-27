@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSpring } from 'framer-motion';
 import * as THREE from 'three';
 
 const ParticlesBackground = () => {
   const canvasRef = useRef();
-  const start = useRef(Date.now());
   const mouse = useRef(new THREE.Vector2(0.8, 0.5));
   const springConfig = { stiffness: 30, damping: 20, mass: 2 };
   const rotationX = useSpring(0, springConfig);
@@ -64,7 +63,6 @@ const ParticlesBackground = () => {
 
     // Animation
     const animate = () => {
-      const time = 0.00005 * (Date.now() - start.current);
       sphere.rotation.z += 0.001;
       sphere.rotation.x = rotationX.get();
       sphere.rotation.y = rotationY.get();
