@@ -18,7 +18,8 @@
 
 .app1-overlay {
   position: relative;
-  background-color: lightblue;
+  background: radial-gradient(circle at top right, white, lightblue, #89cff0);
+
   color: black;
   mask-image: radial-gradient(circle at var(--x) var(--y), transparent 250px, black 50px);
   -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent 250px, black 50px);
