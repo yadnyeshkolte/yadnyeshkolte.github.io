@@ -4,7 +4,7 @@ import './App1.css';
 import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx'
-import { LeftArrowIcon, RightArrowIcon } from './smallcomponents/NavigationArrows';
+import ProjectCard from './smallcomponents/ProjectCard';
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -31,13 +31,6 @@ const App1 = () => {
     });
   };
 
-  const scrollProjects = (direction) => {
-    const container = document.querySelector('.projects-container');
-    if (container) {
-      const scrollAmount = direction === 'left' ? -350 : 350;
-      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
 
   return (
     <div className="app1-container" onMouseMove={handleMouseMove}>
@@ -90,57 +83,38 @@ const App1 = () => {
             <div className="project-section-background"></div>
             <div className="content-wrapper">
               <h2 className="text-4xl font-bold mb-6">Projects</h2>
-              <button
-                  className="scroll-button left"
-                  onClick={() => scrollProjects('left')}
-                  aria-label="Scroll left"
-              >
-                <LeftArrowIcon/>
-              </button>
-              <button
-                  className="scroll-button right"
-                  onClick={() => scrollProjects('right')}
-                  aria-label="Scroll right"
-              >
-                <RightArrowIcon/>
-              </button>
               <div className="projects-container">
                 {[
                   {
                     name: "AI-Powered Task Manager",
                     description: "Developed an intelligent task management system using machine learning to predict task priorities and optimize workflow.",
-                    technologies: ["React", "Python", "Machine Learning"]
+                    technologies: ["React", "Python", "Machine Learning"],
+                    githubUrl: "https://github.com/yourusername/project",
+                    liveUrl: "https://project-demo.com"
                   },
                   {
                     name: "Blockchain Payment Gateway",
                     description: "Created a secure, decentralized payment platform integrating multiple cryptocurrency protocols.",
-                    technologies: ["Solidity", "Web3.js", "Node.js"]
+                    technologies: ["Solidity", "Web3.js", "Node.js"],
+                    githubUrl: "https://github.com/yourusername/project",
+                    liveUrl: "https://project-demo.com"
                   },
                   {
                     name: "Real-time Collaborative Editor",
                     description: "Built a web-based collaborative text editor with live synchronization and version control.",
-                    technologies: ["WebSockets", "React", "Firebase"]
+                    technologies: ["WebSockets", "React", "Firebase"],
+                    githubUrl: "https://github.com/yourusername/project",
+                    liveUrl: "https://project-demo.com"
                   },
                   {
                     name: "IoT Home Automation System",
                     description: "Designed a comprehensive IoT solution for smart home management and energy optimization.",
-                    technologies: ["Raspberry Pi", "MQTT", "React Native"]
+                    technologies: ["Raspberry Pi", "MQTT", "React Native"],
+                    githubUrl: "https://github.com/yourusername/project",
+                    liveUrl: "https://project-demo.com"
                   }
                 ].map((project, index) => (
-                    <div key={index} className="project-card">
-                      <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
-                      <p className="mb-4">{project.description}</p>
-                      <div className="text-sm">
-                        <strong>Technologies:</strong>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          {project.technologies.map((tech, techIndex) => (
-                              <span key={techIndex} className="bg-white/10 px-2 py-1 rounded-full">
-                            {tech}
-                          </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                    <ProjectCard key={index} project={project} index={index} />
                 ))}
               </div>
             </div>

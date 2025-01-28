@@ -188,6 +188,17 @@
   overflow: hidden;
 }
 
+.projects-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 2rem 0;
+  gap: 2rem;
+  z-index: 2;
+  position: absolute;
+}
+
 .project-section-background {
   position: absolute;
   top: 0;
@@ -233,32 +244,6 @@
   }
 }
 
-.projects-container {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  padding: 2rem 0;
-  gap: 2rem;
-  z-index: 2;
-  position: relative;
-}
-
-.project-card {
-  flex: 0 0 300px;
-  scroll-snap-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 1.5rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.project-card:hover {
-  transform: scale(1.05);
-}
-
 
 .projects-container {
   -ms-overflow-style: none;  /* IE and Edge */
@@ -277,78 +262,6 @@
   width: 100%;
 }
 
-/* Add fade masks to the projects container */
-.projects-container {
-  position: relative;
-  mask-image: linear-gradient(
-          to right,
-          transparent,
-          black 15%,
-          black 85%,
-          transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-          to right,
-          transparent,
-          black 15%,
-          black 85%,
-          transparent 100%
-  );
-  padding: 2rem 10%;
-  margin: 0 -10%;
-}
-
-/* Enhance project cards for better visibility */
-.project-card {
-  flex: 0 0 300px;
-  scroll-snap-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 1.5rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-  opacity: 0.85;
-}
-
-.project-card:hover {
-  transform: scale(1.05);
-  opacity: 1;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* Add scroll buttons for better navigation */
-.scroll-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 3;
-  backdrop-filter: blur(5px);
-  transition: all 0.3s ease;
-}
-
-.scroll-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.scroll-button.left {
-  left: 1rem;
-}
-
-.scroll-button.right {
-  right: 1rem;
-}
-
 /* Adjust spacing for better flow */
 .project-section h2 {
   margin-left: 4rem;
@@ -357,20 +270,6 @@
   z-index: 2;
 }
 
-@media (max-width: 768px) {
-  .project-section .content-wrapper {
-    padding: 0 1rem;
-  }
-
-  .projects-container {
-    padding: 2rem 5%;
-    margin: 0 -5%;
-  }
-
-  .scroll-button {
-    display: none;
-  }
-}
 
 @media (max-width: 768px) {
   .intro-title {
@@ -407,6 +306,14 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+  .project-section .content-wrapper {
+    padding: 0 1rem;
+  }
+
+  .projects-container {
+    padding: 2rem 5%;
+    margin: 0 -5%;
   }
 }
 
