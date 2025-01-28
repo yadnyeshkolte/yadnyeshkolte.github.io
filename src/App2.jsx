@@ -4,6 +4,7 @@ import './App2.css';
 import reactLogo from './assets/devops.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
+import {LeftArrowIcon, RightArrowIcon} from './smallcomponents/NavigationArrows';
 import React from "react";
 
 const App2 = () => {
@@ -21,6 +22,7 @@ const App2 = () => {
       container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
+
 
   return (
       <div className="app2-container" onScroll={handleScroll}>
@@ -69,14 +71,14 @@ const App2 = () => {
                 onClick={() => scrollProjects('left')}
                 aria-label="Scroll left"
             >
-              ←
+              <LeftArrowIcon/>
             </button>
             <button
                 className="scroll-button right"
                 onClick={() => scrollProjects('right')}
                 aria-label="Scroll right"
             >
-              →
+              <RightArrowIcon/>
             </button>
             <div className="projects-container">
               {[
