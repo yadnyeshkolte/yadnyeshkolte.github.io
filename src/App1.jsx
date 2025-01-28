@@ -3,7 +3,8 @@ import NavigationBar from './smallcomponents/NavigationBar';
 import './App1.css';
 import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
-import ShaderBackground from './ShaderBackground.jsx';
+import ShaderBackground from './ShaderBackground.jsx'
+import { LeftArrowIcon, RightArrowIcon } from './smallcomponents/NavigationArrows';
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -94,14 +95,14 @@ const App1 = () => {
                   onClick={() => scrollProjects('left')}
                   aria-label="Scroll left"
               >
-                ←
+                <LeftArrowIcon/>
               </button>
               <button
                   className="scroll-button right"
                   onClick={() => scrollProjects('right')}
                   aria-label="Scroll right"
               >
-                →
+                <RightArrowIcon/>
               </button>
               <div className="projects-container">
                 {[
