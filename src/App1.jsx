@@ -76,13 +76,11 @@ const App1 = () => {
                 <SocialIcons/>
               </div>
             </div>
-
           </section>
 
           <section className="section project-section">
             <div className="project-section-background"></div>
             <div className="content-wrapper">
-              <h2 className="text-4xl font-bold mb-6">Projects</h2>
               <div className="projects-container">
                 {[
                   {
