@@ -30,6 +30,14 @@ const App1 = () => {
     });
   };
 
+  const scrollProjects = (direction) => {
+    const container = document.querySelector('.projects-container');
+    if (container) {
+      const scrollAmount = direction === 'left' ? -350 : 350;
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="app1-container" onMouseMove={handleMouseMove}>
       <NavigationBar 
@@ -37,15 +45,15 @@ const App1 = () => {
         blogUrl="https://yourblog.com"
       />
       <div className="app1-scrollable" onScroll={handleScroll}>
-        <div 
-          className="app1-overlay"
-          style={{
-            '--x': `${circlePosition.x + 50}px`,
-            '--y': `${circlePosition.y + 50}px`,
-          }}
+        <div
+            className="app1-overlay"
+            style={{
+              '--x': `${circlePosition.x + 50}px`,
+              '--y': `${circlePosition.y + 50}px`,
+            }}
         >
           <div className='shader'>
-            <ShaderBackground />
+            <ShaderBackground/>
           </div>
           <section className="section intro-section">
             <div className="intro-quote-side">
@@ -59,19 +67,19 @@ const App1 = () => {
             <div className="intro-content-side">
               <div className="content-wrapper">
                 <div className="profile-title-container">
-                  <img 
-                    src={reactLogo} 
-                    alt="Profile" 
-                    className="profile-image" 
+                  <img
+                      src={reactLogo}
+                      alt="Profile"
+                      className="profile-image"
                   />
                   <h1 className="intro-title">Yadnyesh Kolte</h1>
                 </div>
                 <p className="intro-description">
-                  Motivated Software Engineer with expertise in developing and deploying 
-                  high-quality solutions. Proficient in full stack development, AI 
+                  Motivated Software Engineer with expertise in developing and deploying
+                  high-quality solutions. Proficient in full stack development, AI
                   integration, and continuous delivery
                 </p>
-                <SocialIcons />
+                <SocialIcons/>
               </div>
             </div>
 
@@ -81,6 +89,20 @@ const App1 = () => {
             <div className="project-section-background"></div>
             <div className="content-wrapper">
               <h2 className="text-4xl font-bold mb-6">Projects</h2>
+              <button
+                  className="scroll-button left"
+                  onClick={() => scrollProjects('left')}
+                  aria-label="Scroll left"
+              >
+                ←
+              </button>
+              <button
+                  className="scroll-button right"
+                  onClick={() => scrollProjects('right')}
+                  aria-label="Scroll right"
+              >
+                →
+              </button>
               <div className="projects-container">
                 {[
                   {
@@ -104,20 +126,20 @@ const App1 = () => {
                     technologies: ["Raspberry Pi", "MQTT", "React Native"]
                   }
                 ].map((project, index) => (
-                  <div key={index} className="project-card">
-                    <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
-                    <p className="mb-4">{project.description}</p>
-                    <div className="text-sm">
-                      <strong>Technologies:</strong>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {project.technologies.map((tech, techIndex) => (
-                          <span key={techIndex} className="bg-white/10 px-2 py-1 rounded-full">
+                    <div key={index} className="project-card">
+                      <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
+                      <p className="mb-4">{project.description}</p>
+                      <div className="text-sm">
+                        <strong>Technologies:</strong>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {project.technologies.map((tech, techIndex) => (
+                              <span key={techIndex} className="bg-white/10 px-2 py-1 rounded-full">
                             {tech}
                           </span>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
                 ))}
               </div>
             </div>
@@ -149,49 +171,14 @@ const App1 = () => {
         </div>
       </div>
       <div
-        className="peek-circle"
-        style={{
-          top: circlePosition.y - scrollY,
-          left: circlePosition.x
-        }}
+          className="peek-circle"
+          style={{
+            top: circlePosition.y - scrollY,
+            left: circlePosition.x
+          }}
       ></div>
     </div>
   );
 };
 
 export default App1;
-
-
-/*          <section className="section skills-section">
-  <div className="content-wrapper">
-    <h2 className="text-4xl font-bold mb-6">Skills</h2>
-    <div className="skills-grid">
-      <div className="skill-card">
-        <h3 className="text-xl font-bold mb-2">Frontend</h3>
-        <p>React, Vue.js, TypeScript</p>
-      </div>
-      <div className="skill-card">
-        <h3 className="text-xl font-bold mb-2">Backend</h3>
-        <p>Node.js, Python, Java</p>
-      </div>
-      <div className="skill-card">
-        <h3 className="text-xl font-bold mb-2">Database</h3>
-        <p>PostgreSQL, MongoDB, Redis</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section className="section experience-section">
-  <div className="content-wrapper">
-    <h2 className="text-4xl font-bold mb-6">Experience</h2>
-    <div className="experience-card">
-      <h3 className="text-2xl font-bold">Senior Software Engineer</h3>
-      <p className="text-xl mb-2">Tech Corp Inc. | 2020 - Present</p>
-      <ul className="list-disc ml-6">
-        <li>Led development of microservices architecture</li>
-        <li>Optimized application performance by 40%</li>
-      </ul>
-    </div>
-  </div>
-</section> */
