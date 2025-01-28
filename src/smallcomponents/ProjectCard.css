@@ -1,0 +1,118 @@
+.project-card {
+    flex: 0 0 350px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    animation: cardEntrance 0.6s ease forwards;
+    animation-delay: calc(var(--card-index) * 0.1s);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow:
+            0 10px 20px rgba(0, 0, 0, 0.1),
+            0 6px 6px rgba(0, 0, 0, 0.05),
+            0 0 100px rgba(255, 255, 255, 0.1);
+}
+
+.icon-container {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    display: flex;
+    gap: 0.75rem;
+    z-index: 2;
+}
+
+.project-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 3rem;
+    /*margin-right: 4rem; /* This creates space between title and icons */
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.icon-link {
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.icon-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.icon-link svg {
+    transition: transform 0.3s ease;
+}
+
+.icon-link:hover svg {
+    transform: scale(1.1);
+}
+
+.tech-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tech-tag {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .project-card {
+        flex: 0 0 300px;
+        padding: 1.25rem;
+    }
+
+    .project-title {
+        font-size: 1.25rem;
+        margin-right: 3rem;
+    }
+
+    .icon-container {
+        top: 1rem;
+        right: 1rem;
+    }
+
+}
