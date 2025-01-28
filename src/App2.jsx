@@ -4,8 +4,7 @@ import './App2.css';
 import reactLogo from './assets/devops.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
-import {LeftArrowIcon, RightArrowIcon} from './smallcomponents/NavigationArrows';
-import React from "react";
+import ProjectCard from './smallcomponents/ProjectCard';
 
 const App2 = () => {
   const handleScroll = (e) => {
@@ -15,13 +14,6 @@ const App2 = () => {
     }
   };
 
-  const scrollProjects = (direction) => {
-    const container = document.querySelector('.projects-container');
-    if (container) {
-      const scrollAmount = direction === 'left' ? -350 : 350;
-      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
 
 
   return (
@@ -66,57 +58,38 @@ const App2 = () => {
           <div className="project-section-background"></div>
           <div className="content-wrapper">
             <h2 className="text-4xl font-bold mb-6">Projects</h2>
-            <button
-                className="scroll-button left"
-                onClick={() => scrollProjects('left')}
-                aria-label="Scroll left"
-            >
-              <LeftArrowIcon/>
-            </button>
-            <button
-                className="scroll-button right"
-                onClick={() => scrollProjects('right')}
-                aria-label="Scroll right"
-            >
-              <RightArrowIcon/>
-            </button>
             <div className="projects-container">
               {[
                 {
                   name: "Kubernetes Cluster Orchestration",
                   description: "Implemented a multi-region Kubernetes deployment with automated scaling and self-healing capabilities.",
-                  technologies: ["Kubernetes", "Terraform", "AWS"]
+                  technologies: ["Kubernetes", "Terraform", "AWS"],
+                  githubUrl: "https://github.com/yourusername/project",
+                  liveUrl: "https://project-demo.com"
                 },
                 {
                   name: "CI/CD Pipeline Optimization",
                   description: "Developed a comprehensive CI/CD solution reducing deployment times by 60% and improving reliability.",
-                  technologies: ["Jenkins", "Docker", "GitLab CI"]
+                  technologies: ["Jenkins", "Docker", "GitLab CI"],
+                  githubUrl: "https://github.com/yourusername/project",
+                  liveUrl: "https://project-demo.com"
                 },
                 {
                   name: "Microservices Infrastructure",
                   description: "Designed a scalable microservices architecture with advanced monitoring and logging solutions.",
-                  technologies: ["Istio", "Prometheus", "ELK Stack"]
+                  technologies: ["Istio", "Prometheus", "ELK Stack"],
+                  githubUrl: "https://github.com/yourusername/project",
+                  liveUrl: "https://project-demo.com"
                 },
                 {
                   name: "Cloud Cost Optimization Framework",
                   description: "Created an intelligent cost management system for tracking and optimizing cloud resource utilization.",
-                  technologies: ["AWS", "Python", "CloudWatch"]
+                  technologies: ["AWS", "Python", "CloudWatch"],
+                  githubUrl: "https://github.com/yourusername/project",
+                  liveUrl: "https://project-demo.com"
                 }
               ].map((project, index) => (
-                  <div key={index} className="project-card">
-                    <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
-                    <p className="mb-4">{project.description}</p>
-                    <div className="text-sm">
-                      <strong>Technologies:</strong>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {project.technologies.map((tech, techIndex) => (
-                            <span key={techIndex} className="bg-white/10 px-2 py-1 rounded-full">
-                        {tech}
-                      </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                  <ProjectCard key={index} project={project} index={index} />
               ))}
             </div>
           </div>
@@ -151,37 +124,3 @@ const App2 = () => {
 };
 
 export default App2;
-
-/*      <section className="section skills-section">
-  <div className="content-wrapper">
-    <h2 className="section-title">Skills</h2>
-    <div className="skills-grid">
-      <div className="skill-card">
-        <h3>Cloud Platforms</h3>
-        <p>AWS, Azure, GCP</p>
-      </div>
-      <div className="skill-card">
-        <h3>CI/CD</h3>
-        <p>Jenkins, GitLab CI, GitHub Actions</p>
-      </div>
-      <div className="skill-card">
-        <h3>Infrastructure</h3>
-        <p>Terraform, Ansible, Kubernetes</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section className="section experience-section">
-  <div className="content-wrapper">
-    <h2 className="section-title">Experience</h2>
-    <div className="experience-card">
-      <h3>Lead DevOps Engineer</h3>
-      <p>Cloud Solutions Ltd | 2019 - Present</p>
-      <ul>
-        <li>Implemented infrastructure as code using Terraform</li>
-        <li>Reduced deployment time by 60%</li>
-      </ul>
-    </div>
-  </div>
-</section> */
