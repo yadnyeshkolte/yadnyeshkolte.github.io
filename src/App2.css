@@ -257,13 +257,6 @@
 }
 
 
-/* Adjust spacing for better flow */
-.project-section h2 {
-  margin-left: 4rem;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 2;
-}
 
 
 @media (max-width: 768px) {

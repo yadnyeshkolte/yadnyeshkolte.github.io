@@ -224,8 +224,6 @@
           blur(0px)
           brightness(0.9)
 }
-
-
 @keyframes backgroundChange {
   0%, 20% {
     background-image: url('./assets/project-section-light-theme/1.png');
@@ -244,7 +242,6 @@
   }
 }
 
-
 .projects-container {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -262,13 +259,6 @@
   width: 100%;
 }
 
-/* Adjust spacing for better flow */
-.project-section h2 {
-  margin-left: 4rem;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 2;
-}
 
 
 @media (max-width: 768px) {
