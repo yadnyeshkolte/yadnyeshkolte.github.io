@@ -5,6 +5,7 @@ import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx'
 import ProjectCard from "./smallcomponents/ProjectCard.jsx";
+import TechStackSection from "./smallcomponents/TechStackSection";
 
 const App1 = () => {
 
@@ -134,7 +135,7 @@ const App1 = () => {
                   high-quality solutions. Proficient in full stack development, AI
                   integration, and continuous delivery
                 </p>
-                  <SocialIcons/>
+                <SocialIcons/>
               </div>
             </div>
           </section>
@@ -163,11 +164,14 @@ const App1 = () => {
                     onHover={handleTextHover}
                     onLeave={handleTextLeave}
                 />
-                </div>
               </div>
+            </div>
+          </section>
+          <section className="section tech-stack-section">
+            <TechStackSection/>
           </section>
           <section className="section contact-section">
-          <div className="content-wrapper">
+            <div className="content-wrapper">
               <h2 className="section-title">Contact</h2>
               <div className="contact-grid">
                 <div className="contact-card">

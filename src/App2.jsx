@@ -5,6 +5,7 @@ import reactLogo from './assets/devops.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
 import ProjectCard from "./smallcomponents/ProjectCard.jsx";
+import TechStackSection from "./smallcomponents/TechStackSection";
 
 const App2 = () => {
   const handleScroll = (e) => {
@@ -74,7 +75,9 @@ const App2 = () => {
             </div>
           </div>
         </section>
-
+        <section className="section tech-stack-section">
+          <TechStackSection/>
+        </section>
         <section className="section contact-section">
           <div className="content-wrapper">
             <h2 className="section-title">Contact</h2>

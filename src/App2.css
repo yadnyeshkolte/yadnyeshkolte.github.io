@@ -326,5 +326,15 @@
 
 }
 
+.tech-stack-section {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 2rem !important;
+}
 
+@media (max-width: 768px) {
+  .tech-stack-section {
+    padding: 2rem 1rem !important;
+  }
+}
 
