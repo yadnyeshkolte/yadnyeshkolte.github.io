@@ -142,22 +142,27 @@ const App1 = () => {
             <div className="project-section-background"></div>
             <div className="project-content">
               <div className="projects-grid">
-                <div className="hoverable" onMouseEnter={handleTextHover} onMouseLeave={handleTextLeave}>
-                  <ProjectCard
-                      title="Cloud-Native CI/CD Pipeline"
-                      description="Responsive grid layout that Created a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
-                      githubUrl="https://github.com/username/cloud-cicd"
-                  /></div>
-                  <ProjectCard
-                      title="Infrastructure as Code"
-                      description="ResponsiCreated a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
-                      githubUrl="https://github.com/username/iac-terraform"
-                  />
-                  <ProjectCard
-                      title="Monitoring Dashboard"
-                      description="Created a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
-                      githubUrl="https://github.com/username/monitoring-dashboard"
-                  />
+                <ProjectCard
+                    title="Cloud-Native CI/CD Pipeline"
+                    description="Responsive grid layout that Created a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
+                    githubUrl="https://github.com/username/cloud-cicd"
+                    onHover={handleTextHover}
+                    onLeave={handleTextLeave}
+                />
+                <ProjectCard
+                    title="Infrastructure as Code"
+                    description="ResponsiCreated a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
+                    githubUrl="https://github.com/username/iac-terraform"
+                    onHover={handleTextHover}
+                    onLeave={handleTextLeave}
+                />
+                <ProjectCard
+                    title="Monitoring Dashboard"
+                    description="Created a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
+                    githubUrl="https://github.com/username/monitoring-dashboard"
+                    onHover={handleTextHover}
+                    onLeave={handleTextLeave}
+                />
                 </div>
               </div>
           </section>
