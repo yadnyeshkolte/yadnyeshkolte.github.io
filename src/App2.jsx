@@ -51,8 +51,8 @@ const App2 = () => {
         </section>
 
 
-        <section className="section projects-section">
-          <h1>Hidden section</h1>
+        <section className="section project-section">
+          <div className="project-section-background"></div>
         </section>
 
         <section className="section contact-section">

@@ -76,11 +76,11 @@ const App1 = () => {
               </div>
             </div>
           </section>
-          <section className="section projects-section">
-            <h1>project section</h1>
+          <section className="section project-section">
+            <div className="project-section-background"></div>
           </section>
           <section className="section contact-section">
-          <div className="content-wrapper">
+            <div className="content-wrapper">
               <h2 className="section-title">Contact</h2>
               <div className="contact-grid">
                 <div className="contact-card">

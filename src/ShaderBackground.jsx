@@ -1,5 +1,5 @@
-import { startTransition, useEffect, useRef, useState } from "react";
-import "./ShaderBackground.css";
+import { startTransition, useEffect, useRef, useState } from 'react';
+import './ShaderBackground.css';
 import {
   AmbientLight,
   DirectionalLight,
@@ -11,12 +11,12 @@ import {
   SphereGeometry,
   UniformsUtils,
   WebGLRenderer,
-} from "three";
-import { cleanRenderer, cleanScene, removeLights } from "./shaders/three";
-import fragmentShader from "./shaders/fragment.glsl?raw";
-import vertexShader from "./shaders/vertex.glsl?raw";
+} from 'three';
+import { cleanRenderer, cleanScene, removeLights } from './shaders/three';
+import fragmentShader from './shaders/fragment.glsl?raw';
+import vertexShader from './shaders/vertex.glsl?raw';
 
-export const ShaderBackground = (props) => {
+export const ShaderBackground = props => {
   const start = useRef(Date.now());
   const canvasRef = useRef();
   const renderer = useRef();
@@ -35,32 +35,27 @@ export const ShaderBackground = (props) => {
 
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
-
+    
     renderer.current = new WebGLRenderer({
       canvas: canvasRef.current,
       antialias: false,
       alpha: true,
-      powerPreference: "high-performance",
+      powerPreference: 'high-performance',
     });
     renderer.current.setSize(innerWidth, innerHeight);
     renderer.current.setPixelRatio(1);
     renderer.current.outputColorSpace = LinearSRGBColorSpace;
 
-    camera.current = new PerspectiveCamera(
-      54,
-      innerWidth / innerHeight,
-      0.1,
-      100,
-    );
+    camera.current = new PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 100);
     camera.current.position.z = 52;
 
     scene.current = new Scene();
 
     material.current = new MeshPhongMaterial();
-    material.current.onBeforeCompile = (shader) => {
+    material.current.onBeforeCompile = shader => {
       uniforms.current = UniformsUtils.merge([
         shader.uniforms,
-        { time: { type: "f", value: 0 } },
+        { time: { type: 'f', value: 0 } },
       ]);
 
       shader.uniforms = uniforms.current;
@@ -71,7 +66,7 @@ export const ShaderBackground = (props) => {
     startTransition(() => {
       geometry.current = new SphereGeometry(32, 128, 128);
       sphere.current = new Mesh(geometry.current, material.current);
-      sphere.current.position.set(-30, 20, 10);
+      sphere.current.position.set(-30, 15, 1);
       sphere.current.modifier = Math.random();
       scene.current.add(sphere.current);
     });
@@ -81,7 +76,7 @@ export const ShaderBackground = (props) => {
     const ambientLight = new AmbientLight(0xffffff, 0.4);
     dirLight.position.set(100, 100, 200);
     lights.current = [dirLight, ambientLight];
-    lights.current.forEach((light) => scene.current.add(light));
+    lights.current.forEach(light => scene.current.add(light));
 
     // Mouse movement handler
     const handleMouseMove = (event) => {
@@ -92,10 +87,10 @@ export const ShaderBackground = (props) => {
       setMousePosition(position);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove);
       cleanScene(scene.current);
       cleanRenderer(renderer.current);
       removeLights(lights.current);
@@ -109,10 +104,8 @@ export const ShaderBackground = (props) => {
       animationFrame = requestAnimationFrame(animate);
 
       // Smooth, delayed interpolation for rotation
-      smoothRotationX.current +=
-        (mousePosition.y - smoothRotationX.current) * 0.03;
-      smoothRotationY.current +=
-        (mousePosition.x - smoothRotationY.current) * 0.03;
+      smoothRotationX.current += (mousePosition.y - smoothRotationX.current) * 0.03;
+      smoothRotationY.current += (mousePosition.x - smoothRotationY.current) * 0.03;
 
       if (sphere.current) {
         // Update uniforms for time-based effects
@@ -135,13 +128,19 @@ export const ShaderBackground = (props) => {
     return () => cancelAnimationFrame(animationFrame);
   }, [mousePosition]);
 
-  return <canvas ref={canvasRef} className="shader-background" {...props} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="shader-background"
+      {...props}
+    />
+  );
 };
 
 //Cyan color
 /*
-vec3 color = vec3(vUv * (0.2 - 2.0 * noise), 1.0);
-vec3 finalColors = vec3(color.b * 1.5, color.r, color.r);
+vec3 color = vec3(vUv * (0.2 - 2.0 * noise), 1.0); 
+vec3 finalColors = vec3(color.b * 1.5, color.r, color.r); 
 vec4 diffuseColor = vec4(cos(finalColors * noise * 3.0), 1.0); */
 
 //Grey shader model
