@@ -21,8 +21,14 @@
   background: radial-gradient(circle at top right, white, lightblue, #89cff0);
 
   color: black;
-  mask-image: radial-gradient(circle at var(--x) var(--y), transparent 250px, black 50px);
-  -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent 250px, black 50px);
+  mask-image: radial-gradient(circle at var(--x) var(--y), transparent var(--circle-size), black 50px);
+  -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent var(--circle-size), black 50px);
+}
+
+/* Add styles for text hover effect */
+.hoverable {
+  position: relative;
+  z-index: 2;
 }
 
 .peek-circle {
@@ -34,7 +40,6 @@
   pointer-events: none;
   z-index: 10;
 }
-
 .app1-container .section {
   min-height: 100vh;
   scroll-snap-align: start;
@@ -210,7 +215,8 @@
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
+    background-color: lightblue;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
 }
 
 .project-title {
