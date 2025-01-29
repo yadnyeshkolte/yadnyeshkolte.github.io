@@ -4,7 +4,6 @@ import './App1.css';
 import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx'
-import ProjectCard from './smallcomponents/ProjectCard';
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -77,48 +76,11 @@ const App1 = () => {
               </div>
             </div>
           </section>
-
-          <section className="section project-section">
-            <div className="project-section-background"></div>
-            <div className="content-wrapper">
-              <div className="projects-container">
-                {[
-                  {
-                    name: "AI-Powered Task Manager",
-                    description: "Developed an intelligent task management system using machine learning to predict task priorities and optimize workflow.",
-                    technologies: ["React", "Python", "Machine Learning"],
-                    githubUrl: "https://github.com/yourusername/project",
-                    liveUrl: "https://project-demo.com"
-                  },
-                  {
-                    name: "Blockchain Payment Gateway",
-                    description: "Created a secure, decentralized payment platform integrating multiple cryptocurrency protocols.",
-                    technologies: ["Solidity", "Web3.js", "Node.js"],
-                    githubUrl: "https://github.com/yourusername/project",
-                    liveUrl: "https://project-demo.com"
-                  },
-                  {
-                    name: "Real-time Collaborative Editor",
-                    description: "Built a web-based collaborative text editor with live synchronization and version control.",
-                    technologies: ["WebSockets", "React", "Firebase"],
-                    githubUrl: "https://github.com/yourusername/project",
-                    liveUrl: "https://project-demo.com"
-                  },
-                  {
-                    name: "IoT Home Automation System",
-                    description: "Designed a comprehensive IoT solution for smart home management and energy optimization.",
-                    technologies: ["Raspberry Pi", "MQTT", "React Native"],
-                    githubUrl: "https://github.com/yourusername/project",
-                    liveUrl: "https://project-demo.com"
-                  }
-                ].map((project, index) => (
-                    <ProjectCard key={index} project={project} index={index} />
-                ))}
-              </div>
-            </div>
+          <section className="section projects-section">
+            <h1>project section</h1>
           </section>
           <section className="section contact-section">
-            <div className="content-wrapper">
+          <div className="content-wrapper">
               <h2 className="section-title">Contact</h2>
               <div className="contact-grid">
                 <div className="contact-card">

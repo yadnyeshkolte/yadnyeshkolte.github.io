@@ -12,7 +12,6 @@ class NavigationBar extends React.Component {
                 section.scrollIntoView({behavior: 'smooth'});
             }
         };
-
         return (
             <nav className="navigation-bar">
                 <button onClick={() => scrollToSection('intro')}>Home</button>
@@ -29,7 +28,6 @@ class NavigationBar extends React.Component {
         );
     }
 }
-
 NavigationBar.propTypes = {
     githubUrl: PropTypes.any,
     blogUrl: PropTypes.any

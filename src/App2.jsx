@@ -4,7 +4,6 @@ import './App2.css';
 import reactLogo from './assets/devops.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
-import ProjectCard from './smallcomponents/ProjectCard';
 
 const App2 = () => {
   const handleScroll = (e) => {
@@ -13,9 +12,6 @@ const App2 = () => {
       app1Scrollable.scrollTop = e.target.scrollTop;
     }
   };
-
-
-
   return (
       <div className="app2-container" onScroll={handleScroll}>
         <NavigationBar
@@ -54,44 +50,9 @@ const App2 = () => {
           </div>
         </section>
 
-        <section className="section project-section">
-          <div className="project-section-background"></div>
-          <div className="content-wrapper">
-            <div className="projects-container">
-              {[
-                {
-                  name: "Kubernetes Cluster Orchestration",
-                  description: "Implemented a multi-region Kubernetes deployment with automated scaling and self-healing capabilities.",
-                  technologies: ["Kubernetes", "Terraform", "AWS"],
-                  githubUrl: "https://github.com/yourusername/project",
-                  liveUrl: "https://project-demo.com"
-                },
-                {
-                  name: "CI/CD Pipeline Optimization",
-                  description: "Developed a comprehensive CI/CD solution reducing deployment times by 60% and improving reliability.",
-                  technologies: ["Jenkins", "Docker", "GitLab CI"],
-                  githubUrl: "https://github.com/yourusername/project",
-                  liveUrl: "https://project-demo.com"
-                },
-                {
-                  name: "Microservices Infrastructure",
-                  description: "Designed a scalable microservices architecture with advanced monitoring and logging solutions.",
-                  technologies: ["Istio", "Prometheus", "ELK Stack"],
-                  githubUrl: "https://github.com/yourusername/project",
-                  liveUrl: "https://project-demo.com"
-                },
-                {
-                  name: "Cloud Cost Optimization Framework",
-                  description: "Created an intelligent cost management system for tracking and optimizing cloud resource utilization.",
-                  technologies: ["AWS", "Python", "CloudWatch"],
-                  githubUrl: "https://github.com/yourusername/project",
-                  liveUrl: "https://project-demo.com"
-                }
-              ].map((project, index) => (
-                  <ProjectCard key={index} project={project} index={index} />
-              ))}
-            </div>
-          </div>
+
+        <section className="section projects-section">
+          <h1>Hidden section</h1>
         </section>
 
         <section className="section contact-section">
