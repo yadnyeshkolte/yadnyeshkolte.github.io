@@ -4,6 +4,7 @@ import './App1.css';
 import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx'
+import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -78,6 +79,37 @@ const App1 = () => {
           </section>
           <section className="section project-section">
             <div className="project-section-background"></div>
+            <div className="project-content">
+              <div className="projects-grid">
+                <ProjectCard
+                    title="Cloud-Native CI/CD Pipeline"
+                    description="Responsive grid layout that adapts to screen size
+Consistent styling that works with both themes
+Hover effects for interactivity
+GitHub links for each project
+Proper z-indexing to work with the existing background effects
+Backdrop blur for better text readability
+Maintains the scrolling synchronization between App1 and App2"
+                    githubUrl="https://github.com/username/cloud-cicd"
+                />
+                <ProjectCard
+                    title="Infrastructure as Code"
+                    description="Responsive grid layout that adapts to screen size
+Consistent styling that works with both themes
+Hover effects for interactivity
+GitHub links for each project
+Proper z-indexing to work with the existing background effects
+Backdrop blur for better text readability
+Maintains the scrolling synchronization between App1 and App2."
+                    githubUrl="https://github.com/username/iac-terraform"
+                />
+                <ProjectCard
+                    title="Monitoring Dashboard"
+                    description="Created a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
+                    githubUrl="https://github.com/username/monitoring-dashboard"
+                />
+              </div>
+            </div>
           </section>
           <section className="section contact-section">
             <div className="content-wrapper">
