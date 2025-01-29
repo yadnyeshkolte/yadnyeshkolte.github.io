@@ -66,7 +66,7 @@ export const ShaderBackground = props => {
     startTransition(() => {
       geometry.current = new SphereGeometry(32, 128, 128);
       sphere.current = new Mesh(geometry.current, material.current);
-      sphere.current.position.set(-30, 10, 10);
+      sphere.current.position.set(-30, 15, 1);
       sphere.current.modifier = Math.random();
       scene.current.add(sphere.current);
     });
