@@ -58,24 +58,12 @@ const App2 = () => {
             <div className="projects-grid">
               <ProjectCard
                   title="Cloud-Native CI/CD Pipeline"
-                  description="Responsive grid layout that adapts to screen size
-Consistent styling that works with both themes
-Hover effects for interactivity
-GitHub links for each project
-Proper z-indexing to work with the existing background effects
-Backdrop blur for better text readability
-Maintains the scrolling synchronization between App1 and App2"
+                  description="Created a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance"
                   githubUrl="https://github.com/username/cloud-cicd"
               />
               <ProjectCard
                   title="Infrastructure as Code"
-                  description="Responsive grid layout that adapts to screen size
-Consistent styling that works with both themes
-Hover effects for interactivity
-GitHub links for each project
-Proper z-indexing to work with the existing background effects
-Backdrop blur for better text readability
-Maintains the scrolling synchronization between App1 and App2."
+                  description="Created a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance"
                   githubUrl="https://github.com/username/iac-terraform"
               />
               <ProjectCard
