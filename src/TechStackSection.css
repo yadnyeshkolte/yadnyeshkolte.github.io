@@ -1,0 +1,211 @@
+.tech-certification-container {
+    min-height: 100vh;
+    padding: 2rem;
+    box-shadow: none;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Tech Stack Section - 70% */
+.tech-stack-section {
+    flex: 0 0 70%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.tech-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.tech-category {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.category-header svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.category-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.category-content {
+    padding-left: 2rem;
+}
+
+/* Certifications Section - 30% */
+.certifications-section {
+    flex: 0 0 30%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    /* Fixed height to prevent layout shifts */
+    height: fit-content;
+}
+
+.certification-carousel {
+    position: relative;
+    width: 100%;
+    /* Fixed height for the carousel */
+    height: 300px;
+    margin-bottom: 1rem;
+}
+
+.certification-card {
+    position: relative;
+    width: 100%;
+    height: 250px; /* Fixed height for the card */
+    border-radius: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.certification-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.skills-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    /* Add scrolling for overflow */
+    overflow-y: auto;
+}
+
+/* Customize scrollbar */
+.skills-overlay::-webkit-scrollbar {
+    width: 6px;
+}
+
+.skills-overlay::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.skills-overlay::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.skills-overlay h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    /* Add padding to ensure last row is visible when scrolling */
+    padding-bottom: 0.5rem;
+}
+
+.skill-tag {
+    background: rgba(96, 165, 250, 0.5);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9px;
+    font-size: 0.875rem;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    /* Fixed position relative to carousel */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background: #60A5FA;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .tech-certification-container {
+        padding: 1rem;
+    }
+
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .category-header h3 {
+        font-size: 1.125rem;
+    }
+
+    .certifications-section {
+        display: none;
+    }
+}
