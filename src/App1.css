@@ -351,6 +351,7 @@
   position: relative;
   overflow: hidden;
   padding: 4rem 2rem !important;
+  background-color: blue;
 }
 
 @media (max-width: 768px) {
