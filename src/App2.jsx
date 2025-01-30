@@ -5,7 +5,7 @@ import reactLogo from './assets/devops.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
 import ProjectCard from "./smallcomponents/ProjectCard.jsx";
-import TechStackSection from "./smallcomponents/TechStackSection";
+import TechStackSection from "./TechStackSection.jsx";
 
 const App2 = () => {
   const handleScroll = (e) => {
