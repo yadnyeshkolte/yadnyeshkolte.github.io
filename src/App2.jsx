@@ -6,7 +6,8 @@ import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
 import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
+import { useSharedCarousel } from './hooks/useSharedCarousel';
 
 const App2 = () => {
   const handleScroll = (e) => {
@@ -15,9 +16,6 @@ const App2 = () => {
       app1Scrollable.scrollTop = e.target.scrollTop;
     }
   };
-
-  const [currentCert, setCurrentCert] = useState(0);
-  const [showSkills, setShowSkills] = useState(false);
 
   const certifications = [
     {
@@ -46,12 +44,14 @@ const App2 = () => {
     }
   ];
 
+  const [currentCert, setCurrentCert] = useSharedCarousel(certifications);
+
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentCert((prev) => (prev + 1) % certifications.length);
-    }, 10000);
-    return () => clearInterval(timer);
-  }, []);
+    console.log('Certification changed:', {
+      index: currentCert,
+      title: certifications[currentCert]?.title
+    });
+  }, [currentCert, certifications]);
 
 
   return (
@@ -196,11 +196,10 @@ const App2 = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className="carousel-dots">
-                    {certifications.map((_, index) => (
+                    {certifications.map((cert, index) => (
                         <button
-                            key={index}
+                            key={cert.id}
                             className={`dot ${currentCert === index ? 'active' : ''}`}
                             onClick={() => setCurrentCert(index)}
                         />
@@ -213,7 +212,7 @@ const App2 = () => {
         </section>
         <section className="section contact-section">
           <div className="content-wrapper">
-            <h2 className="section-title">Contact</h2>
+          <h2 className="section-title">Contact</h2>
             <div className="contact-grid">
               <div className="contact-card">
                 <h3>Get in Touch</h3>
