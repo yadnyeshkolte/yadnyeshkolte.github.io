@@ -44,7 +44,7 @@ const App2 = () => {
     }
   ];
 
-  const [currentCert, setCurrentCert] = useSharedCarousel(certifications);
+  const [currentCert, setCurrentCert, isTransitioning] = useSharedCarousel(certifications);
 
   useEffect(() => {
     console.log('Certification changed:', {
@@ -182,7 +182,7 @@ const App2 = () => {
                 <h2 className="section-title">Certifications</h2>
 
                 <div className="cert-carousel">
-                  <div className="cert-card">
+                  <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`}>
                     <img
                         src={certifications[currentCert].image}
                         alt={certifications[currentCert].title}

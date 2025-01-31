@@ -7,6 +7,7 @@ let activeInstances = 0;
 
 export const useSharedCarousel = (certifications) => {
     const [currentCert, setCurrentCert] = useState(currentCertGlobal);
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
     useEffect(() => {
         // Add subscriber
@@ -20,9 +21,8 @@ export const useSharedCarousel = (certifications) => {
         if (activeInstances === 1) {
             globalTimer = setInterval(() => {
                 const nextCert = (currentCertGlobal + 1) % certifications.length;
-                currentCertGlobal = nextCert;
-                subscribers.forEach(setter => setter(nextCert));
-            }, 6000);
+                handleCertChange(nextCert);
+            }, 10000);
         }
 
         // Cleanup function
@@ -38,12 +38,22 @@ export const useSharedCarousel = (certifications) => {
         };
     }, [certifications.length]);
 
-    const setCurrentCertShared = (index) => {
-        if (index >= 0 && index < certifications.length) {
-            currentCertGlobal = index;
-            subscribers.forEach(setter => setter(index));
+    const handleCertChange = (index) => {
+        if (index >= 0 && index < certifications.length && !isTransitioning) {
+            setIsTransitioning(true);
+
+            // Delay actual change to allow fade-out
+            setTimeout(() => {
+                currentCertGlobal = index;
+                subscribers.forEach(setter => setter(index));
+
+                // Allow fade-in
+                setTimeout(() => {
+                    setIsTransitioning(false);
+                }, 300);
+            }, 150);
         }
     };
 
-    return [currentCert, setCurrentCertShared];
+    return [currentCert, handleCertChange, isTransitioning];
 };

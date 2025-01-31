@@ -64,28 +64,15 @@ const App1 = () => {
     const scrollTop = e.target.scrollTop;
     setScrollY(scrollTop);
 
-    // Update circle position when scrolling to maintain relative position to cursor
-    setCirclePosition(current => ({
-      x: current.x,
-      y: current.y + (scrollTop - scrollY) // Adjust y position based on scroll delta
-    }));
-
-
-    // Sync scroll position with App2
     const app2Container = document.querySelector('.app2-container');
     if (app2Container && app2Container.scrollTop !== scrollTop) {
       app2Container.scrollTop = scrollTop;
     }
-  }, [scrollY]); // Add scrollY to dependencies
+  }, []);
 
   const handleMouseMove = useCallback((e) => {
     const scrollContainer = document.querySelector('.app1-scrollable');
     const scrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
-
-    const newPosition = {
-      x: e.clientX - 50,
-      y: e.clientY + scrollTop - 50, // Add scrollTop to y position
-    };
 
     setTargetPosition({
       x: e.clientX - 50,
@@ -96,10 +83,6 @@ const App1 = () => {
       x: e.clientX - 50,
       y: e.clientY + scrollTop - 50,
     });
-
-    setTargetPosition(newPosition);
-    setCirclePosition(newPosition);
-
   }, []);
 
   const handleTextHover = () => {
@@ -109,7 +92,6 @@ const App1 = () => {
   const handleTextLeave = () => {
     setIsAnimating(false);
   };
-
 
 
   const certifications = [
@@ -138,7 +120,7 @@ const App1 = () => {
       skills: ["Open Source Readiness", "Finance", "Regulation"]
     }
   ];
-  const [currentCert, setCurrentCert] = useSharedCarousel(certifications);
+  const [currentCert, setCurrentCert, isTransitioning] = useSharedCarousel(certifications);
 
   useEffect(() => {
     console.log('Certification changed:', {
@@ -290,7 +272,7 @@ const App1 = () => {
                     <h2 className="section-title">Certifications</h2>
 
                     <div className="cert-carousel">
-                      <div className="cert-card" onMouseEnter={handleTextHover} onMouseLeave={handleTextLeave}>
+                      <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`} onMouseEnter={handleTextHover} onMouseLeave={handleTextLeave}>
                         <img
                             src={certifications[currentCert].image}
                             alt={certifications[currentCert].title}
