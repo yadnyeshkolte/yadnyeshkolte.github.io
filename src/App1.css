@@ -39,13 +39,8 @@
   border: 0px solid white;
   pointer-events: none;
   z-index: 10;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
 }
 
-.app1-container:hover .peek-circle {
-  opacity: 1;
-}
 .app1-container .section {
   min-height: 100vh;
   scroll-snap-align: start;
