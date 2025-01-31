@@ -250,104 +250,7 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-.contact-button {
-  padding: 0.75rem 1.5rem;
-  border-radius: 99px;
-  backdrop-filter: blur(8px);
-  background-color: rgba(255, 255, 255, 0.3);
-  border: none;
-  color: rgba(0, 0, 0, 0.7);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 10px 0 10px -10px rgba(0, 0, 0, 0.1),
-  -10px 0 10px -10px rgba(0, 0, 0, 0.1);
-}
-
-.contact-button:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-  color: rgba(0, 0, 0, 1);
-}
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.contact-card {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  backdrop-filter: blur(8px);
-}
-
-.contact-card h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.contact-info {
-  margin-top: 1rem;
-}
-
-.contact-info p {
-  margin-bottom: 0.75rem;
-}
-
-@media (max-width: 768px) {
-  .intro-title {
-    font-size: 2.5rem;
-  }
-
-  .intro-subtitle {
-    font-size: 1.5rem;
-  }
-
-  .intro-description {
-    font-size: 1rem;
-  }
-
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .intro-section {
-    flex-direction: column;
-  }
-  .intro-content-side {
-    width: 100%;
-    padding: 1rem;
-  }
-  .intro-quote-side {
-    display: none;
-  }
-
-  .intro-section .content-wrapper {
-    text-align: center;
-  }
-  .profile-title-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-    padding: 1rem;
-  }
-
-  .project-section {
-    padding: 2rem 1rem !important;
-  }
-
-  .project-card {
-    box-shadow: 10px 0 10px -10px rgba(0, 0, 0, 0.1),
-    -10px 0 10px -10px rgba(0, 0, 0, 0.1);
-  }
-
-}
-
+/*Tech section*/
 .tech-stack-section {
   position: relative;
   overflow: hidden;
@@ -486,19 +389,106 @@
 }
 
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .content-wrapper {
-    flex-direction: column;
-  }
 
-  .tech-section,
-  .cert-section {
-    flex: 1;
-  }
+
+
+/*Contact Section*/
+.contact-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 99px;
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.3);
+  border: none;
+  color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 10px 0 10px -10px rgba(0, 0, 0, 0.1),
+  -10px 0 10px -10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 1);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.contact-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(8px);
+}
+
+.contact-card h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.contact-info {
+  margin-top: 1rem;
+}
+
+.contact-info p {
+  margin-bottom: 0.75rem;
 }
 
 @media (max-width: 768px) {
+  .intro-title {
+    font-size: 2.5rem;
+  }
+
+  .intro-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .intro-description {
+    font-size: 1rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .intro-section {
+    flex-direction: column;
+  }
+  .intro-content-side {
+    width: 100%;
+    padding: 1rem;
+  }
+  .intro-quote-side {
+    display: none;
+  }
+
+  .intro-section .content-wrapper {
+    text-align: center;
+  }
+  .profile-title-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .project-section {
+    padding: 2rem 1rem !important;
+  }
+
+  .project-card {
+    box-shadow: 10px 0 10px -10px rgba(0, 0, 0, 0.1),
+    -10px 0 10px -10px rgba(0, 0, 0, 0.1);
+  }
+
   .tech-container {
     padding: 1rem;
   }
@@ -518,10 +508,20 @@
   .cert-section {
     display: none;
   }
-}
-
-@media (max-width: 768px) {
   .tech-stack-section {
     padding: 2rem 1rem !important;
   }
+
+}
+
+@media (max-width: 1024px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .tech-section,
+  .cert-section {
+    flex: 1;
+  }
+
 }
