@@ -59,7 +59,6 @@ const App1 = () => {
     };
   }, [targetPosition]);
 
-  // Previous handlers remain the same
   const handleScroll = useCallback((e) => {
     const scrollTop = e.target.scrollTop;
     setScrollY(scrollTop);
@@ -68,9 +67,27 @@ const App1 = () => {
     if (app2Container && app2Container.scrollTop !== scrollTop) {
       app2Container.scrollTop = scrollTop;
     }
+
+    // Update circle position to follow cursor during scroll
+    const lastKnownMouseEvent = window.lastMouseEvent;
+    if (lastKnownMouseEvent) {
+      setTargetPosition({
+        x: lastKnownMouseEvent.clientX - 50,
+        y: lastKnownMouseEvent.clientY + scrollTop - 50,
+      });
+
+      setCirclePosition({
+        x: lastKnownMouseEvent.clientX - 50,
+        y: lastKnownMouseEvent.clientY + scrollTop - 50,
+      });
+    }
   }, []);
 
+// Modify handleMouseMove to store the last mouse event globally
   const handleMouseMove = useCallback((e) => {
+    // Store the last mouse event globally
+    window.lastMouseEvent = e;
+
     const scrollContainer = document.querySelector('.app1-scrollable');
     const scrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
 
