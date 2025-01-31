@@ -6,7 +6,7 @@ import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
 import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import { useSharedCarousel } from './hooks/useSharedCarousel';
 
 const App2 = () => {

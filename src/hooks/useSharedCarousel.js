@@ -22,7 +22,7 @@ export const useSharedCarousel = (certifications) => {
                 const nextCert = (currentCertGlobal + 1) % certifications.length;
                 currentCertGlobal = nextCert;
                 subscribers.forEach(setter => setter(nextCert));
-            }, 3000);
+            }, 6000);
         }
 
         // Cleanup function
