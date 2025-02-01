@@ -11,6 +11,7 @@ import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-1
 import githubCert from './assets/certifications/gihub-foundation.png'
 import fdc3Cert from './assets/certifications/introduction-to-fdc3.png'
 import openSourceCert from './assets/certifications/open-source-contribution-in-finance.png'
+import ContactSection from "./Components/ContactSection.jsx";
 
 const App1 = () => {
 
@@ -315,28 +316,7 @@ const App1 = () => {
               </div>
             </section>
             <section className="section contact-section">
-              <div className="content-wrapper">
-                <h2 className="section-title">Contact</h2>
-                <div className="contact-grid">
-                  <div className="contact-card">
-                    <h3>Get in Touch</h3>
-                    <p>Feel free to reach out for collaborations or just a friendly hello</p>
-                    <div className="contact-info">
-                      <p>📧 john.doe@example.com</p>
-                      <p>📱 +1 (555) 123-4567</p>
-                      <p>📍 San Francisco, CA</p>
-                    </div>
-                  </div>
-                  <div className="contact-card">
-                    <h3>Social Media</h3>
-                    <div className="contact-info">
-                      <p>LinkedIn: @johndoe</p>
-                      <p>Twitter: @johndoe</p>
-                      <p>GitHub: @johndoe</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <ContactSection/>
             </section>
           </div>
         </div>
