@@ -7,6 +7,10 @@ import ShaderBackground from './ShaderBackground.jsx'
 import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import { useSharedCarousel } from './hooks/useSharedCarousel';
+import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
+import githubCert from './assets/certifications/gihub-foundation.png'
+import fdc3Cert from './assets/certifications/introduction-to-fdc3.png'
+import openSourceCert from './assets/certifications/open-source-contribution-in-finance.png'
 
 const App1 = () => {
 
@@ -114,25 +118,25 @@ const App1 = () => {
   const certifications = [
     {
       id: 1,
-      image: "src/assets/certifications/aws-educate-introduction-to-cloud-101.png",
+      image: awsCert,
       title: "AWS Educate Introduction to Cloud 101",
       skills: ["Amazon Web Services (AWS)", "AWS Cloud", "AWS Cloud Computing", "Cloud Foundations"]
     },
     {
       id: 2,
-      image: "src/assets/certifications/gihub-foundation.png",
+      image: githubCert,
       title: "GitHub Foundations",
       skills: ["Build Pipeline", "Continuous Delivery", "Continuous Integration", "DevOps", "GitHub", "GitHub Actions"]
     },
     {
       id: 3,
-      image: "src/assets/certifications/introduction-to-fdc3.png",
+      image: fdc3Cert,
       title: "LFEL1000: Introduction to FDC3",
       skills: ["Application Interoperability", "FDC3 Components", "FDC3 Standard"]
     },
     {
       id: 4,
-      image: "src/assets/certifications/open-source-contribution-in-finance.png",
+      image: openSourceCert,
       title: "LFD137: Open Source Contribution in Finance",
       skills: ["Open Source Readiness", "Finance", "Regulation"]
     }
