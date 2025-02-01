@@ -1,41 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useSharedForm } from '../hooks/useSharedForm';
 import './ContactSection.css';
 
 const ContactSection = () => {
-    const [submitted, setSubmitted] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [isDark, setIsDark] = useState(false);
+    const { submitted, loading, error, handleSubmit } = useSharedForm();
 
-    useEffect(() => {
-        // Check system preference on mount
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setIsDark(prefersDark);
-    }, []);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError('');
-
-        try {
-            const form = e.target;
-            await fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                mode: 'no-cors'
-            });
-            setSubmitted(true);
-        } catch (err) {
-            setError('Something went wrong. Please try again later.');
-        } finally {
-            setLoading(false);
-        }
-    };
 
     if (submitted) {
         return (
-            <div className={`contact-container success-container ${isDark ? 'dark' : ''}`}>
+            <div className={`contact-container success-container`}>
                 <div className="success-content">
                     <svg className="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" strokeLinecap="round" strokeLinejoin="round"/>
@@ -49,7 +21,7 @@ const ContactSection = () => {
     }
 
     return (
-        <div className={`contact-container ${isDark ? 'dark' : ''}`}>
+        <div className={`contact-container`}>
             <div className="form-wrapper">
                 <div className="form-content">
 
@@ -109,7 +81,7 @@ const ContactSection = () => {
                                 id="entry.1912912210"
                                 required
                                 rows="8"
-                                placeholder="Your message here..."
+                                placeholder=""
                             />
                         </div>
 
