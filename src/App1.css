@@ -388,6 +388,10 @@
   background: #60A5FA;
 }
 
+.contact-section {
+  background-image: url('./assets/contact-light.jpg');
+  background-size: cover;
+}
 
 
 @media (max-width: 768px) {
