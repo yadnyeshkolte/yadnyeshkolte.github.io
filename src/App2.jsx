@@ -78,9 +78,9 @@ const App2 = () => {
           <div className="intro-quote-side">
             <div className="quote-container">
               <blockquote className="quote">
-                Code is like humor. When you have to explain it, its bad.
+                Nothing is more difficult, and therefore more precious, than to be able to decide
               </blockquote>
-              <cite className="quote-author">- Cory House</cite>
+              <cite className="quote-author">- Napoleon Bonaparte</cite>
             </div>
           </div>
           <div className="intro-content-side">
