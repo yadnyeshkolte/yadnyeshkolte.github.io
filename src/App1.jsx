@@ -1,164 +1,339 @@
-import React, { useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import NavigationBar from './smallcomponents/NavigationBar';
 import './App1.css';
-import reactLogo from './assets/software.jpg'
+import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
-import ShaderBackground from './ShaderBackground.jsx';
-import ContactForm from './contact/ContactForm.jsx'; // Assuming you save the previous artifact as ContactForm.jsx
-import './contact/ContactForm.css'
+import ShaderBackground from './ShaderBackground.jsx'
+import ProjectCard from "./smallcomponents/ProjectCard.jsx";
+import {Cloud, Code2, Database, Wrench} from "lucide-react";
+import { useSharedCarousel } from './hooks/useSharedCarousel';
+import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
+import githubCert from './assets/certifications/github-foundations.png'
+import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
+import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
+import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
+
 
 const App1 = () => {
+
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
   const [scrollY, setScrollY] = useState(0);
+  const [circleSize, setCircleSize] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
 
-  // Previous handlers remain the same
-  const handleScroll = (e) => {
+  useEffect(() => {
+    let animationId;
+    let currentSize = circleSize;
+    let targetSize = isAnimating ? 250 : 0;
+
+    const animate = () => {
+      if (currentSize !== targetSize) {
+        // Gradually change the size
+        const delta = isAnimating ? 7 : -5; // Speed of growth/shrink
+        currentSize = Math.max(0, Math.min(250, currentSize + delta));
+
+        setCircleSize(currentSize);
+        animationId = requestAnimationFrame(animate);
+      }
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, [isAnimating]);
+
+
+  useEffect(() => {
+    let animationFrameId;
+
+    const animate = () => {
+      setCirclePosition(current => ({
+        x: current.x + (targetPosition.x - current.x) * 0.01,
+        y: current.y + (targetPosition.y - current.y) * 0.01
+      }));
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [targetPosition]);
+
+  const handleScroll = useCallback((e) => {
     const scrollTop = e.target.scrollTop;
     setScrollY(scrollTop);
-    
+
     const app2Container = document.querySelector('.app2-container');
     if (app2Container && app2Container.scrollTop !== scrollTop) {
       app2Container.scrollTop = scrollTop;
     }
-  };
 
-  const handleMouseMove = (e) => {
+    // Update circle position to follow cursor during scroll
+    const lastKnownMouseEvent = window.lastMouseEvent;
+    if (lastKnownMouseEvent) {
+      setTargetPosition({
+        x: lastKnownMouseEvent.clientX - 50,
+        y: lastKnownMouseEvent.clientY + scrollTop - 50,
+      });
+
+      setCirclePosition({
+        x: lastKnownMouseEvent.clientX - 50,
+        y: lastKnownMouseEvent.clientY + scrollTop - 50,
+      });
+    }
+  }, []);
+
+// Modify handleMouseMove to store the last mouse event globally
+  const handleMouseMove = useCallback((e) => {
+    // Store the last mouse event globally
+    window.lastMouseEvent = e;
+
     const scrollContainer = document.querySelector('.app1-scrollable');
     const scrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
-    
+
+    setTargetPosition({
+      x: e.clientX - 50,
+      y: e.clientY + scrollTop - 50,
+    });
+
     setCirclePosition({
       x: e.clientX - 50,
       y: e.clientY + scrollTop - 50,
     });
+  }, []);
+
+  const handleTextHover = () => {
+    setIsAnimating(true);
   };
 
-  const scrollToContact = () => {
-    const contactSection = document.querySelector('.contact-section');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+  const handleTextLeave = () => {
+    setIsAnimating(false);
+  };
+
+
+  const certifications = [
+    {
+      id: 1,
+      image: awsCert,
+      title: "AWS Educate Introduction to Cloud 101",
+      skills: ["Amazon Web Services (AWS)", "AWS Cloud", "AWS Cloud Computing", "Cloud Foundations"]
+    },
+    {
+      id: 2,
+      image: githubCert,
+      title: "GitHub Foundations",
+      skills: ["Build Pipeline", "Continuous Delivery", "Continuous Integration", "DevOps", "GitHub", "GitHub Actions"]
+    },
+    {
+      id: 3,
+      image: devopsCert,
+      title: "LFS162: Introduction to DevOps and Site Reliability Engineering",
+      skills: ["CI/CD", "Cloud Computing", "Containers", "DevOps", "IAC", "Kubernetes", "SRE"]
+    },
+    {
+      id: 4,
+      image: fdc3Cert,
+      title: "LFEL1000: Introduction to FDC3",
+      skills: ["Application Interoperability", "FDC3 Components", "FDC3 Standard"]
+    },
+    {
+      id: 5,
+      image: openSourceCert,
+      title: "LFD137: Open Source Contribution in Finance",
+      skills: ["Open Source Readiness", "Finance", "Regulation"]
     }
-    };
+  ];
+  const [currentCert, setCurrentCert, isTransitioning] = useSharedCarousel(certifications);
+
+  useEffect(() => {
+    console.log('Certification changed:', {
+      index: currentCert,
+      title: certifications[currentCert]?.title
+    });
+  }, [currentCert, certifications]);
+
 
   return (
-    <div className="app1-container" onMouseMove={handleMouseMove}>
-      <NavigationBar 
-        githubUrl="https://github.com/yourusername"
-        blogUrl="https://yourblog.com"
-      />
-      <div className="app1-scrollable" onScroll={handleScroll}>
-        <div 
-          className="app1-overlay"
-          style={{
-            '--x': `${circlePosition.x + 50}px`,
-            '--y': `${circlePosition.y + 50}px`,
-          }}
-        >
-          <div className='shader'>
-            <ShaderBackground />
-          </div>
-          <section className="section intro-section">
-            <div className="intro-quote-side">
-              <div className="quote-container">
-                <blockquote className="quote">
-                  "Whatever the mind can conceive and believe, it can achieve."
-                </blockquote>
-                <cite className="quote-author">- Napolean Hill</cite>
-              </div>
+      <div className="app1-container" onMouseMove={handleMouseMove}>
+        <NavigationBar
+            githubUrl="https://github.com/yadnyeshkolte"
+            blogUrl="https://cyberconnaught.wordpress.com/"
+        />
+        <div className="app1-scrollable" onScroll={handleScroll}>
+          <div
+              className="app1-overlay"
+              style={{
+                '--x': `${circlePosition.x + 50}px`,
+                '--y': `${circlePosition.y + 50}px`,
+                '--circle-size': `${circleSize}px`,
+              }}
+          >
+            <div className='shader'>
+              <ShaderBackground/>
             </div>
-            <div className="intro-content-side">
-              <div className="content-wrapper">
-                <div className="profile-title-container">
-                  <img 
-                    src={reactLogo} 
-                    alt="Profile" 
-                    className="profile-image" 
-                  />
-                  <h1 className="intro-title">Yadnyesh Kolte</h1>
+            <section className="section intro-section">
+              <div className="intro-quote-side">
+                <div className="quote-container hoverable" onMouseEnter={handleTextHover} onMouseLeave={handleTextLeave}>
+                  <blockquote className="quote">
+                    Great ambition is the passion of a great character
+                  </blockquote>
+                  <cite className="quote-author">- Napoleon Bonaparte</cite>
                 </div>
-                <p className="intro-description">
-                  Motivated Software Engineer with expertise in developing and deploying 
-                  high-quality solutions. Proficient in full stack development, AI 
-                  integration, and continuous delivery
-                </p>
-                <SocialIcons />
               </div>
-            </div>
-
-          </section>
-
-          <section className="section project-section">
-            <div className="project-section-background"></div>
-            <div className="content-wrapper">
-              <h2 className="text-4xl font-bold mb-6">Projects</h2>
-              <div className="projects-container">
-                {[
-                  {
-                    name: "CrossDocs, cross-platform Markdown editor with AI assistance",
-                    description: "Developed a cross-platform Markdown editor using Kotlin Compose Multiplatform, integrating Google's Gemini AI for real-time writing assistance. The application provides real-time preview, dark/light themes, and an in-app Markdown guide. By implementing rigorous automated testing and packaging for Windows, macOS, Linux, and Android, I ensured native performance, seamless cross-platform installation, and high-quality code with minimal bugs."
-                  },
-                  {
-                    name: "Argo CD Guestbook Application Deployment",
-                    description: "successfully automated the deployment of a Kubernetes-based guestbook application using Argo CD for continuous delivery in a Linux environment. By leveraging Python scripts and implementing advanced deployment strategies, I dramatically reduced manual intervention by 80%, streamlining the deployment process and cutting deployment time to under five minutes. This optimization significantly enhanced operational efficiency and demonstrated advanced proficiency in containerization and continuous delivery technologies."
-                  },
-                  {
-                    name: "Real-time Collaborative Editor",
-                    description: "I developed a Telegram bot integrated with an ESP32 microcontroller to simulate ATM functionalities, enabling remote transactions through seamless hardware-software interaction. By implementing Java, C++, and Python code following SDLC best practices, I optimized communication between the bot and ESP32. My microcontroller programming initiatives enhanced response time efficiency by approximately 40%, significantly improving transactional throughput and system performance."
-                  },
-                ].map((project, index) => (
-                  <div key={index} className="project-card">
-                    <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
-                    <p className="mb-4">{project.description}</p>
+              <div className="intro-content-side">
+                <div className="content-wrapper">
+                  <div className="profile-title-container hoverable">
+                    <img
+                        src={reactLogo}
+                        alt="Profile"
+                        className="profile-image"
+                    />
+                    <h1 className="intro-title">Yadnyesh Kolte</h1>
                   </div>
-                ))}
+                  <p className="intro-description hoverable" onMouseEnter={handleTextHover}
+                     onMouseLeave={handleTextLeave}>
+                    Motivated Software Engineer with expertise in developing and deploying
+                    high-quality solutions. Proficient in full stack development, AI
+                    integration, and continuous delivery
+                  </p>
+                  <SocialIcons/>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+            <section className="section project-section">
+              <div className="project-section-background"></div>
+              <div className="project-content">
+                <div className="projects-grid">
+                  <ProjectCard
+                      title="Cross-platform Markdown editor with AI assistance"
+                      description="Developed a cross-platform Markdown editor using Kotlin Compose Multiplatform, featuring real-time preview, dark/light themes, and in-app Markdown guide. Packaged the application for Windows, macOS, Linux, and Android, ensuring native performance and seamless installation across platforms."
+                      githubUrl="https://github.com/yadnyeshkolte/CrossDocs"
+                      onHover={handleTextHover}
+                      onLeave={handleTextLeave}
+                  />
+                  <ProjectCard
+                      title="ESP32-Based ATM-Like Functioning Telegram Bot"
+                      description="Developed a cool Telegram bot integrated with an ESP32 microcontroller to simulate advanced ATM functionalities, leveraging Java, C++, and Python to create a robust communication system for remote banking transactions. The project demonstrated programming expertise by implementing hardware-software interaction that optimized microcontroller programming methodologies."
+                      githubUrl="https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a"
+                      onHover={handleTextHover}
+                      onLeave={handleTextLeave}
+                  />
+                  <ProjectCard
+                      title="Guestbook Application Deployment"
+                      description="Developed a comprehensive continuous delivery pipeline leveraging Argo CD and GitOps principles for Kubernetes. The project incorporated tools like Docker, GitHub, Helm, Lens, and DateTree, facilitating efficient container orchestration and version control."
+                      githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
+                      onHover={handleTextHover}
+                      onLeave={handleTextLeave}
+                  />
+                </div>
+              </div>
+            </section>
+            <section className="section tech-stack-section">
+              <div className="tech-container">
+                <div className="content-wrapper">
+                  {/* Tech Stack - 70% */}
+                  <div className="tech-section">
+                    <h2 className="section-title">Technical Expertise</h2>
+
+                    <div className="tech-grid">
+                      {/* Frontend */}
+                      <div className="tech-card">
+                        <div className="card-header">
+                          <Code2/>
+                          <h3>Frontend Development</h3>
+                        </div>
+                        <div className="card-content">
+                          <p>Languages: JavaScript, HTML5, CSS3, XAML</p>
+                          <p>Libraries & Frameworks: React, Vite</p>
+                          <p>UI & Styling: Compose Multiplatform, Tailwind CSS</p>
+                        </div>
+                      </div>
+
+                      {/* Backend */}
+                      <div className="tech-card">
+                        <div className="card-header">
+                          <Database/>
+                          <h3>Backend Development</h3>
+                        </div>
+                        <div className="card-content">
+                          <p>Languages: Java, Kotlin, Python, C++</p>
+                          <p>Frameworks: Node.js</p>
+                          <p>Databases: RDBMS (SQL), PostgreSQL</p>
+                        </div>
+                      </div>
+
+                      {/* DevOps */}
+                      <div className="tech-card">
+                        <div className="card-header">
+                          <Cloud/>
+                          <h3>DevOps & Cloud</h3>
+                        </div>
+                        <div className="card-content">
+                          <p>Containerization: Docker, Kubernetes, Argo CD</p>
+                          <p>Cloud Services: AWS, Google Cloud, Firebase</p>
+                          <p>CI/CD & Automation: GitHub Actions, CI/CD</p>
+                        </div>
+                      </div>
+
+                      {/* Tools */}
+                      <div className="tech-card">
+                        <div className="card-header">
+                          <Wrench/>
+                          <h3>Tools & Technologies</h3>
+                        </div>
+                        <div className="card-content">
+                          <p>Version Control: Git, GitHub</p>
+                          <p>Operating Systems: Linux, Windows</p>
+                          <p>Development Methodologies: Agile, Scrum, OOP</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Certifications - 20% */}
+                  <div className="cert-section">
+                    <h2 className="section-title">Certifications</h2>
+
+                    <div className="cert-carousel">
+                      <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`} onMouseEnter={handleTextHover} onMouseLeave={handleTextLeave}>
+                        <img
+                            src={certifications[currentCert].image}
+                            alt={certifications[currentCert].title}
+                        />
+                      </div>
+
+                      <div className="carousel-dots">
+                        {certifications.map((cert, index) => (
+                            <button
+                                key={cert.id}
+                                className={`dot ${currentCert === index ? 'active' : ''}`}
+                                onClick={() => setCurrentCert(index)}
+                            />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
+        <div
+            className="peek-circle"
+            style={{
+              top: circlePosition.y - scrollY,
+              left: circlePosition.x,
+              transform: `scale(${circleSize > 0 ? 1.2 : 1})`
+            }}
+        ></div>
       </div>
-      <div
-        className="peek-circle"
-        style={{
-          top: circlePosition.y - scrollY,
-          left: circlePosition.x
-        }}
-      ></div>
-    </div>
   );
 };
 
 export default App1;
-
-
-/*          <section className="section skills-section">
-  <div className="content-wrapper">
-    <h2 className="text-4xl font-bold mb-6">Skills</h2>
-    <div className="skills-grid">
-      <div className="skill-card">
-        <h3 className="text-xl font-bold mb-2">Frontend</h3>
-        <p>React, Vue.js, TypeScript</p>
-      </div>
-      <div className="skill-card">
-        <h3 className="text-xl font-bold mb-2">Backend</h3>
-        <p>Node.js, Python, Java</p>
-      </div>
-      <div className="skill-card">
-        <h3 className="text-xl font-bold mb-2">Database</h3>
-        <p>PostgreSQL, MongoDB, Redis</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section className="section experience-section">
-  <div className="content-wrapper">
-    <h2 className="text-4xl font-bold mb-6">Experience</h2>
-    <div className="experience-card">
-      <h3 className="text-2xl font-bold">Senior Software Engineer</h3>
-      <p className="text-xl mb-2">Tech Corp Inc. | 2020 - Present</p>
-      <ul className="list-disc ml-6">
-        <li>Led development of microservices architecture</li>
-        <li>Optimized application performance by 40%</li>
-      </ul>
-    </div>
-  </div>
-</section> */

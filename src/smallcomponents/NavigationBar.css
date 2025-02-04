@@ -8,6 +8,62 @@
   padding: 0.75rem 1.5rem;
   border-radius: 99px;
   backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 90%;
+  width: auto;
+}
+
+.navigation-bar button,
+.navigation-bar a {
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0.25rem 0.5rem;
+}
+
+.navigation-bar button:hover,
+.navigation-bar a:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+.github-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+
+@media (max-width: 640px) {
+  .navigation-bar {
+    padding: 0.5rem 1rem;
+    gap: 1rem;
+  }
+
+  .navigation-bar button,
+  .navigation-bar a {
+    font-size: 0.875rem;
+  }
+}
+
+
+
+/* NavigationBar.css */
+/*.navigation-bar {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 0.75rem 1.5rem;
+  border-radius: 99px;
+  backdrop-filter: blur(8px);
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -19,7 +75,7 @@
 }
 
 /* Dark mode styles */
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
   .navigation-bar {
     background-color: rgba(30, 30, 30, 0.7);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -39,7 +95,7 @@
 }
 
 /* Dark mode text color */
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
   .navigation-bar button,
   .navigation-bar a {
     color: rgba(255, 255, 255, 0.7);
@@ -52,7 +108,7 @@
 }
 
 /* Dark mode hover color */
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
   .navigation-bar button:hover,
   .navigation-bar a:hover {
     color: rgba(255, 255, 255, 1);
@@ -64,10 +120,10 @@
   height: 1.5rem;
   fill: rgba(0, 0, 0, 0.7);
   transition: fill 0.3s ease;
-}
+}*/
 
 /* Dark mode GitHub icon color */
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
   .github-icon svg {
     fill: rgba(255, 255, 255, 0.7);
   }
@@ -78,9 +134,9 @@
     padding: 0.5rem 1rem;
     gap: 1rem;
   }
-  
+
   .navigation-bar button,
   .navigation-bar a {
     font-size: 0.875rem;
   }
-}
+}*/

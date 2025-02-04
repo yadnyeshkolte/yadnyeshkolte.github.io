@@ -1,9 +1,18 @@
-import React from 'react';
+
 import NavigationBar from './smallcomponents/NavigationBar';
 import './App2.css';
 import reactLogo from './assets/devops.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
+import ProjectCard from "./smallcomponents/ProjectCard.jsx";
+import {Cloud, Code2, Database, Wrench} from "lucide-react";
+import {useEffect} from "react";
+import { useSharedCarousel } from './hooks/useSharedCarousel';
+import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
+import githubCert from './assets/certifications/github-foundations.png'
+import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
+import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
+import devopsCert from './assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png'
 
 const App2 = () => {
   const handleScroll = (e) => {
@@ -13,157 +22,207 @@ const App2 = () => {
     }
   };
 
-  const scrollToContact = () => {
-    const contactSection = document.querySelector('.contact-section');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+  const certifications = [
+    {
+      id: 1,
+      image: awsCert,
+      title: "AWS Educate Introduction to Cloud 101",
+      skills: ["Amazon Web Services (AWS)", "AWS Cloud", "AWS Cloud Computing", "Cloud Foundations"]
+    },
+    {
+      id: 2,
+      image: githubCert,
+      title: "GitHub Foundations",
+      skills: ["Build Pipeline", "Continuous Delivery", "Continuous Integration", "DevOps", "GitHub", "GitHub Actions"]
+    },
+    {
+      id: 3,
+      image: devopsCert,
+      title: "LFS162: Introduction to DevOps and Site Reliability Engineering",
+      skills: ["CI/CD", "Cloud Computing", "Containers", "DevOps", "IAC", "Kubernetes", "SRE"]
+    },
+    {
+      id: 4,
+      image: fdc3Cert,
+      title: "LFEL1000: Introduction to FDC3",
+      skills: ["Application Interoperability", "FDC3 Components", "FDC3 Standard"]
+    },
+    {
+      id: 5,
+      image: openSourceCert,
+      title: "LFD137: Open Source Contribution in Finance",
+      skills: ["Open Source Readiness", "Finance", "Regulation"]
     }
-    };
+  ];
+
+  const [currentCert, setCurrentCert, isTransitioning] = useSharedCarousel(certifications);
+
+  useEffect(() => {
+    console.log('Certification changed:', {
+      index: currentCert,
+      title: certifications[currentCert]?.title
+    });
+  }, [currentCert, certifications]);
+
 
   return (
-    <div className="app2-container" onScroll={handleScroll}>
-      <NavigationBar 
-        githubUrl="https://github.com/yourusername"
-        blogUrl="https://yourblog.com"
-      />
-      <div className='shader'>
-        <ShaderBackground />
-      </div>
-      <section className="section intro-section">
-        <div className="intro-quote-side">
-          <div className="quote-container">
-            <blockquote className="quote">
-              "Code is like humor. When you have to explain it, it's bad."
-            </blockquote>
-            <cite className="quote-author">- Cory House</cite>
-          </div>
+      <div className="app2-container" onScroll={handleScroll}>
+        <NavigationBar
+            githubUrl="https://github.com/yourusername"
+            blogUrl="https://yourblog.com"
+        />
+        <div className='shader'>
+          <ShaderBackground/>
         </div>
-        <div className="intro-content-side">
-          <div className="content-wrapper">
-            <div className="profile-title-container">
-              <img 
-                src={reactLogo} 
-                alt="Profile" 
-                className="profile-image" 
-              />
-              <h1 className="intro-title">Yadnyesh Kolte</h1>
+        <section className="section intro-section">
+          <div className="intro-quote-side">
+            <div className="quote-container">
+              <blockquote className="quote">
+                Nothing is more difficult, and therefore more precious, than to be able to decide
+              </blockquote>
+              <cite className="quote-author">- Napoleon Bonaparte</cite>
             </div>
-            <p className="intro-description">
-              Aspiring DevOps Engineer specializing in streamlining deployment processes 
-              and enhancing efficiency. Experienced in continuous integration, 
-              Kubernetes, and workflow automation
-            </p>
-            <SocialIcons />
           </div>
-        </div>
-      </section>
-      
-      <section className="section project-section">
-        <div className="project-section-background"></div>
-        <div className="content-wrapper">
-          <h2 className="text-4xl font-bold mb-6">DevOps Projects</h2>
-          <div className="projects-container">
-            {[
-              {
-                name: "Kubernetes Cluster Orchestration",
-                description: "Implemented a multi-region Kubernetes deployment with automated scaling and self-healing capabilities.",
-                technologies: ["Kubernetes", "Terraform", "AWS"]
-              },
-              {
-                name: "CI/CD Pipeline Optimization",
-                description: "Developed a comprehensive CI/CD solution reducing deployment times by 60% and improving reliability.",
-                technologies: ["Jenkins", "Docker", "GitLab CI"]
-              },
-              {
-                name: "Microservices Infrastructure",
-                description: "Designed a scalable microservices architecture with advanced monitoring and logging solutions.",
-                technologies: ["Istio", "Prometheus", "ELK Stack"]
-              },
-              {
-                name: "Cloud Cost Optimization Framework",
-                description: "Created an intelligent cost management system for tracking and optimizing cloud resource utilization.",
-                technologies: ["AWS", "Python", "CloudWatch"]
-              }
-            ].map((project, index) => (
-              <div key={index} className="project-card">
-                <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
-                <p className="mb-4">{project.description}</p>
-                <div className="text-sm">
-                  <strong>Technologies:</strong>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="bg-white/10 px-2 py-1 rounded-full">
-                        {tech}
-                      </span>
+          <div className="intro-content-side">
+            <div className="content-wrapper">
+              <div className="profile-title-container">
+                <img
+                    src={reactLogo}
+                    alt="Profile"
+                    className="profile-image"
+                />
+                <h1 className="intro-title">Yadnyesh Kolte</h1>
+              </div>
+              <p className="intro-description">
+                Aspiring DevOps Engineer specializing in streamlining deployment processes
+                and enhancing efficiency. Experienced in continuous integration,
+                Kubernetes, and workflow automation
+              </p>
+              <SocialIcons/>
+            </div>
+          </div>
+        </section>
+
+
+        <section className="section project-section">
+          <div className="project-section-background"></div>
+          <div className="project-content">
+            <div className="projects-grid">
+              <ProjectCard
+                  title="Cross-platform Markdown editor with AI assistance"
+                  description="Integrated Google's Gemini AI to provide real-time writing assistance, including suggestions, formatting help, and content ideas. Implemented APIs and message buses for seamless communication between the open-source Markdown editor and the Gemini AI, ensuring efficient data exchange and real-time feedback."
+                  githubUrl="https://github.com/yadnyeshkolte/CrossDocs"
+              />
+              <ProjectCard
+                  title="ESP32-Based ATM-Like Functioning Telegram Bot"
+                  description="This resulted in a remarkable 40% improvement in response time efficiency and enhanced transactional throughput. By bridging telecommunications technology with IoT applications, this innovative solution showcased an elegant approach to creating a user-centric, secure digital banking platform that adheres to Software Development Life Cycle (SDLC) best practices."
+                  githubUrl="https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a"
+              />
+              <ProjectCard
+                  title="Guestbook Application Deployment"
+                  description="Key features included real-time application synchronization, robust CI/CD pipelines, and automated policy enforcement, resulting in a secure and user-centric deployment process. The implementation also highlighted the effective use of Kubernetes' declarative approach, significantly enhancing response time efficiency and transactional throughput."
+                  githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
+              />
+            </div>
+          </div>
+        </section>
+        <section className="section tech-stack-section">
+          <div className="tech-container">
+            <div className="content-wrapper">
+              {/* Tech Stack - 70% */}
+              <div className="tech-section">
+                <h2 className="section-title">Technical Expertise</h2>
+
+                <div className="tech-grid">
+                  {/* Frontend */}
+                  <div className="tech-card">
+                    <div className="card-header">
+                      <Code2/>
+                      <h3>Frontend Development</h3>
+                    </div>
+                    <div className="card-content">
+                      <p>Languages: JavaScript, HTML5, CSS3, XAML</p>
+                      <p>Libraries & Frameworks: React, Vite</p>
+                      <p>UI & Styling: Compose Multiplatform, Tailwind CSS</p>
+                    </div>
+                  </div>
+
+                  {/* Backend */}
+                  <div className="tech-card">
+                    <div className="card-header">
+                      <Database/>
+                      <h3>Backend Development</h3>
+                    </div>
+                    <div className="card-content">
+                      <p>Languages: Java, Kotlin, Python, C++</p>
+                      <p>Frameworks: Node.js</p>
+                      <p>Databases: RDBMS (SQL), PostgreSQL</p>
+                    </div>
+                  </div>
+
+                  {/* DevOps */}
+                  <div className="tech-card">
+                    <div className="card-header">
+                      <Cloud/>
+                      <h3>DevOps & Cloud</h3>
+                    </div>
+                    <div className="card-content">
+                      <p>Containerization: Docker, Kubernetes, Argo CD</p>
+                      <p>Cloud Services: AWS, Google Cloud, Firebase</p>
+                      <p>CI/CD & Automation: GitHub Actions, CI/CD</p>
+                    </div>
+                  </div>
+
+                  {/* Tools */}
+                  <div className="tech-card">
+                    <div className="card-header">
+                      <Wrench/>
+                      <h3>Tools & Technologies</h3>
+                    </div>
+                    <div className="card-content">
+                      <p>Version Control: Git, GitHub</p>
+                      <p>Operating Systems: Linux, Windows</p>
+                      <p>Development Methodologies: Agile, Scrum, OOP</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Certifications - 20% */}
+              <div className="cert-section">
+                <h2 className="section-title">Certifications</h2>
+
+                <div className="cert-carousel">
+                  <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`}>
+                    <img
+                        src={certifications[currentCert].image}
+                        alt={certifications[currentCert].title}
+                    />
+                    <div className="skills-overlay">
+                      <h3>{certifications[currentCert].title}</h3>
+                      <div className="skills-container">
+                        {certifications[currentCert].skills.map((skill, index) => (
+                            <span key={index} className="skill-tag">{skill}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="carousel-dots">
+                    {certifications.map((cert, index) => (
+                        <button
+                            key={cert.id}
+                            className={`dot ${currentCert === index ? 'active' : ''}`}
+                            onClick={() => setCurrentCert(index)}
+                        />
                     ))}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section contact-section">
-        <div className="content-wrapper">
-          <h2 className="section-title">Contact</h2>
-          <div className="contact-grid">
-            <div className="contact-card">
-              <h3>Get in Touch</h3>
-              <p>Feel free to reach out for collaborations or just a friendly hello</p>
-              <div className="contact-info">
-                <p>📧 john.doe@example.com</p>
-                <p>📱 +1 (555) 123-4567</p>
-                <p>📍 San Francisco, CA</p>
-              </div>
-            </div>
-            <div className="contact-card">
-              <h3>Social Media</h3>
-              <div className="contact-info">
-                <p>LinkedIn: @johndoe</p>
-                <p>Twitter: @johndoe</p>
-                <p>GitHub: @johndoe</p>
-              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
   );
 };
 
 export default App2;
-
-/*      <section className="section skills-section">
-  <div className="content-wrapper">
-    <h2 className="section-title">Skills</h2>
-    <div className="skills-grid">
-      <div className="skill-card">
-        <h3>Cloud Platforms</h3>
-        <p>AWS, Azure, GCP</p>
-      </div>
-      <div className="skill-card">
-        <h3>CI/CD</h3>
-        <p>Jenkins, GitLab CI, GitHub Actions</p>
-      </div>
-      <div className="skill-card">
-        <h3>Infrastructure</h3>
-        <p>Terraform, Ansible, Kubernetes</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section className="section experience-section">
-  <div className="content-wrapper">
-    <h2 className="section-title">Experience</h2>
-    <div className="experience-card">
-      <h3>Lead DevOps Engineer</h3>
-      <p>Cloud Solutions Ltd | 2019 - Present</p>
-      <ul>
-        <li>Implemented infrastructure as code using Terraform</li>
-        <li>Reduced deployment time by 60%</li>
-      </ul>
-    </div>
-  </div>
-</section> */
