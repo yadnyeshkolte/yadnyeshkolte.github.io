@@ -1,21 +1,22 @@
-// NavigationBar.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import './NavigationBar.css';
-import * as PropTypes from "prop-types";
+import OverlayContact from './OverlayContact';
 
-class NavigationBar extends React.Component {
-    render() {
-        let {githubUrl, blogUrl} = this.props;
-        const scrollToSection = (sectionId) => {
-            const section = document.querySelector(`.${sectionId}-section`);
-            if (section) {
-                section.scrollIntoView({behavior: 'smooth'});
-            }
-        };
-        return (
+const NavigationBar = ({ githubUrl, blogUrl }) => {
+    const [isContactOpen, setIsContactOpen] = useState(false);
+
+    const scrollToSection = (sectionId) => {
+        const section = document.querySelector(`.${sectionId}-section`);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    return (
+        <>
             <nav className="navigation-bar">
                 <button onClick={() => scrollToSection('intro')}>Home</button>
-                <button onClick={() => scrollToSection('contact')}>Contact</button>
+                <button onClick={() => setIsContactOpen(true)}>Contact</button>
                 <a href={blogUrl} target="_blank" rel="noopener noreferrer">Blog</a>
                 <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="github-icon">
                     <svg viewBox="0 0 24 24">
@@ -25,12 +26,12 @@ class NavigationBar extends React.Component {
                     </svg>
                 </a>
             </nav>
-        );
-    }
-}
-NavigationBar.propTypes = {
-    githubUrl: PropTypes.any,
-    blogUrl: PropTypes.any
-}
+            <OverlayContact
+                isOpen={isContactOpen}
+                onClose={() => setIsContactOpen(false)}
+            />
+        </>
+    );
+};
 
 export default NavigationBar;
