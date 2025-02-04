@@ -211,23 +211,23 @@ const App1 = () => {
               <div className="project-content">
                 <div className="projects-grid">
                   <ProjectCard
-                      title="Cloud-Native CI/CD Pipeline"
-                      description="Responsive grid layout that Created a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
+                      title="Cross-platform Markdown editor with AI assistance"
+                      description="Developed a cross-platform Markdown editor using Kotlin Compose Multiplatform, featuring real-time preview, dark/light themes, and in-app Markdown guide. Packaged the application for Windows, macOS, Linux, and Android, ensuring native performance and seamless installation across platforms."
                       githubUrl="https://github.com/username/cloud-cicd"
                       onHover={handleTextHover}
                       onLeave={handleTextLeave}
                   />
                   <ProjectCard
-                      title="Infrastructure as Code"
+                      title="Guestbook Application Deployment"
                       description="ResponsiCreated a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
-                      githubUrl="https://github.com/username/iac-terraform"
+                      githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
                       onHover={handleTextHover}
                       onLeave={handleTextLeave}
                   />
                   <ProjectCard
-                      title="Monitoring Dashboard"
-                      description="Created a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
-                      githubUrl="https://github.com/username/monitoring-dashboard"
+                      title="ESP32-Based ATM-Like Functioning Telegram Bot"
+                      description="Developed a cool Telegram bot integrated with an ESP32 microcontroller to simulate advanced ATM functionalities, leveraging Java, C++, and Python to create a robust communication system for remote banking transactions. The project demonstrate programming expertise by seamless hardware-software interaction that optimized microcontroller programming methodologies."
+                      githubUrl="https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a"
                       onHover={handleTextHover}
                       onLeave={handleTextLeave}
                   />
