@@ -9,9 +9,10 @@ import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import {useEffect} from "react";
 import { useSharedCarousel } from './hooks/useSharedCarousel';
 import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
-import githubCert from './assets/certifications/gihub-foundation.png'
-import fdc3Cert from './assets/certifications/introduction-to-fdc3.png'
-import openSourceCert from './assets/certifications/open-source-contribution-in-finance.png'
+import githubCert from './assets/certifications/github-foundations.png'
+import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
+import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
+import devopsCert from './assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png'
 import ContactSection from "./Components/ContactSection.jsx";
 
 const App2 = () => {
@@ -37,12 +38,18 @@ const App2 = () => {
     },
     {
       id: 3,
+      image: devopsCert,
+      title: "LFS162: Introduction to DevOps and Site Reliability Engineering",
+      skills: ["CI/CD", "Cloud Computing", "Containers", "DevOps", "IAC", "Kubernetes", "SRE"]
+    },
+    {
+      id: 4,
       image: fdc3Cert,
       title: "LFEL1000: Introduction to FDC3",
       skills: ["Application Interoperability", "FDC3 Components", "FDC3 Standard"]
     },
     {
-      id: 4,
+      id: 5,
       image: openSourceCert,
       title: "LFD137: Open Source Contribution in Finance",
       skills: ["Open Source Readiness", "Finance", "Regulation"]

@@ -162,7 +162,6 @@
 
   filter:
           blur(0px)
-          brightness(0.9)
 }
 
 @keyframes backgroundChange {
@@ -255,7 +254,6 @@
   position: relative;
   overflow: hidden;
   padding: 4rem 2rem !important;
-  background-color: white;
 }
 
 .tech-container {
