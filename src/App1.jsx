@@ -213,21 +213,21 @@ const App1 = () => {
                   <ProjectCard
                       title="Cross-platform Markdown editor with AI assistance"
                       description="Developed a cross-platform Markdown editor using Kotlin Compose Multiplatform, featuring real-time preview, dark/light themes, and in-app Markdown guide. Packaged the application for Windows, macOS, Linux, and Android, ensuring native performance and seamless installation across platforms."
-                      githubUrl="https://github.com/username/cloud-cicd"
-                      onHover={handleTextHover}
-                      onLeave={handleTextLeave}
-                  />
-                  <ProjectCard
-                      title="Guestbook Application Deployment"
-                      description="ResponsiCreated a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
-                      githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
+                      githubUrl="https://github.com/yadnyeshkolte/CrossDocs"
                       onHover={handleTextHover}
                       onLeave={handleTextLeave}
                   />
                   <ProjectCard
                       title="ESP32-Based ATM-Like Functioning Telegram Bot"
-                      description="Developed a cool Telegram bot integrated with an ESP32 microcontroller to simulate advanced ATM functionalities, leveraging Java, C++, and Python to create a robust communication system for remote banking transactions. The project demonstrate programming expertise by seamless hardware-software interaction that optimized microcontroller programming methodologies."
+                      description="Developed a cool Telegram bot integrated with an ESP32 microcontroller to simulate advanced ATM functionalities, leveraging Java, C++, and Python to create a robust communication system for remote banking transactions. The project demonstrated programming expertise by implementing hardware-software interaction that optimized microcontroller programming methodologies."
                       githubUrl="https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a"
+                      onHover={handleTextHover}
+                      onLeave={handleTextLeave}
+                  />
+                  <ProjectCard
+                      title="Guestbook Application Deployment"
+                      description="Developed a comprehensive continuous delivery pipeline leveraging Argo CD and GitOps principles for Kubernetes. The project incorporated tools like Docker, GitHub, Helm, Lens, and DateTree, facilitating efficient container orchestration and version control."
+                      githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
                       onHover={handleTextHover}
                       onLeave={handleTextLeave}
                   />

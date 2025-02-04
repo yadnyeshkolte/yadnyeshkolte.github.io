@@ -110,18 +110,18 @@ const App2 = () => {
             <div className="projects-grid">
               <ProjectCard
                   title="Cross-platform Markdown editor with AI assistance"
-                  description="Developed a cross-platform Markdown editor using Kotlin Compose Multiplatform, featuring real-time preview, dark/light themes, and in-app Markdown guide. Packaged the application for Windows, macOS, Linux, and Android, ensuring native performance and seamless installation across platforms."
-                  githubUrl="https://github.com/username/cloud-cicd"
-              />
-              <ProjectCard
-                  title="Guestbook Application Deployment"
-                  description="ResponsiCreated a real-time monitoring dashboard using Prometheus and Grafana for tracking system metrics and application performance."
-                  githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
+                  description="Integrated Google's Gemini AI to provide real-time writing assistance, including suggestions, formatting help, and content ideas. Implemented APIs and message buses for seamless communication between the open-source Markdown editor and the Gemini AI, ensuring efficient data exchange and real-time feedback."
+                  githubUrl="https://github.com/yadnyeshkolte/CrossDocs"
               />
               <ProjectCard
                   title="ESP32-Based ATM-Like Functioning Telegram Bot"
-                  description="Developed a cool Telegram bot integrated with an ESP32 microcontroller to simulate advanced ATM functionalities, leveraging Java, C++, and Python to create a robust communication system for remote banking transactions. The project demonstrate programming expertise by seamless hardware-software interaction that optimized microcontroller programming methodologies."
+                  description="This resulted in a remarkable 40% improvement in response time efficiency and enhanced transactional throughput. By bridging telecommunications technology with IoT applications, this innovative solution showcased an elegant approach to creating a user-centric, secure digital banking platform that adheres to Software Development Life Cycle (SDLC) best practices."
                   githubUrl="https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a"
+              />
+              <ProjectCard
+                  title="Guestbook Application Deployment"
+                  description="Key features included real-time application synchronization, robust CI/CD pipelines, and automated policy enforcement, resulting in a secure and user-centric deployment process. The implementation also highlighted the effective use of Kubernetes' declarative approach, significantly enhancing response time efficiency and transactional throughput."
+                  githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
               />
             </div>
           </div>
