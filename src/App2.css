@@ -80,6 +80,7 @@
   padding: 1.5rem;
   border-radius: 8px;
   max-width: 300px;
+  z-index: 1;
 }
 
 .quote {
@@ -93,7 +94,6 @@
   display: block;
   text-align: right;
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
 }
 
 .profile-title-container {

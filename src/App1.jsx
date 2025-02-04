@@ -5,7 +5,7 @@ import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx'
 import ProjectCard from "./smallcomponents/ProjectCard.jsx";
-import {Cloud, Code2, Database, Section, Wrench} from "lucide-react";
+import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import { useSharedCarousel } from './hooks/useSharedCarousel';
 import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
 import githubCert from './assets/certifications/github-foundations.png'
@@ -162,8 +162,8 @@ const App1 = () => {
   return (
       <div className="app1-container" onMouseMove={handleMouseMove}>
         <NavigationBar
-            githubUrl="https://github.com/yourusername"
-            blogUrl="https://yourblog.com"
+            githubUrl="https://github.com/yadnyeshkolte"
+            blogUrl="https://cyberconnaught.wordpress.com/"
         />
         <div className="app1-scrollable" onScroll={handleScroll}>
           <div
@@ -181,9 +181,9 @@ const App1 = () => {
               <div className="intro-quote-side">
                 <div className="quote-container hoverable" onMouseEnter={handleTextHover} onMouseLeave={handleTextLeave}>
                   <blockquote className="quote">
-                    Whatever the mind can conceive and believe, it can achieve
+                    Great ambition is the passion of a great character
                   </blockquote>
-                  <cite className="quote-author">- Napolean Hill</cite>
+                  <cite className="quote-author">- Napoleon Bonaparte</cite>
                 </div>
               </div>
               <div className="intro-content-side">
