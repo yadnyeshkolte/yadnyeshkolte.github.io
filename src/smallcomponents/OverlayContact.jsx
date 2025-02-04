@@ -63,14 +63,14 @@ const OverlayContact = ({ isOpen, onClose }) => {
                     encType="text/plain"
                     target="hidden_iframe"
                     onSubmit={handleSubmit}
-                    action="https://docs.google.com/forms/d/e/1FAIpQLScy1iM-erdX2ZaZGqkt5rlksSGK2sFK59LHISRaBxc2Sb0e7g/formResponse?"
+                    action="https://docs.google.com/forms/d/e/1FAIpQLSf3cJBr8WxHFH0ZpsJqpM9M4VJQ49RVN47AdYfetcXSDHiywA/formResponse?"
                 >
                     <div className="form-row">
                         <div className="form-group">
                             <label>Name</label>
                             <input
                                 type="text"
-                                name="entry.508287588"
+                                name="entry.434470781"
                                 required
                             />
                         </div>
@@ -79,7 +79,7 @@ const OverlayContact = ({ isOpen, onClose }) => {
                             <label>Email</label>
                             <input
                                 type="email"
-                                name="entry.1219103022"
+                                name="entry.1599633239"
                                 required
                             />
                         </div>
@@ -88,7 +88,7 @@ const OverlayContact = ({ isOpen, onClose }) => {
                     <div className="form-group">
                         <label>Message</label>
                         <textarea
-                            name="entry.1912912210"
+                            name="entry.880782702"
                             required
                             rows="6"
                         />
