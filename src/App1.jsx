@@ -12,7 +12,6 @@ import githubCert from './assets/certifications/github-foundations.png'
 import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
 import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
 import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
-import ContactSection from "./Components/ContactSection.jsx";
 
 
 const App1 = () => {
@@ -322,9 +321,6 @@ const App1 = () => {
                   </div>
                 </div>
               </div>
-            </section>
-            <section className="section contact-section">
-                <ContactSection/>
             </section>
           </div>
         </div>
