@@ -421,12 +421,6 @@
   background: #60A5FA;
 }
 
-.contact-section {
-  background-image: url('./assets/contact-light.png'); align-items: center;
-  background-size: cover;
-}
-
-
 @media (max-width: 768px) {
   .intro-title {
     font-size: 2.5rem;
