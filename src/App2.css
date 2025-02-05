@@ -466,6 +466,7 @@
     min-width: 70vw; /* Make cards take up most of the viewport width */
     scroll-snap-align: center;
     margin-right: 1rem; /* Space between cards */
+    box-shadow: none;
   }
 
   /* Hide scrollbar but keep functionality */
