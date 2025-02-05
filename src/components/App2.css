@@ -420,6 +420,17 @@
 
 
 @media (max-width: 768px) {
+
+  /* Remove scroll snapping for sections on mobile */
+  .app2-container .section {
+    scroll-snap-align: none;
+  }
+  /* Ensure smooth scrolling is disabled for the main containers */
+  .app2-container {
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: auto;
+  }
+
   .intro-title {
     font-size: 2.5rem;
   }
