@@ -13,7 +13,8 @@ import {
   WebGLRenderer,
 } from 'three';
 import { cleanRenderer, cleanScene, removeLights } from './shaders/three';
-import fragmentShader from './shaders/fragmentlight.glsl?raw';
+import fragmentLightShader from './shaders/fragmentlight.glsl?raw';
+import fragmentDarkShader from './shaders/fragmentdark.glsl?raw';
 import vertexShader from './shaders/vertex.glsl?raw';
 
 export const ShaderBackground = props => {
@@ -33,9 +34,35 @@ export const ShaderBackground = props => {
   const smoothRotationX = useRef(0);
   const smoothRotationY = useRef(0);
 
+  const createMaterial = (isDark) => {
+    const newMaterial = new MeshPhongMaterial();
+    newMaterial.onBeforeCompile = shader => {
+      uniforms.current = UniformsUtils.merge([
+        shader.uniforms,
+        { time: { type: 'f', value: uniforms.current ? uniforms.current.time.value : 0 } },
+      ]);
+
+      shader.uniforms = uniforms.current;
+      shader.vertexShader = vertexShader;
+      shader.fragmentShader = isDark ? fragmentDarkShader : fragmentLightShader;
+      newMaterial.userData.shader = shader;
+    };
+    return newMaterial;
+  };
+
+  const updateShader = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (sphere.current) {
+      const newMaterial = createMaterial(isDark);
+      sphere.current.material.dispose();
+      sphere.current.material = newMaterial;
+      material.current = newMaterial;
+    }
+  };
+
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
-    
+
     renderer.current = new WebGLRenderer({
       canvas: canvasRef.current,
       antialias: false,
@@ -51,17 +78,8 @@ export const ShaderBackground = props => {
 
     scene.current = new Scene();
 
-    material.current = new MeshPhongMaterial();
-    material.current.onBeforeCompile = shader => {
-      uniforms.current = UniformsUtils.merge([
-        shader.uniforms,
-        { time: { type: 'f', value: 0 } },
-      ]);
-
-      shader.uniforms = uniforms.current;
-      shader.vertexShader = vertexShader;
-      shader.fragmentShader = fragmentShader;
-    };
+    const isDark = document.documentElement.classList.contains('dark');
+    material.current = createMaterial(isDark);
 
     startTransition(() => {
       geometry.current = new SphereGeometry(32, 128, 128);
@@ -89,8 +107,29 @@ export const ShaderBackground = props => {
 
     window.addEventListener('mousemove', handleMouseMove);
 
+    // Theme change observer
+    const observer = new MutationObserver(() => {
+      updateShader();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    // Handle storage changes for cross-tab sync
+    const handleStorageChange = (e) => {
+      if (e.key === 'darkMode') {
+        updateShader();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
     return () => {
+      window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('mousemove', handleMouseMove);
+      observer.disconnect();
       cleanScene(scene.current);
       cleanRenderer(renderer.current);
       removeLights(lights.current);
@@ -129,24 +168,12 @@ export const ShaderBackground = props => {
   }, [mousePosition]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="shader-background"
-      {...props}
-    />
+      <canvas
+          ref={canvasRef}
+          className="shader-background"
+          {...props}
+      />
   );
 };
-
-//Cyan color
-/*
-vec3 color = vec3(vUv * (0.2 - 2.0 * noise), 1.0); 
-vec3 finalColors = vec3(color.b * 1.5, color.r, color.r); 
-vec4 diffuseColor = vec4(cos(finalColors * noise * 3.0), 1.0); */
-
-//Grey shader model
-/*  vec3 color = vec3(vUv * (0.2 - 2.0 * noise), 1.0);
-vec3 finalColors = vec3(color.b * 1.5);
-vec4 diffuseColor = vec4(cos(finalColors * noise * 3.0), 1.0);
-*/
 
 export default ShaderBackground;

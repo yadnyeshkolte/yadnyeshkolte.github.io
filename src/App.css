@@ -4,19 +4,61 @@
   width: 100%;
 }
 
+/* Add these styles to App.css */
 .mobile-app1-container {
   height: 100vh;
   width: 100%;
   overflow-y: auto;
+  background-color: white; /* Light mode default */
+  color: black; /* Light mode default */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Media query to remove peek-through effect on mobile */
+/* Dark mode styles for mobile container */
+.dark .mobile-app1-container {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+
 @media (max-width: 768px) {
   .app1-overlay {
     /* Remove the mask effect for mobile */
     mask-image: none !important;
     -webkit-mask-image: none !important;
-    background: white !important;
+    background: white !important; /* Light mode default */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Dark mode specific styles for mobile */
+  .dark .app1-overlay {
+    background: #1a1a1a !important;
+    color: white;
+  }
+
+  /* Mobile-specific dark mode styles for components */
+  .dark .project-card {
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+  }
+
+  .dark .tech-section {
+    background-color: #2a2a2a;
+    color: white;
+  }
+
+  .dark .quote-container {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+  }
+
+  .dark .github-link {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .dark .tech-card {
+    background: rgba(0, 0, 0, 0.2);
   }
 
   /* Hide the peek circle on mobile */
