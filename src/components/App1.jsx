@@ -1,17 +1,17 @@
 import {useCallback, useEffect, useState} from 'react';
-import NavigationBar from './smallcomponents/NavigationBar';
+import NavigationBar from '../smallcomponents/NavigationBar.jsx';
 import './App1.css';
-import reactLogo from './assets/yadnyesh.jpg'
-import SocialIcons from './smallcomponents/SocialIcons';
-import ShaderBackground from './ShaderBackground.jsx'
-import ProjectCard from "./smallcomponents/ProjectCard.jsx";
+import reactLogo from '../assets/yadnyesh.jpg'
+import SocialIcons from '../smallcomponents/SocialIcons.jsx';
+import ShaderModel from '../smallcomponents/ShaderModel.jsx'
+import ProjectCard from "../smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
-import { useSharedCarousel } from './hooks/useSharedCarousel';
-import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
-import githubCert from './assets/certifications/github-foundations.png'
-import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
-import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
-import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
+import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
+import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.png'
+import githubCert from '../assets/certifications/github-foundations.png'
+import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.png'
+import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.png'
+import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
 
 
 const App1 = () => {
@@ -183,7 +183,7 @@ const App1 = () => {
               }}
           >
             <div className='shader'>
-              <ShaderBackground/>
+              <ShaderModel/>
             </div>
             <section className="section intro-section">
               <div className="intro-quote-side">

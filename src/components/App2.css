@@ -1,4 +1,5 @@
-.app1-container {
+/* App2.css */
+.app2-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -6,42 +7,13 @@
   bottom: 0;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-}
-
-.app1-scrollable {
-  height: 100vh;
+  background-color: white;
+  color: #333;
   overflow-y: auto;
-  position: relative;
-  z-index: 1;
+  z-index: -1;
 }
 
-.app1-overlay {
-  position: relative;
-  background: radial-gradient(circle at top right, white, lightblue, #89cff0);
-
-  color: black;
-  mask-image: radial-gradient(circle at var(--x) var(--y), transparent var(--circle-size), black 50px);
-  -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent var(--circle-size), black 50px);
-}
-
-/* Add styles for text hover effect */
-.hoverable {
-  position: relative;
-  z-index: 2;
-}
-
-.peek-circle {
-  position: fixed;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 0 solid white;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.app1-container .section {
+.app2-container .section {
   min-height: 100vh;
   scroll-snap-align: start;
   display: flex;
@@ -49,6 +21,7 @@
   justify-content: center;
   padding: 2rem;
 }
+
 
 .intro-section .content-wrapper {
   display: flex;
@@ -78,22 +51,22 @@
   padding: 0 1rem;
 }
 
-
 .intro-section {
   display: flex;
   min-height: 100vh;
   padding: 0 !important;
   overflow: hidden;
-
 }
+
 .intro-content-side {
   width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-
 }
+
+
 .intro-quote-side {
   width: 50%;
   display: flex;
@@ -101,18 +74,22 @@
   justify-content: center;
   padding: 2rem;
 }
+
 .quote-container {
   background-color: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   border-radius: 8px;
   max-width: 300px;
+  z-index: 1;
 }
+
 .quote {
   font-style: italic;
   font-size: 1.2rem;
   margin-bottom: 1rem;
   line-height: 1.4;
 }
+
 .quote-author {
   display: block;
   text-align: right;
@@ -131,8 +108,9 @@
   height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid rgba(255, 255, 255, 0.2);
+  border: 4px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 0;
+
 }
 
 /* Project Section */
@@ -143,7 +121,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('./assets/project-section-light-theme/1.png');
+  background-image: url('../assets/project-section-light-theme/1.png');
   background-size: cover;
   background-position: center;
   opacity: 0.7;
@@ -165,41 +143,40 @@
 
 @keyframes backgroundChange {
   0%, 20% {
-    background-image: url('./assets/project-section-light-theme/1.png');
+    background-image: url('../assets/project-section-light-theme/1.png');
   }
   21%, 40% {
-    background-image: url('./assets/project-section-light-theme/2.png');
+    background-image: url('../assets/project-section-light-theme/2.png');
   }
   41%, 60% {
-    background-image: url('./assets/project-section-light-theme/3.png');
+    background-image: url('../assets/project-section-light-theme/3.png');
   }
   61%, 80% {
-    background-image: url('./assets/project-section-light-theme/2.png');
+    background-image: url('../assets/project-section-light-theme/2.png');
   }
   81%, 100% {
-    background-image: url('./assets/project-section-light-theme/3.png');
+    background-image: url('../assets/project-section-light-theme/3.png');
   }
 }
+
 
 @keyframes backgroundChangeDark {
   0%, 20% {
-    background-image: url('./assets/project-section-dark-theme/1.png');
+    background-image: url('../assets/project-section-dark-theme/1.png');
   }
   21%, 40% {
-    background-image: url('./assets/project-section-dark-theme/2.png');
+    background-image: url('../assets/project-section-dark-theme/2.png');
   }
   41%, 60% {
-    background-image: url('./assets/project-section-dark-theme/3.png');
+    background-image: url('../assets/project-section-dark-theme/3.png');
   }
   61%, 80% {
-    background-image: url('./assets/project-section-dark-theme/2.png');
+    background-image: url('../assets/project-section-dark-theme/2.png');
   }
   81%, 100% {
-    background-image: url('./assets/project-section-dark-theme/3.png');
+    background-image: url('../assets/project-section-dark-theme/3.png');
   }
 }
-
-
 
 .project-section {
   position: relative;
@@ -231,11 +208,10 @@
   display: flex;
   flex-direction: column;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, background-color 0.9s ease, box-shadow 0.9s ease;
+  transition: transform 0.3s ease, background-color 0.8s ease, box-shadow 0.8s ease;
 }
 
 .project-card:hover {
-  background-color: #CFE8F1;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -268,12 +244,14 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-/*Tech section*/
+/*tech section*/
+
 .tech-stack-section {
   position: relative;
   overflow: hidden;
   padding: 4rem 2rem !important;
 }
+
 
 .tech-container {
   min-height: 100vh;
@@ -289,19 +267,11 @@
 /* Tech Stack Section - 70% */
 .tech-section {
   flex: 0 0 70%;
-  background-color: #CFE8F1;
   backdrop-filter: blur(8px);
   border-radius: 1rem;
   padding: 2rem;
-  margin-top: 8rem;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, background-color 0.9s ease, box-shadow 0.9s ease;
 }
-/*
-.tech-section:hover {
-  background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}*/
 
 .section-title {
   font-size: 2rem;
@@ -354,16 +324,8 @@
   backdrop-filter: blur(8px);
   border-radius: 1rem;
   padding: 1rem;
-  margin-top: 8rem;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
   height: fit-content;
-  transition: transform 0.3s ease, background-color 0.9s ease, box-shadow 0.9s ease;
-}
-
-
-.cert-section:hover {
-  background-color: #CFE8F1;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .cert-carousel {
@@ -384,6 +346,7 @@
   transition: opacity 300ms ease-in-out;
 }
 
+
 .cert-card.transitioning {
   opacity: 0.5;
   transition: opacity 300ms ease-in-out;
@@ -395,6 +358,38 @@
   object-fit: contain;
 }
 
+.skills-overlay {
+  position: absolute;
+  background-color: white;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.skills-overlay h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+}
+
+.skill-tag {
+  background: rgba(96, 165, 250, 0.5);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}
 
 .carousel-dots {
   display: flex;
@@ -421,6 +416,7 @@
   background: #60A5FA;
 }
 
+
 @media (max-width: 768px) {
   .intro-title {
     font-size: 2.5rem;
@@ -434,10 +430,6 @@
     font-size: 1rem;
   }
 
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
   .intro-section {
     flex-direction: column;
   }
@@ -445,6 +437,7 @@
     width: 100%;
     padding: 1rem;
   }
+
   .intro-quote-side {
     display: none;
   }
@@ -452,6 +445,7 @@
   .intro-section .content-wrapper {
     text-align: center;
   }
+
   .profile-title-container {
     flex-direction: column;
     align-items: center;
@@ -491,6 +485,10 @@
     padding-right: 1rem;
   }
 
+  .tech-stack-section {
+    padding: 2rem 1rem !important;
+  }
+
   .tech-container {
     padding: 1rem;
   }
@@ -510,11 +508,9 @@
   .cert-section {
     display: none;
   }
-  .tech-stack-section {
-    padding: 2rem 1rem !important;
-  }
 
 }
+
 
 @media (max-width: 1024px) {
   .content-wrapper {
@@ -525,14 +521,12 @@
   .cert-section {
     flex: 1;
   }
-
 }
 
 
-/* Dark mode styles for App1 */
-/* Dark mode styles for App1 */
-.dark .app1-overlay {
-  background: radial-gradient(circle at top right, #2a2a2a, #1a1a1a);
+/* Dark mode styles for App2 */
+.dark .app2-container {
+  background-color: #1a1a1a;
   color: white;
 }
 
@@ -546,41 +540,27 @@
 
 .dark .tech-section {
   background-color: #2a2a2a;
-  color: white;
 }
 
 .dark .cert-section {
   background: rgba(0, 0, 0, 0.2);
-  color: white;
 }
 
 .dark .cert-section:hover {
   background-color: #2a2a2a;
 }
 
-.dark .navigation-bar {
-  background-color: rgba(0, 0, 0, 0.3);
+.dark .skills-overlay {
+  background-color: #151515;
+  color: white;
 }
 
-.dark .navigation-bar button,
-.dark .navigation-bar a {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.dark .navigation-bar button:hover,
-.dark .navigation-bar a:hover {
-  color: rgba(255, 255, 255, 1);
-}
-
-.dark .github-icon svg {
-  fill: rgba(255, 255, 255, 0.7);
+.dark .skill-tag {
+  background: rgba(58, 58, 58, 0.5);
+  color: white;
 }
 
 .dark .project-section-background {
   animation: backgroundChangeDark 25s ease-in-out infinite;
-  opacity: 0.3;
-}
-
-.dark .dot.active {
-  background: lightgray;
+  opacity: 0.3; /* Slightly reduce opacity in dark mode for better contrast */
 }
