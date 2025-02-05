@@ -1,7 +1,7 @@
 
 import NavigationBar from './smallcomponents/NavigationBar';
 import './App2.css';
-import reactLogo from './assets/devops.jpg'
+import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons';
 import ShaderBackground from './ShaderBackground.jsx';
 import ProjectCard from "./smallcomponents/ProjectCard.jsx";
@@ -68,8 +68,8 @@ const App2 = () => {
   return (
       <div className="app2-container" onScroll={handleScroll}>
         <NavigationBar
-            githubUrl="https://github.com/yourusername"
-            blogUrl="https://yourblog.com"
+            githubUrl="https://github.com/yadnyeshkolte"
+            blogUrl="https://cyberconnaught.wordpress.com/"
         />
         <div className='shader'>
           <ShaderBackground/>
@@ -94,9 +94,9 @@ const App2 = () => {
                 <h1 className="intro-title">Yadnyesh Kolte</h1>
               </div>
               <p className="intro-description">
-                Aspiring DevOps Engineer specializing in streamlining deployment processes
+                Specializing in streamlining deployment processes
                 and enhancing efficiency. Experienced in continuous integration,
-                Kubernetes, and workflow automation
+                Kubernetes, Containerization and workflow automation
               </p>
               <SocialIcons/>
             </div>

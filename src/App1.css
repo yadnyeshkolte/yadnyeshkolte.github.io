@@ -181,6 +181,26 @@
   }
 }
 
+@keyframes backgroundChangeDark {
+  0%, 20% {
+    background-image: url('./assets/project-section-dark-theme/1.png');
+  }
+  21%, 40% {
+    background-image: url('./assets/project-section-dark-theme/2.png');
+  }
+  41%, 60% {
+    background-image: url('./assets/project-section-dark-theme/3.png');
+  }
+  61%, 80% {
+    background-image: url('./assets/project-section-dark-theme/2.png');
+  }
+  81%, 100% {
+    background-image: url('./assets/project-section-dark-theme/3.png');
+  }
+}
+
+
+
 .project-section {
   position: relative;
   overflow: hidden;
@@ -401,12 +421,6 @@
   background: #60A5FA;
 }
 
-.contact-section {
-  background-image: url('./assets/contact-light.png'); align-items: center;
-  background-size: cover;
-}
-
-
 @media (max-width: 768px) {
   .intro-title {
     font-size: 2.5rem;
@@ -445,17 +459,35 @@
   }
 
   .projects-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
     padding: 1rem;
-  }
-
-  .project-section {
-    padding: 2rem 1rem !important;
+    gap: 1rem;
   }
 
   .project-card {
-    box-shadow: 10px 0 10px -10px rgba(0, 0, 0, 0.1),
-    -10px 0 10px -10px rgba(0, 0, 0, 0.1);
+    min-width: 70vw; /* Make cards take up most of the viewport width */
+    scroll-snap-align: center;
+    margin-right: 1rem; /* Space between cards */
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .projects-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .projects-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Add visual padding to the end for better UX */
+  .projects-grid::after {
+    content: '';
+    padding-right: 1rem;
   }
 
   .tech-container {
@@ -493,4 +525,61 @@
     flex: 1;
   }
 
+}
+
+
+/* Dark mode styles for App1 */
+/* Dark mode styles for App1 */
+.dark .app1-overlay {
+  background: radial-gradient(circle at top right, #2a2a2a, #1a1a1a);
+  color: white;
+}
+
+.dark .project-card {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dark .project-card:hover {
+  background-color: #2a2a2a;
+}
+
+.dark .tech-section {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.dark .cert-section {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.dark .cert-section:hover {
+  background-color: #2a2a2a;
+}
+
+.dark .navigation-bar {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dark .navigation-bar button,
+.dark .navigation-bar a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark .navigation-bar button:hover,
+.dark .navigation-bar a:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.dark .github-icon svg {
+  fill: rgba(255, 255, 255, 0.7);
+}
+
+.dark .project-section-background {
+  animation: backgroundChangeDark 25s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+.dark .dot.active {
+  background: lightgray;
 }
