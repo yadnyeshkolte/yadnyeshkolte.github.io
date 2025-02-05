@@ -181,6 +181,26 @@
   }
 }
 
+@keyframes backgroundChangeDark {
+  0%, 20% {
+    background-image: url('./assets/project-section-dark-theme/1.png');
+  }
+  21%, 40% {
+    background-image: url('./assets/project-section-dark-theme/2.png');
+  }
+  41%, 60% {
+    background-image: url('./assets/project-section-dark-theme/3.png');
+  }
+  61%, 80% {
+    background-image: url('./assets/project-section-dark-theme/2.png');
+  }
+  81%, 100% {
+    background-image: url('./assets/project-section-dark-theme/3.png');
+  }
+}
+
+
+
 .project-section {
   position: relative;
   overflow: hidden;
@@ -511,4 +531,57 @@
     flex: 1;
   }
 
+}
+
+
+/* Dark mode styles for App1 */
+/* Dark mode styles for App1 */
+.dark .app1-overlay {
+  background: radial-gradient(circle at top right, #1a1a1a, #3a3a3a);
+  color: white;
+}
+
+.dark .project-card {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dark .project-card:hover {
+  background-color: #4a4a4a;
+}
+
+.dark .tech-section {
+  background-color: #4a4a4a;
+  color: white;
+}
+
+.dark .cert-section {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.dark .cert-section:hover {
+  background-color: #4a4a4a;
+}
+
+.dark .navigation-bar {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dark .navigation-bar button,
+.dark .navigation-bar a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark .navigation-bar button:hover,
+.dark .navigation-bar a:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.dark .github-icon svg {
+  fill: rgba(255, 255, 255, 0.7);
+}
+
+.dark .project-section-background {
+  animation: backgroundChangeDark 25s ease-in-out infinite;
+  opacity: 0.5; /* Slightly reduce opacity in dark mode for better contrast */
 }

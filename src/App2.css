@@ -159,6 +159,25 @@
   }
 }
 
+
+@keyframes backgroundChangeDark {
+  0%, 20% {
+    background-image: url('./assets/project-section-dark-theme/1.png');
+  }
+  21%, 40% {
+    background-image: url('./assets/project-section-dark-theme/2.png');
+  }
+  41%, 60% {
+    background-image: url('./assets/project-section-dark-theme/3.png');
+  }
+  61%, 80% {
+    background-image: url('./assets/project-section-dark-theme/2.png');
+  }
+  81%, 100% {
+    background-image: url('./assets/project-section-dark-theme/3.png');
+  }
+}
+
 .project-section {
   position: relative;
   overflow: hidden;
@@ -501,4 +520,46 @@
   .cert-section {
     flex: 1;
   }
+}
+
+
+/* Dark mode styles for App2 */
+.dark .app2-container {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.dark .project-card {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dark .project-card:hover {
+  background-color: #4a4a4a;
+}
+
+.dark .tech-section {
+  background-color: #4a4a4a;
+}
+
+.dark .cert-section {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dark .cert-section:hover {
+  background-color: #4a4a4a;
+}
+
+.dark .skills-overlay {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.dark .skill-tag {
+  background: rgba(58, 58, 58, 0.5);
+  color: white;
+}
+
+.dark .project-section-background {
+  animation: backgroundChangeDark 25s ease-in-out infinite;
+  opacity: 0.5; /* Slightly reduce opacity in dark mode for better contrast */
 }

@@ -1,9 +1,26 @@
-import React, { useState } from 'react';
+// NavigationBar.jsx
+import React, { useState, useEffect } from 'react';
 import './NavigationBar.css';
 import OverlayContact from './OverlayContact';
+import ThemeToggle from './ThemeToggle';
 
 const NavigationBar = ({ githubUrl, blogUrl }) => {
     const [isContactOpen, setIsContactOpen] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        // Check local storage for saved preference
+        const saved = localStorage.getItem('darkMode');
+        return saved ? JSON.parse(saved) : false;
+    });
+
+    useEffect(() => {
+        // Update document class and save preference
+        document.documentElement.classList.toggle('dark', isDarkMode);
+        localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+    }, [isDarkMode]);
+
+    const toggleDarkMode = () => {
+        setIsDarkMode(prev => !prev);
+    };
 
     const scrollToSection = (sectionId) => {
         const section = document.querySelector(`.${sectionId}-section`);
@@ -18,6 +35,7 @@ const NavigationBar = ({ githubUrl, blogUrl }) => {
                 <button onClick={() => scrollToSection('intro')}>Home</button>
                 <button onClick={() => setIsContactOpen(true)}>Contact</button>
                 <a href={blogUrl} target="_blank" rel="noopener noreferrer">Blog</a>
+                <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
                 <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="github-icon">
                     <svg viewBox="0 0 24 24">
                         <path fillRule="evenodd"
