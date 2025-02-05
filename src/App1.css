@@ -585,3 +585,7 @@
   animation: backgroundChangeDark 25s ease-in-out infinite;
   opacity: 0.3;
 }
+
+.dark .dot.active {
+  background: lightgray;
+}
