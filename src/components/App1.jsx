@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from 'react';
-import NavigationBar from '../smallcomponents/NavigationBar.jsx';
 import './App1.css';
 import reactLogo from '../assets/yadnyesh.jpg'
+import NavigationBar from '../smallcomponents/NavigationBar.jsx';
 import SocialIcons from '../smallcomponents/SocialIcons.jsx';
 import ShaderModel from '../smallcomponents/ShaderModel.jsx'
 import ProjectCard from "../smallcomponents/ProjectCard.jsx";

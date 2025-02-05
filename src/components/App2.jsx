@@ -1,6 +1,5 @@
-
-import NavigationBar from '../smallcomponents/NavigationBar.jsx';
 import './App2.css';
+import NavigationBar from '../smallcomponents/NavigationBar.jsx';
 import reactLogo from '../assets/yadnyesh.jpg'
 import SocialIcons from '../smallcomponents/SocialIcons.jsx';
 import ShaderModel from '../smallcomponents/ShaderModel.jsx';

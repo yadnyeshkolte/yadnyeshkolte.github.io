@@ -138,6 +138,8 @@
 /* Project Section */
 
 .project-section-background {
+  transform: translate3d(0, 0, 0); /* Hardware acceleration */
+  will-change: transform; /* Hint to browser about animation */
   position: absolute;
   top: 0;
   left: 0;
