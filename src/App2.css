@@ -434,17 +434,35 @@
   }
 
   .projects-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
     padding: 1rem;
-  }
-
-  .project-section {
-    padding: 2rem 1rem !important;
+    gap: 1rem;
   }
 
   .project-card {
-    box-shadow: 10px 0 10px -10px rgba(0, 0, 0, 0.1),
-    -10px 0 10px -10px rgba(0, 0, 0, 0.1);
+    min-width: 70vw; /* Make cards take up most of the viewport width */
+    scroll-snap-align: center;
+    margin-right: 1rem; /* Space between cards */
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .projects-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .projects-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Add visual padding to the end for better UX */
+  .projects-grid::after {
+    content: '';
+    padding-right: 1rem;
   }
 
   .tech-stack-section {
