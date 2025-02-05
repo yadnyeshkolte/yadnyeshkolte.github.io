@@ -13,7 +13,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { cleanRenderer, cleanScene, removeLights } from './shaders/three';
-import fragmentShader from './shaders/fragment.glsl?raw';
+import fragmentShader from './shaders/fragmentlight.glsl?raw';
 import vertexShader from './shaders/vertex.glsl?raw';
 
 export const ShaderBackground = props => {
