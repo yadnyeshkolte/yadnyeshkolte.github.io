@@ -154,10 +154,10 @@
     background-image: url('../assets/project-section-light-theme/3.png');
   }
   61%, 80% {
-    background-image: url('../assets/project-section-light-theme/2.png');
+    background-image: url('../assets/project-section-light-theme/4.png');
   }
   81%, 100% {
-    background-image: url('../assets/project-section-light-theme/3.png');
+    background-image: url('../assets/project-section-light-theme/5.png');
   }
 }
 
@@ -173,10 +173,10 @@
     background-image: url('../assets/project-section-dark-theme/3.png');
   }
   61%, 80% {
-    background-image: url('../assets/project-section-dark-theme/2.png');
+    background-image: url('../assets/project-section-dark-theme/4.png');
   }
   81%, 100% {
-    background-image: url('../assets/project-section-dark-theme/3.png');
+    background-image: url('../assets/project-section-dark-theme/5.png');
   }
 }
 
