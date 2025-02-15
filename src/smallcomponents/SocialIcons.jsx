@@ -19,7 +19,7 @@ const SocialIcons = () => {
                 <img src={gmailIcon} alt="Email" className="social-icon" />
             </a>
             <a
-                href="https://linkedin.com/in/yadnyeshkolte"
+                href="https://www.linkedin.com/in/yadnyesh-kolte/"
                 className="social-icon-link animate-pop"
                 style={{ "--delay": "0.2s" }}
                 aria-label="LinkedIn"
