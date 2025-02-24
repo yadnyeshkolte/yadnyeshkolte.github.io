@@ -1,4 +1,4 @@
-/* NavigationBar.css */
+
 .navigation-bar {
   position: fixed;
   top: 1rem;
@@ -15,6 +15,24 @@
   gap: 1.5rem;
   max-width: 90%;
   width: auto;
+  overflow: hidden;
+}
+
+/* Progress bar styles */
+.progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: rgba(0, 200, 250, 0.1);
+  z-index: -1;
+  transition: width 0.3s ease-out;
+  border-radius: 35px;
+}
+
+/* Dark mode support for progress bar */
+.dark .progress-bar {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .navigation-bar button,
@@ -27,6 +45,7 @@
   cursor: pointer;
   transition: color 0.3s ease;
   padding: 0.25rem 0.5rem;
+  z-index: 1; /* Ensure text appears above progress bar */
 }
 
 .navigation-bar button:hover,
@@ -38,6 +57,16 @@
   width: 1.5rem;
   height: 1.5rem;
   fill: currentColor;
+}
+
+.dark .navigation-bar button,
+.dark .navigation-bar a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark .navigation-bar button:hover,
+.dark .navigation-bar a:hover {
+  color: rgba(255, 255, 255, 1);
 }
 
 @media (max-width: 640px) {

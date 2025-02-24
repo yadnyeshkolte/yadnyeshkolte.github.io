@@ -11,12 +11,40 @@ const NavigationBar = ({ githubUrl, blogUrl }) => {
         const saved = localStorage.getItem('darkMode');
         return saved ? JSON.parse(saved) : false;
     });
+    const [scrollProgress, setScrollProgress] = useState(0);
 
     useEffect(() => {
         // Update document class and save preference
         document.documentElement.classList.toggle('dark', isDarkMode);
         localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
     }, [isDarkMode]);
+
+    useEffect(() => {
+        // Function to update scroll progress
+        const updateScrollProgress = () => {
+            const scrollContainer = document.querySelector('.app1-scrollable');
+            if (scrollContainer) {
+                const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+                const progress = (scrollContainer.scrollTop / scrollHeight) * 100;
+                setScrollProgress(progress);
+            }
+        };
+
+        // Add scroll event listener
+        const scrollContainer = document.querySelector('.app1-scrollable');
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', updateScrollProgress);
+            // Initialize progress
+            updateScrollProgress();
+        }
+
+        return () => {
+            // Clean up event listener
+            if (scrollContainer) {
+                scrollContainer.removeEventListener('scroll', updateScrollProgress);
+            }
+        };
+    }, []);
 
     const toggleDarkMode = () => {
         setIsDarkMode(prev => !prev);
@@ -32,6 +60,10 @@ const NavigationBar = ({ githubUrl, blogUrl }) => {
     return (
         <>
             <nav className="navigation-bar">
+                <div
+                    className="progress-bar"
+                    style={{ width: `${scrollProgress}%` }}
+                ></div>
                 <button onClick={() => scrollToSection('intro')}>Home</button>
                 <button onClick={() => setIsContactOpen(true)}>Contact</button>
                 <a href={blogUrl} target="_blank" rel="noopener noreferrer">Blog</a>
