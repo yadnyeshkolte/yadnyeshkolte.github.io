@@ -21,17 +21,23 @@ const App1 = () => {
   const [circleSize, setCircleSize] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
+  const [hoveredElementType, setHoveredElementType] = useState('default');
 
   useEffect(() => {
     let animationId;
     let currentSize = circleSize;
-    let targetSize = isAnimating ? 250 : 0;
+    // Set different target sizes based on the hovered element type
+    let targetSize = isAnimating
+        ? (hoveredElementType === 'intro' ? 150 :
+            hoveredElementType === 'project' ? 250 :
+                250) // Default size for other elements
+        : 0;
 
     const animate = () => {
       if (currentSize !== targetSize) {
         // Gradually change the size
-        const delta = isAnimating ? 7 : -5; // Speed of growth/shrink
-        currentSize = Math.max(0, Math.min(250, currentSize + delta));
+        const delta = isAnimating ? 7 : -5; // Keep the same speed for smoothness
+        currentSize = Math.max(0, Math.min(targetSize, currentSize + delta));
 
         setCircleSize(currentSize);
         animationId = requestAnimationFrame(animate);
@@ -43,7 +49,7 @@ const App1 = () => {
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, [isAnimating]);
+  }, [isAnimating, hoveredElementType]);
 
 
   useEffect(() => {
@@ -116,12 +122,15 @@ const App1 = () => {
     }
   }, []);
 
-  const handleTextHover = () => {
+  const handleTextHover = (elementType = 'default') => {
     setIsAnimating(true);
+    setHoveredElementType(elementType);
   };
 
   const handleTextLeave = () => {
     setIsAnimating(false);
+    // Reset element type when leaving
+    setHoveredElementType('default');
   };
 
 
@@ -187,7 +196,7 @@ const App1 = () => {
             </div>
             <section className="section intro-section">
               <div className="intro-quote-side">
-                <div className="quote-container hoverable" onMouseEnter={handleTextHover} onMouseLeave={handleTextLeave}>
+                <div className="quote-container hoverable" onMouseEnter={() => handleTextHover('intro')} onMouseLeave={handleTextLeave}>
                   <blockquote className="quote">
                     Great ambition is the passion of a great character
                   </blockquote>
@@ -204,8 +213,7 @@ const App1 = () => {
                     />
                     <h1 className="intro-title">Yadnyesh Kolte</h1>
                   </div>
-                  <p className="intro-description hoverable" onMouseEnter={handleTextHover}
-                     onMouseLeave={handleTextLeave}>
+                  <p className="intro-description hoverable" onMouseEnter={() => handleTextHover('intro')} onMouseLeave={handleTextLeave}>
                     Motivated Software Engineer with expertise in developing and deploying
                     high-quality solutions. Proficient in full stack development, AI
                     integration, and continuous delivery
@@ -222,21 +230,21 @@ const App1 = () => {
                       title="Cross-platform Markdown editor with AI assistance"
                       description="Developed a cross-platform Markdown editor using Kotlin Compose Multiplatform, featuring real-time preview, dark/light themes, and in-app Markdown guide. Packaged the application for Windows, macOS, Linux, and Android, ensuring native performance and seamless installation across platforms."
                       githubUrl="https://github.com/yadnyeshkolte/CrossDocs"
-                      onHover={handleTextHover}
+                      onHover={() => handleTextHover('project')}
                       onLeave={handleTextLeave}
                   />
                   <ProjectCard
                       title="ESP32-Based ATM-Like Functioning Telegram Bot"
                       description="Developed a cool Telegram bot integrated with an ESP32 microcontroller to simulate advanced ATM functionalities, leveraging Java, C++, and Python to create a robust communication system for remote banking transactions. The project demonstrated programming expertise by implementing hardware-software interaction that optimized microcontroller programming methodologies."
                       githubUrl="https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a"
-                      onHover={handleTextHover}
+                      onHover={() => handleTextHover('project')}
                       onLeave={handleTextLeave}
                   />
                   <ProjectCard
                       title="Guestbook Application Deployment"
                       description="Developed a comprehensive continuous delivery pipeline leveraging Argo CD and GitOps principles for Kubernetes. The project incorporated tools like Docker, GitHub, Helm, Lens, and DateTree, facilitating efficient container orchestration and version control."
                       githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
-                      onHover={handleTextHover}
+                      onHover={() => handleTextHover('project')}
                       onLeave={handleTextLeave}
                   />
                 </div>
@@ -309,7 +317,7 @@ const App1 = () => {
                     <h2 className="section-title">Certifications</h2>
 
                     <div className="cert-carousel">
-                      <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`} onMouseEnter={handleTextHover} onMouseLeave={handleTextLeave}>
+                      <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`} onMouseEnter={() => handleTextHover('intro')} onMouseLeave={handleTextLeave}>
                         <img
                             src={certifications[currentCert].image}
                             alt={certifications[currentCert].title}
