@@ -29,7 +29,9 @@ const App1 = () => {
     // Set different target sizes based on the hovered element type
     let targetSize = isAnimating
         ? (hoveredElementType === 'intro' ? 150 :
-            hoveredElementType === 'project' ? 250 :
+            hoveredElementType === 'certificate' ? 200 :
+                hoveredElementType === 'quote' ? 220 :
+                    hoveredElementType === 'project' ? 250 :
                 250) // Default size for other elements
         : 0;
 
@@ -214,7 +216,7 @@ const App1 = () => {
             </div>
             <section className="section intro-section">
               <div className="intro-quote-side">
-                <div className="quote-container hoverable" onMouseEnter={() => handleTextHover('intro')} onMouseLeave={handleTextLeave}>
+                <div className="quote-container hoverable" onMouseEnter={() => handleTextHover('quote')} onMouseLeave={handleTextLeave}>
                   <blockquote className="quote">
                     Great ambition is the passion of a great character
                   </blockquote>
@@ -335,7 +337,7 @@ const App1 = () => {
                     <h2 className="section-title">Certifications</h2>
 
                     <div className="cert-carousel">
-                      <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`} onMouseEnter={() => handleTextHover('intro')} onMouseLeave={handleTextLeave}>
+                      <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`} onMouseEnter={() => handleTextHover('certificate')} onMouseLeave={handleTextLeave}>
                         <img
                             src={certifications[currentCert].image}
                             alt={certifications[currentCert].title}
