@@ -1,5 +1,4 @@
 import './SocialIcons.css';
-import contactIcon from './socialicons/contact.svg';
 import gmailIcon from './socialicons/gmail.svg';
 import linkedinIcon from './socialicons/linkedin.svg';
 import twitterIcon from './socialicons/x.svg';
@@ -7,23 +6,8 @@ import credlyIcon from './socialicons/credly.svg';
 import slackIcon from './socialicons/slack.svg';
 
 const SocialIcons = () => {
-    const scrollToContact = () => {
-        const contactSection = document.querySelector('.contact-section');
-        if (contactSection) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
     return (
         <div className="social-icons-container animate-slide-up">
-            <button
-                onClick={scrollToContact}
-                className="social-icon-link animate-pop"
-                style={{ "--delay": "0s" }}
-                aria-label="Contact"
-            >
-                <img src={contactIcon} alt="Contact" className="social-icon" />
-            </button>
             <a
                 href="mailto:yadnyeshkolte@gmail.com"
                 className="social-icon-link animate-pop"
@@ -35,7 +19,7 @@ const SocialIcons = () => {
                 <img src={gmailIcon} alt="Email" className="social-icon" />
             </a>
             <a
-                href="https://linkedin.com/in/yadnyeshkolte"
+                href="https://www.linkedin.com/in/yadnyesh-kolte/"
                 className="social-icon-link animate-pop"
                 style={{ "--delay": "0.2s" }}
                 aria-label="LinkedIn"

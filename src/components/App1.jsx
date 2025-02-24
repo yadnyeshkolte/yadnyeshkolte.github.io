@@ -1,17 +1,17 @@
 import {useCallback, useEffect, useState} from 'react';
-import NavigationBar from './smallcomponents/NavigationBar';
 import './App1.css';
-import reactLogo from './assets/yadnyesh.jpg'
-import SocialIcons from './smallcomponents/SocialIcons';
-import ShaderBackground from './ShaderBackground.jsx'
-import ProjectCard from "./smallcomponents/ProjectCard.jsx";
+import reactLogo from '../assets/yadnyesh.jpg'
+import NavigationBar from '../smallcomponents/NavigationBar.jsx';
+import SocialIcons from '../smallcomponents/SocialIcons.jsx';
+import ShaderModel from '../smallcomponents/ShaderModel.jsx'
+import ProjectCard from "../smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
-import { useSharedCarousel } from './hooks/useSharedCarousel';
-import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
-import githubCert from './assets/certifications/github-foundations.png'
-import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
-import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
-import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
+import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
+import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.png'
+import githubCert from '../assets/certifications/github-foundations.png'
+import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.png'
+import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.png'
+import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
 
 
 const App1 = () => {
@@ -65,47 +65,55 @@ const App1 = () => {
     };
   }, [targetPosition]);
 
+// In App1.jsx, modify the handleScroll function:
   const handleScroll = useCallback((e) => {
     const scrollTop = e.target.scrollTop;
     setScrollY(scrollTop);
 
-    const app2Container = document.querySelector('.app2-container');
-    if (app2Container && app2Container.scrollTop !== scrollTop) {
-      app2Container.scrollTop = scrollTop;
+    // Only sync scroll with App2 if not on mobile
+    if (window.innerWidth > 768) {
+      const app2Container = document.querySelector('.app2-container');
+      if (app2Container && app2Container.scrollTop !== scrollTop) {
+        app2Container.scrollTop = scrollTop;
+      }
     }
 
-    // Update circle position to follow cursor during scroll
-    const lastKnownMouseEvent = window.lastMouseEvent;
-    if (lastKnownMouseEvent) {
-      setTargetPosition({
-        x: lastKnownMouseEvent.clientX - 50,
-        y: lastKnownMouseEvent.clientY + scrollTop - 50,
-      });
+    // Only update circle position if not on mobile
+    if (window.innerWidth > 768) {
+      const lastKnownMouseEvent = window.lastMouseEvent;
+      if (lastKnownMouseEvent) {
+        setTargetPosition({
+          x: lastKnownMouseEvent.clientX - 50,
+          y: lastKnownMouseEvent.clientY + scrollTop - 50,
+        });
 
-      setCirclePosition({
-        x: lastKnownMouseEvent.clientX - 50,
-        y: lastKnownMouseEvent.clientY + scrollTop - 50,
-      });
+        setCirclePosition({
+          x: lastKnownMouseEvent.clientX - 50,
+          y: lastKnownMouseEvent.clientY + scrollTop - 50,
+        });
+      }
     }
   }, []);
 
-// Modify handleMouseMove to store the last mouse event globally
+// Similarly, modify handleMouseMove
   const handleMouseMove = useCallback((e) => {
-    // Store the last mouse event globally
-    window.lastMouseEvent = e;
+    // Only handle mouse move if not on mobile
+    if (window.innerWidth > 768) {
+      window.lastMouseEvent = e;
 
-    const scrollContainer = document.querySelector('.app1-scrollable');
-    const scrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+      const scrollContainer = document.querySelector('.app1-scrollable');
+      const scrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
 
-    setTargetPosition({
-      x: e.clientX - 50,
-      y: e.clientY + scrollTop - 50,
-    });
+      setTargetPosition({
+        x: e.clientX - 50,
+        y: e.clientY + scrollTop - 50,
+      });
 
-    setCirclePosition({
-      x: e.clientX - 50,
-      y: e.clientY + scrollTop - 50,
-    });
+      setCirclePosition({
+        x: e.clientX - 50,
+        y: e.clientY + scrollTop - 50,
+      });
+    }
   }, []);
 
   const handleTextHover = () => {
@@ -175,7 +183,7 @@ const App1 = () => {
               }}
           >
             <div className='shader'>
-              <ShaderBackground/>
+              <ShaderModel/>
             </div>
             <section className="section intro-section">
               <div className="intro-quote-side">

@@ -25,34 +25,10 @@
   border: none;
 }
 
-.social-icon-link::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  transform: scale(0);
-  transition: transform 0.3s ease;
-}
-
-.social-icon-link:hover::before {
-  transform: scale(1);
-}
-
-.social-icon-link:hover {
-  transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
 .social-icon {
   width: 1.25rem;
   height: 1.25rem;
   transition: transform 0.3s ease;
-}
-
-.social-icon-link:hover .social-icon {
-  transform: scale(1.1) rotate(8deg);
 }
 
 /* Initial load animations */
@@ -108,26 +84,3 @@
   }
 }
 
-/* Optional: Add prefers-reduced-motion support */
-@media (prefers-reduced-motion: reduce) {
-  .animate-slide-up,
-  .animate-pop {
-    animation: none;
-    opacity: 1;
-  }
-  
-  .social-icon-link:hover {
-    transform: none;
-  }
-  
-  .social-icon-link:hover .social-icon {
-    transform: none;
-  }
-}
-
-
-/* Ensure button matches link hover state */
-button.social-icon-link:hover {
-  transform: scale(1.4);
-  background: rgba(255, 255, 255, 0.3);
-}

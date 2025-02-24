@@ -5,7 +5,7 @@
 
 body {
   margin: 0;
-  background-color: red;
+  background-color: transparent;
 }
 
 .container {
@@ -20,6 +20,12 @@ body {
   display: none;
 }
 ::selection {
-  background-color: #808080; /* Grey with 30% opacity */
-  color: inherit; /* Keeps the original text color */
+  background-color: #ADD8E6; /* Light blue */
+  color: inherit;
+}
+
+/* Dark mode selection */
+:root.dark ::selection {
+  background-color: #808080; /* Your current grey color */
+  color: inherit;
 }

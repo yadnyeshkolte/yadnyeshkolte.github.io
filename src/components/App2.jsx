@@ -1,18 +1,17 @@
-
-import NavigationBar from './smallcomponents/NavigationBar';
 import './App2.css';
-import reactLogo from './assets/devops.jpg'
-import SocialIcons from './smallcomponents/SocialIcons';
-import ShaderBackground from './ShaderBackground.jsx';
-import ProjectCard from "./smallcomponents/ProjectCard.jsx";
+import NavigationBar from '../smallcomponents/NavigationBar.jsx';
+import reactLogo from '../assets/yadnyesh.jpg'
+import SocialIcons from '../smallcomponents/SocialIcons.jsx';
+import ShaderModel from '../smallcomponents/ShaderModel.jsx';
+import ProjectCard from "../smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import {useEffect} from "react";
-import { useSharedCarousel } from './hooks/useSharedCarousel';
-import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
-import githubCert from './assets/certifications/github-foundations.png'
-import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
-import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
-import devopsCert from './assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png'
+import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
+import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.png'
+import githubCert from '../assets/certifications/github-foundations.png'
+import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.png'
+import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.png'
+import devopsCert from '../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png'
 
 const App2 = () => {
   const handleScroll = (e) => {
@@ -68,11 +67,11 @@ const App2 = () => {
   return (
       <div className="app2-container" onScroll={handleScroll}>
         <NavigationBar
-            githubUrl="https://github.com/yourusername"
-            blogUrl="https://yourblog.com"
+            githubUrl="https://github.com/yadnyeshkolte"
+            blogUrl="https://cyberconnaught.wordpress.com/"
         />
         <div className='shader'>
-          <ShaderBackground/>
+          <ShaderModel/>
         </div>
         <section className="section intro-section">
           <div className="intro-quote-side">
@@ -94,9 +93,9 @@ const App2 = () => {
                 <h1 className="intro-title">Yadnyesh Kolte</h1>
               </div>
               <p className="intro-description">
-                Aspiring DevOps Engineer specializing in streamlining deployment processes
+                Specializing in streamlining deployment processes
                 and enhancing efficiency. Experienced in continuous integration,
-                Kubernetes, and workflow automation
+                Kubernetes, Containerization and workflow automation
               </p>
               <SocialIcons/>
             </div>
