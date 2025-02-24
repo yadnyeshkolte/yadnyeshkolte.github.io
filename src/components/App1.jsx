@@ -35,12 +35,30 @@ const App1 = () => {
 
     const animate = () => {
       if (currentSize !== targetSize) {
-        // Gradually change the size
-        const delta = isAnimating ? 7 : -5; // Keep the same speed for smoothness
-        currentSize = Math.max(0, Math.min(targetSize, currentSize + delta));
+        // Use the same animation speed for both growing and shrinking
+        // Using a smaller value creates a smoother transition
+        const delta = isAnimating
+            ? Math.min(5, (targetSize - currentSize) * 0.1) // Growing
+            : Math.max(-5, (targetSize - currentSize) * 0.1); // Shrinking
+
+        // Ensure we make at least minimal progress each frame to avoid stalling
+        const minStep = isAnimating ? 0.5 : -0.5;
+        const effectiveDelta = Math.abs(delta) < Math.abs(minStep) ? minStep : delta;
+
+        currentSize = currentSize + effectiveDelta;
+
+        // Ensure we never go below 0 or above max size
+        currentSize = Math.max(0, Math.min(250, currentSize));
 
         setCircleSize(currentSize);
-        animationId = requestAnimationFrame(animate);
+
+        // Continue animation if we haven't reached target
+        if (Math.abs(currentSize - targetSize) > 0.5) {
+          animationId = requestAnimationFrame(animate);
+        } else {
+          // Snap to exact target when we're very close
+          setCircleSize(targetSize);
+        }
       }
     };
 
@@ -49,7 +67,7 @@ const App1 = () => {
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, [isAnimating, hoveredElementType]);
+  }, [isAnimating, hoveredElementType, circleSize]);
 
 
   useEffect(() => {
@@ -129,8 +147,8 @@ const App1 = () => {
 
   const handleTextLeave = () => {
     setIsAnimating(false);
-    // Reset element type when leaving
-    setHoveredElementType('default');
+    // We keep the element type when leaving to maintain the same
+    // proportional shrinking as growing
   };
 
 
