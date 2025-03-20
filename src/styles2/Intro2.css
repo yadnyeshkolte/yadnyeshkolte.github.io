@@ -1,0 +1,115 @@
+/* Intro2.css - Introduction section styles */
+
+.intro-section .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    z-index: 4;
+}
+
+.intro-title {
+    font-size: 3.0rem;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.intro-description {
+    font-size: 1.25rem;
+    max-width: 42rem;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+}
+
+.intro-section {
+    display: flex;
+    min-height: 100vh;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.intro-content-side {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.intro-quote-side {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.quote-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    max-width: 300px;
+    z-index: 1;
+}
+
+.quote {
+    font-style: italic;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.quote-author {
+    display: block;
+    text-align: right;
+    font-size: 1rem;
+}
+
+.profile-title-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .intro-title {
+        font-size: 2.5rem;
+    }
+
+    .intro-description {
+        font-size: 1rem;
+    }
+
+    .intro-section {
+        flex-direction: column;
+    }
+
+    .intro-content-side {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .intro-quote-side {
+        display: none;
+    }
+
+    .intro-section .content-wrapper {
+        text-align: center;
+    }
+
+    .profile-title-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0rem;
+    }
+}
