@@ -1,17 +1,17 @@
 import './App2.css';
-import NavigationBar from '../smallcomponents/NavigationBar.jsx';
-import reactLogo from '../assets/yadnyesh.jpg'
-import SocialIcons from '../smallcomponents/SocialIcons.jsx';
-import ShaderModel from '../smallcomponents/ShaderModel.jsx';
-import ProjectCard from "../smallcomponents/ProjectCard.jsx";
+import NavigationBar from './smallcomponents/NavigationBar.jsx';
+import reactLogo from './assets/yadnyesh.jpg'
+import SocialIcons from './smallcomponents/SocialIcons.jsx';
+import ShaderModel from './smallcomponents/ShaderModel.jsx';
+import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import {useEffect} from "react";
-import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
-import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.png'
-import githubCert from '../assets/certifications/github-foundations.png'
-import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.png'
-import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.png'
-import devopsCert from '../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png'
+import { useSharedCarousel } from './hooks/useSharedCarousel.js';
+import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
+import githubCert from './assets/certifications/github-foundations.png'
+import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
+import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
+import devopsCert from './assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png'
 
 const App2 = () => {
   const handleScroll = (e) => {

@@ -1,17 +1,17 @@
 import {useCallback, useEffect, useState} from 'react';
 import './App1.css';
-import reactLogo from '../assets/yadnyesh.jpg'
-import NavigationBar from '../smallcomponents/NavigationBar.jsx';
-import SocialIcons from '../smallcomponents/SocialIcons.jsx';
-import ShaderModel from '../smallcomponents/ShaderModel.jsx'
-import ProjectCard from "../smallcomponents/ProjectCard.jsx";
+import reactLogo from './assets/yadnyesh.jpg'
+import NavigationBar from './smallcomponents/NavigationBar.jsx';
+import SocialIcons from './smallcomponents/SocialIcons.jsx';
+import ShaderModel from './smallcomponents/ShaderModel.jsx'
+import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
-import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
-import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.png'
-import githubCert from '../assets/certifications/github-foundations.png'
-import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.png'
-import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.png'
-import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
+import { useSharedCarousel } from './hooks/useSharedCarousel.js';
+import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
+import githubCert from './assets/certifications/github-foundations.png'
+import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
+import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
+import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
 
 
 const App1 = () => {
@@ -28,9 +28,9 @@ const App1 = () => {
     let currentSize = circleSize;
     // Set different target sizes based on the hovered element type
     let targetSize = isAnimating
-        ? (hoveredElementType === 'intro' ? 150 :
+        ? (hoveredElementType === 'intro' ? 120 :
             hoveredElementType === 'certificate' ? 200 :
-                hoveredElementType === 'quote' ? 220 :
+                hoveredElementType === 'quote' ? 180 :
                     hoveredElementType === 'project' ? 250 :
                 250) // Default size for other elements
         : 0;
@@ -200,7 +200,7 @@ const App1 = () => {
       <div className="app1-container" onMouseMove={handleMouseMove}>
         <NavigationBar
             githubUrl="https://github.com/yadnyeshkolte"
-            blogUrl="https://cyberconnaught.wordpress.com/"
+            blogUrl="https://yadnyeshkolte.github.io/blog/"
         />
         <div className="app1-scrollable" onScroll={handleScroll}>
           <div

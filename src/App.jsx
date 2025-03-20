@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import App1 from './components/App1.jsx';
-import App2 from './components/App2.jsx';
-import './components/App1.css';
-import './components/App2.css';
+import App1 from './App1.jsx';
+import App2 from './App2.jsx';
+import './App1.css';
+import './App2.css';
 
 function App() {
     const [isMobile, setIsMobile] = useState(false);
