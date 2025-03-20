@@ -1,30 +1,87 @@
-/* Styles for the 3D laptop display with GLTF model */
-.laptop-container {
+/* LaptopDisplay.css */
+.laptop-model {
     width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 2rem;
-    padding: 2rem 0;
+    perspective: 1000px;
 }
 
-.laptop-model-canvas {
-    width: 100%;
-    height: 400px;
+.laptop-body {
     position: relative;
+    width: 80%;
+    max-width: 800px;
+    transform-style: preserve-3d;
+    transform: rotateX(10deg) rotateY(-10deg);
+    transition: transform 0.5s ease;
 }
 
-/* Project info panel styling */
-.project-info-panel {
-    width: 90%;
-    max-width: 600px;
-    background: white;
-    border-radius: 8px;
+.laptop-body:hover {
+    transform: rotateX(5deg) rotateY(-5deg);
+}
+
+.laptop-base {
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, #888, #666);
+    border-radius: 0 0 10px 10px;
+    transform: translateY(0px) rotateX(0deg);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.laptop-screen {
+    width: 100%;
+    height: 0;
+    padding-bottom: 62.5%; /* 16:10 aspect ratio */
+    position: relative;
+    background: #333;
+    border-radius: 10px 10px 0 0;
+    transform-origin: bottom;
+    transform: rotateX(-20deg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.laptop-bezel {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    width: 94%;
+    height: 94%;
+    background: #111;
+    border-radius: 5px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.laptop-display {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 96%;
+    height: 96%;
+    background: #fff;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.laptop-display.transitioning {
+    opacity: 0.5;
+}
+
+.project-preview {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Browser chrome styling */
+.project-screen-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .browser-chrome {
     background: #f0f0f0;
     padding: 8px;
@@ -61,41 +118,42 @@
 }
 
 .browser-content {
-    padding: 1.5rem;
-    max-height: 300px;
-    overflow-y: auto;
+    flex: 1;
+    background: white;
+    padding: 15px;
+    overflow: auto;
 }
 
 .default-message {
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     color: #666;
-    padding: 2rem;
 }
 
 .project-details {
-    padding: 0.5rem;
+    padding: 10px;
 }
 
 .project-details h3 {
-    margin-bottom: 1rem;
+    margin-bottom: 15px;
     color: #333;
 }
 
 .project-details ul {
-    padding-left: 1.5rem;
+    padding-left: 20px;
 }
 
 .project-details li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
 }
 
 /* Dark mode styles */
-.dark .project-info-panel {
-    background: #222;
+.dark .laptop-display {
+    background: #1a1a1a;
 }
 
 .dark .browser-chrome {
@@ -108,6 +166,7 @@
 }
 
 .dark .browser-content {
+    background: #222;
     color: #eee;
 }
 
@@ -120,12 +179,14 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-    .laptop-model-canvas {
-        height: 300px;
+@media (max-width: 1024px) {
+    .laptop-body {
+        width: 90%;
     }
+}
 
-    .project-info-panel {
-        width: 95%;
+@media (max-width: 768px) {
+    .laptop-body {
+        transform: rotateX(5deg) rotateY(-5deg);
     }
 }

@@ -12,6 +12,8 @@ import githubCert from './assets/certifications/github-foundations.png'
 import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
 import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
 import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
+import LaptopDisplay from './LaptopDisplay.jsx';
+import './LaptopDisplay.css';
 
 
 const App1 = () => {
@@ -22,6 +24,7 @@ const App1 = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
   const [hoveredElementType, setHoveredElementType] = useState('default');
+  const [activeProject, setActiveProject] = useState(null);
 
   useEffect(() => {
     let animationId;
@@ -243,32 +246,64 @@ const App1 = () => {
               </div>
             </section>
             <section className="section project-section">
-              <div className="project-section-background"></div>
-              <div className="project-content">
-                <div className="projects-grid">
-                  <ProjectCard
-                      title="Cross-platform Markdown editor with AI assistance"
-                      description="Developed a cross-platform Markdown editor using Kotlin Compose Multiplatform, featuring real-time preview, dark/light themes, and in-app Markdown guide. Packaged the application for Windows, macOS, Linux, and Android, ensuring native performance and seamless installation across platforms."
-                      githubUrl="https://github.com/yadnyeshkolte/CrossDocs"
-                      onHover={() => handleTextHover('project')}
-                      onLeave={handleTextLeave}
-                  />
-                  <ProjectCard
-                      title="ESP32-Based ATM-Like Functioning Telegram Bot"
-                      description="Developed a cool Telegram bot integrated with an ESP32 microcontroller to simulate advanced ATM functionalities, leveraging Java, C++, and Python to create a robust communication system for remote banking transactions. The project demonstrated programming expertise by implementing hardware-software interaction that optimized microcontroller programming methodologies."
-                      githubUrl="https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a"
-                      onHover={() => handleTextHover('project')}
-                      onLeave={handleTextLeave}
-                  />
-                  <ProjectCard
-                      title="Guestbook Application Deployment"
-                      description="Developed a comprehensive continuous delivery pipeline leveraging Argo CD and GitOps principles for Kubernetes. The project incorporated tools like Docker, GitHub, Helm, Lens, and DateTree, facilitating efficient container orchestration and version control."
-                      githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
-                      onHover={() => handleTextHover('project')}
-                      onLeave={handleTextLeave}
-                  />
+                <div className="project-showcase">
+                  <div className="project-sidebar">
+                    <div
+                        className={`project-card ${activeProject === 'crossdocs' ? 'active' : ''}`}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => setActiveProject('crossdocs')}
+                        onMouseEnter={() => handleTextHover('project')}
+                        onMouseLeave={handleTextLeave}
+                    >
+                      <h3 className="project-title">Cross-platform Markdown editor</h3>
+                      <p className="project-summary">Kotlin Compose Multiplatform app with real-time preview and AI assistance</p>
+                      <div className="project-tags">
+                        <span className="tag">Kotlin</span>
+                        <span className="tag">Multiplatform</span>
+                        <span className="tag">AI</span>
+                      </div>
+                    </div>
+
+                    <div
+                        className={`project-card ${activeProject === 'telegram-bot' ? 'active' : ''}`}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => setActiveProject('telegram-bot')}
+                        onMouseEnter={() => handleTextHover('project')}
+                        onMouseLeave={handleTextLeave}
+                    >
+                      <h3 className="project-title">ESP32-Based Telegram Bot</h3>
+                      <p className="project-summary">ATM-like functionality using microcontroller integration</p>
+                      <div className="project-tags">
+                        <span className="tag">IoT</span>
+                        <span className="tag">Java</span>
+                        <span className="tag">Python</span>
+                      </div>
+                    </div>
+
+                    <div
+                        className={`project-card ${activeProject === 'guestbook' ? 'active' : ''}`}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => setActiveProject('guestbook')}
+                        onMouseEnter={() => handleTextHover('project')}
+                        onMouseLeave={handleTextLeave}
+                    >
+                      <h3 className="project-title">Guestbook App Deployment</h3>
+                      <p className="project-summary">Continuous delivery pipeline with Argo CD and GitOps</p>
+                      <div className="project-tags">
+                        <span className="tag">DevOps</span>
+                        <span className="tag">Kubernetes</span>
+                        <span className="tag">Docker</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="project-display">
+                    <LaptopDisplay activeProject={activeProject} />
+                  </div>
                 </div>
-              </div>
             </section>
             <section className="section tech-stack-section">
               <div className="tech-container">

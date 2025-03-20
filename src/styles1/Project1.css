@@ -5,137 +5,98 @@
     padding: 4rem 2rem !important;
 }
 
-.project-section-background {
-    transform: translate3d(0, 0, 0); /* Hardware acceleration */
-    will-change: transform; /* Hint to browser about animation */
-    position: absolute;
-    top: 0;
-    left: 0;
+
+/* New 20-80 split layout */
+.project-showcase {
+    display: flex;
     width: 100%;
-    height: 100%;
-    background-image: url('assets/project-section-light-theme/1.png');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.7;
-    z-index: 1;
-    animation: backgroundChange 25s ease-in-out infinite;
-
-    mask-image: linear-gradient(
-            to bottom,
-            rgba(0,0,0,0) 0%,
-            rgba(0,0,0,1) 10%,
-            rgba(0,0,0,1) 50%,
-            rgba(0,0,0,1) 90%,
-            rgba(0,0,0,0) 100%
-    );
-
-    filter: blur(0px);
+    height: 80vh;
+    max-height: 700px;
 }
 
-@keyframes backgroundChange {
-    0%, 20% {
-        background-image: url('assets/project-section-light-theme/1.png');
-    }
-    21%, 40% {
-        background-image: url('assets/project-section-light-theme/2.png');
-    }
-    41%, 60% {
-        background-image: url('assets/project-section-light-theme/3.png');
-    }
-    61%, 80% {
-        background-image: url('assets/project-section-light-theme/4.png');
-    }
-    81%, 100% {
-        background-image: url('assets/project-section-light-theme/5.png');
-    }
+.project-sidebar {
+    width: 20%;
+    min-width: 250px;
+    padding-right: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-@keyframes backgroundChangeDark {
-    0%, 20% {
-        background-image: url('assets/project-section-dark-theme/1.png');
-    }
-    21%, 40% {
-        background-image: url('assets/project-section-dark-theme/2.png');
-    }
-    41%, 60% {
-        background-image: url('assets/project-section-dark-theme/3.png');
-    }
-    61%, 80% {
-        background-image: url('assets/project-section-dark-theme/4.png');
-    }
-    81%, 100% {
-        background-image: url('assets/project-section-dark-theme/5.png');
-    }
-}
-
-.project-content {
+.project-display {
+    flex: 1;
     position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    overflow: hidden;
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    padding: 2rem;
-}
-
+/* Project cards new style */
 .project-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    height: 100%;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, background-color 0.9s ease, box-shadow 0.9s ease;
-}
-
-.project-card:hover {
-    background-color: #CFE8F1;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.project-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
+.project-card:hover {
+    background-color: rgba(207, 232, 241, 0.2);
+    transform: translateY(-2px);
 }
 
-.project-description {
-    flex-grow: 1;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
+.project-card.active {
+    border-left-color: #3498db;
+    background-color: rgba(207, 232, 241, 0.3);
 }
 
-.github-link {
+.project-summary {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.project-tags {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 0.5rem;
-    text-decoration: none;
-    color: inherit;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    background: rgba(255, 255, 255, 0.2);
-    width: fit-content;
-    transition: background 0.3s ease;
+    margin-top: auto;
 }
 
-.github-link:hover {
-    background: rgba(255, 255, 255, 0.3);
+.tag {
+    font-size: 0.7rem;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 1rem;
+    color: rgba(0, 0, 0, 0.6);
 }
 
-/* Dark mode styles for project section */
+/* Dark mode styles */
 .dark .project-card {
     background: rgba(0, 0, 0, 0.2);
 }
 
 .dark .project-card:hover {
-    background-color: #2a2a2a;
+    background-color: rgba(42, 42, 42, 0.5);
+}
+
+.dark .project-card.active {
+    border-left-color: #60a5fa;
+    background-color: rgba(42, 42, 42, 0.7);
+}
+
+.dark .project-summary {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.dark .tag {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .dark .project-section-background {
@@ -143,38 +104,30 @@
     opacity: 0.3;
 }
 
-/* Media queries for project section */
+/* Media queries for responsive design */
+@media (max-width: 1024px) {
+    .project-showcase {
+        height: auto;
+    }
+}
+
 @media (max-width: 768px) {
-    .projects-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        padding: 1rem;
-        gap: 1rem;
+    .project-showcase {
+        flex-direction: column;
     }
 
-    .project-card {
-        min-width: 70vw; /* Make cards take up most of the viewport width */
-        scroll-snap-align: center;
-        margin-right: 1rem; /* Space between cards */
-        box-shadow: none;
+    .project-sidebar {
+        width: 100%;
+        padding-right: 0;
+        padding-bottom: 20px;
+        min-width: auto;
     }
 
-    /* Hide scrollbar but keep functionality */
-    .projects-grid::-webkit-scrollbar {
-        display: none;
+    .project-display {
+        min-height: 300px;
     }
 
-    .projects-grid {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    /* Add visual padding to the end for better UX */
-    .projects-grid::after {
-        content: '';
-        padding-right: 1rem;
+    .project-section {
+        padding: 2rem 1rem !important;
     }
 }
