@@ -253,8 +253,6 @@ const App1 = () => {
                         role="button"
                         tabIndex={0}
                         onClick={() => setActiveProject('crossdocs')}
-                        onMouseEnter={() => handleTextHover('project')}
-                        onMouseLeave={handleTextLeave}
                     >
                       <h3 className="project-title">Cross-platform Markdown editor</h3>
                       <p className="project-summary">Kotlin Compose Multiplatform app with real-time preview and AI assistance</p>
@@ -270,8 +268,6 @@ const App1 = () => {
                         role="button"
                         tabIndex={0}
                         onClick={() => setActiveProject('telegram-bot')}
-                        onMouseEnter={() => handleTextHover('project')}
-                        onMouseLeave={handleTextLeave}
                     >
                       <h3 className="project-title">ESP32-Based Telegram Bot</h3>
                       <p className="project-summary">ATM-like functionality using microcontroller integration</p>
@@ -287,8 +283,6 @@ const App1 = () => {
                         role="button"
                         tabIndex={0}
                         onClick={() => setActiveProject('guestbook')}
-                        onMouseEnter={() => handleTextHover('project')}
-                        onMouseLeave={handleTextLeave}
                     >
                       <h3 className="project-title">Guestbook App Deployment</h3>
                       <p className="project-summary">Continuous delivery pipeline with Argo CD and GitOps</p>
