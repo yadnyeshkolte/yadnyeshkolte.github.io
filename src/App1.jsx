@@ -259,64 +259,64 @@ const App1 = () => {
               </div>
             </section>
             <section className="section project-section">
-                <div className="project-showcase">
-                  <div className="project-sidebar">
-                    <div
-                        className={`project-card ${activeProject === 'crossdocs' ? 'active' : ''}`}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => setActiveProject('crossdocs')}
-                    >
-                      <h3 className="project-title">Cross-platform Markdown editor</h3>
-                      <p className="project-summary">Kotlin Compose Multiplatform app with real-time preview and AI assistance</p>
-                      <div className="project-tags">
-                        <span className="tag">Kotlin</span>
-                        <span className="tag">Multiplatform</span>
-                        <span className="tag">AI</span>
-                      </div>
-                    </div>
-
-                    <div
-                        className={`project-card ${activeProject === 'telegram-bot' ? 'active' : ''}`}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => setActiveProject('telegram-bot')}
-                    >
-                      <h3 className="project-title">ESP32-Based Telegram Bot</h3>
-                      <p className="project-summary">ATM-like functionality using microcontroller integration</p>
-                      <div className="project-tags">
-                        <span className="tag">IoT</span>
-                        <span className="tag">Java</span>
-                        <span className="tag">Python</span>
-                      </div>
-                    </div>
-
-                    <div
-                        className={`project-card ${activeProject === 'guestbook' ? 'active' : ''}`}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => setActiveProject('guestbook')}
-                    >
-                      <h3 className="project-title">Guestbook App Deployment</h3>
-                      <p className="project-summary">Continuous delivery pipeline with Argo CD and GitOps</p>
-                      <div className="project-tags">
-                        <span className="tag">DevOps</span>
-                        <span className="tag">Kubernetes</span>
-                        <span className="tag">Docker</span>
-                      </div>
+              <div className="project-showcase">
+                <div className="project-sidebar">
+                  <div
+                      className={`project-card ${activeProject === 'crossdocs' ? 'active' : ''}`}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setActiveProject('crossdocs')}
+                  >
+                    <h3 className="project-title">Cross-platform Markdown editor</h3>
+                    <p className="project-summary">Kotlin Compose Multiplatform app with real-time preview and AI assistance</p>
+                    <div className="project-tags">
+                      <span className="tag">Kotlin</span>
+                      <span className="tag">Multiplatform</span>
+                      <span className="tag">AI</span>
                     </div>
                   </div>
-                  <div className="project-display">
-                    <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
-                      <Suspense fallback={null}>
-                        <Stage controls={ref} preset="rembrandt" intensity={1} environment="city">
-                          <Model isOpen={laptopOpen} />
-                        </Stage>
-                      </Suspense>
-                      <OrbitControls ref={ref} />
-                    </Canvas>
+
+                  <div
+                      className={`project-card ${activeProject === 'telegram-bot' ? 'active' : ''}`}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setActiveProject('telegram-bot')}
+                  >
+                    <h3 className="project-title">ESP32-Based Telegram Bot</h3>
+                    <p className="project-summary">ATM-like functionality using microcontroller integration</p>
+                    <div className="project-tags">
+                      <span className="tag">IoT</span>
+                      <span className="tag">Java</span>
+                      <span className="tag">Python</span>
+                    </div>
+                  </div>
+
+                  <div
+                      className={`project-card ${activeProject === 'guestbook' ? 'active' : ''}`}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setActiveProject('guestbook')}
+                  >
+                    <h3 className="project-title">Guestbook App Deployment</h3>
+                    <p className="project-summary">Continuous delivery pipeline with Argo CD and GitOps</p>
+                    <div className="project-tags">
+                      <span className="tag">DevOps</span>
+                      <span className="tag">Kubernetes</span>
+                      <span className="tag">Docker</span>
+                    </div>
                   </div>
                 </div>
+                <div className="project-display">
+                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
+                    <Suspense fallback={null}>
+                      <Stage controls={ref} preset="rembrandt" intensity={1} environment="city">
+                        <Model isOpen={laptopOpen} />
+                      </Stage>
+                    </Suspense>
+                    <OrbitControls ref={ref} />
+                  </Canvas>
+                </div>
+              </div>
             </section>
             <section className="section tech-stack-section">
               <div className="tech-container">

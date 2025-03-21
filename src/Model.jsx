@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber';
 export function Model(props) {
     const { nodes, materials } = useGLTF('/modern_laptop.glb');
     const laptopScreenRef = useRef();
+    const modelGroupRef = useRef();
     // Use the prop if provided, otherwise default to false
     const [isOpen, setIsOpen] = useState(props.isOpen || false);
 
@@ -39,8 +40,9 @@ export function Model(props) {
     });
 
     return (
-        <group {...props} dispose={null}>
-            <group rotation={[2*Math.PI / 3.8, 0, 0]}>
+        <group {...props} dispose={null} ref={modelGroupRef} position={[0, 0, 0]}>
+            {/* Adjust the rotation to place laptop in the center of the view */}
+            <group rotation={[2*Math.PI / 4, 0, 0]} position={[0, 0, 0]}>
                 <group rotation={[-Math.PI, 0, 0]} scale={0.01}>
                     <group rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[3.347, 153, 100]}>
                         <mesh
