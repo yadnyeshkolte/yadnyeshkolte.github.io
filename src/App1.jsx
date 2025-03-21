@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState, useRef, Suspense} from 'react';
 import './App1.css';
 import reactLogo from './assets/yadnyesh.jpg'
 import NavigationBar from './smallcomponents/NavigationBar.jsx';
@@ -14,6 +14,9 @@ import openSourceCert from './assets/certifications/lfd137-open-source-contribut
 import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
 import LaptopDisplay from './LaptopDisplay.jsx';
 import './LaptopDisplay.css';
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, Stage } from '@react-three/drei'
+import { Model } from './Model.jsx'
 
 
 const App1 = () => {
@@ -25,6 +28,7 @@ const App1 = () => {
   const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
   const [hoveredElementType, setHoveredElementType] = useState('default');
   const [activeProject, setActiveProject] = useState(null);
+  const ref = useRef();
 
   useEffect(() => {
     let animationId;
@@ -293,9 +297,17 @@ const App1 = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className="project-display">
-                    <LaptopDisplay activeProject={activeProject} />
+                    <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
+                      <Suspense fallback={null}>
+                        <Stage controls={ref} preset="rembrandt" intensity={1}  environment="city">
+                          false
+                          <Model />
+                          false
+                        </Stage>
+                      </Suspense>
+                      <OrbitControls ref={ref} autoRotate />
+                    </Canvas>
                   </div>
                 </div>
             </section>
