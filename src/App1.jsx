@@ -12,8 +12,6 @@ import githubCert from './assets/certifications/github-foundations.png'
 import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
 import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
 import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
-import LaptopDisplay from './LaptopDisplay.jsx';
-import './LaptopDisplay.css';
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stage } from '@react-three/drei'
 import { Model } from './Model.jsx'
@@ -307,7 +305,7 @@ const App1 = () => {
                   </div>
                 </div>
                 <div className="project-display">
-                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
+                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 1.0, 4.5] }}>
                     <Suspense fallback={null}>
                       <Stage controls={ref} preset="rembrandt" intensity={1} environment="city">
                         <Model isOpen={laptopOpen} />
