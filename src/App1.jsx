@@ -15,7 +15,9 @@ import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-an
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stage } from '@react-three/drei'
 import { Model } from './Model.jsx'
-
+import crossdocsImage from './assets/1.png';
+import telegramBotImage from './assets/2.png';
+import guestbookImage from './assets/3.png';
 
 const App1 = () => {
 
@@ -25,10 +27,37 @@ const App1 = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
   const [hoveredElementType, setHoveredElementType] = useState('default');
-  const [activeProject, setActiveProject] = useState(null);
-  // Add this along with your other state declarations near the top of the App1 component
+  const [activeProject, setActiveProject] = useState('crossdocs'); // Default to first project
   const [laptopOpen, setLaptopOpen] = useState(false);
+  const [currentProjectImage, setCurrentProjectImage] = useState(crossdocsImage); // Default image
   const ref = useRef();
+
+  const projects = {
+    'crossdocs': {
+      title: 'Cross-platform Markdown editor',
+      summary: 'Kotlin Compose Multiplatform app with real-time preview and AI assistance',
+      tags: ['Kotlin', 'Multiplatform', 'AI'],
+      image: crossdocsImage
+    },
+    'telegram-bot': {
+      title: 'ESP32-Based Telegram Bot',
+      summary: 'ATM-like functionality using microcontroller integration',
+      tags: ['IoT', 'Java', 'Python'],
+      image: telegramBotImage
+    },
+    'guestbook': {
+      title: 'Guestbook App Deployment',
+      summary: 'Continuous delivery pipeline with Argo CD and GitOps',
+      tags: ['DevOps', 'Kubernetes', 'Docker'],
+      image: guestbookImage
+    }
+  };
+
+  useEffect(() => {
+    if (activeProject && projects[activeProject]) {
+      setCurrentProjectImage(projects[activeProject].image);
+    }
+  }, [activeProject]);
 
   useEffect(() => {
     let animationId;
@@ -167,6 +196,14 @@ const App1 = () => {
     // proportional shrinking as growing
   };
 
+  const handleProjectClick = (projectId) => {
+    setActiveProject(projectId);
+    // Make sure laptop is open when a project is selected
+    if (!laptopOpen) {
+      setLaptopOpen(true);
+    }
+  };
+
 
   const certifications = [
     {
@@ -259,57 +296,29 @@ const App1 = () => {
             <section className="section project-section">
               <div className="project-showcase">
                 <div className="project-sidebar">
-                  <div
-                      className={`project-card ${activeProject === 'crossdocs' ? 'active' : ''}`}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => setActiveProject('crossdocs')}
-                  >
-                    <h3 className="project-title">Cross-platform Markdown editor</h3>
-                    <p className="project-summary">Kotlin Compose Multiplatform app with real-time preview and AI assistance</p>
-                    <div className="project-tags">
-                      <span className="tag">Kotlin</span>
-                      <span className="tag">Multiplatform</span>
-                      <span className="tag">AI</span>
-                    </div>
-                  </div>
-
-                  <div
-                      className={`project-card ${activeProject === 'telegram-bot' ? 'active' : ''}`}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => setActiveProject('telegram-bot')}
-                  >
-                    <h3 className="project-title">ESP32-Based Telegram Bot</h3>
-                    <p className="project-summary">ATM-like functionality using microcontroller integration</p>
-                    <div className="project-tags">
-                      <span className="tag">IoT</span>
-                      <span className="tag">Java</span>
-                      <span className="tag">Python</span>
-                    </div>
-                  </div>
-
-                  <div
-                      className={`project-card ${activeProject === 'guestbook' ? 'active' : ''}`}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => setActiveProject('guestbook')}
-                  >
-                    <h3 className="project-title">Guestbook App Deployment</h3>
-                    <p className="project-summary">Continuous delivery pipeline with Argo CD and GitOps</p>
-                    <div className="project-tags">
-                      <span className="tag">DevOps</span>
-                      <span className="tag">Kubernetes</span>
-                      <span className="tag">Docker</span>
-                    </div>
-                  </div>
+                  {Object.entries(projects).map(([id, project]) => (
+                      <div
+                          key={id}
+                          className={`project-card ${activeProject === id ? 'active' : ''}`}
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => handleProjectClick(id)}
+                      >
+                        <h3 className="project-title">{project.title}</h3>
+                        <p className="project-summary">{project.summary}</p>
+                        <div className="project-tags">
+                          {project.tags.map((tag, index) => (
+                              <span key={index} className="tag">{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                  ))}
                 </div>
                 <div className="project-display">
-                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 0.4, 4] }}>
+                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 0.7, 4] }}>
                     <Suspense fallback={null}>
-                      <Stage controls={ref} preset="rembrandt" intensity={0.1} environment="city" shadows={false}>
-                        //Remember change from city to the night in dark mode
-                        <Model isOpen={laptopOpen} />
+                      <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
+                        <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
                       </Stage>
                     </Suspense>
                     <OrbitControls ref={ref} target={[0, 0.7, 0]}/>

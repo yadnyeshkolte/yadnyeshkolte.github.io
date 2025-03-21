@@ -7,6 +7,7 @@ export function Model(props) {
     const { nodes, materials } = useGLTF('/scene.gltf');
     const laptopScreenRef = useRef();
     const modelGroupRef = useRef();
+    const screenMeshRef = useRef();
     // Use the prop if provided, otherwise default to false
     const [isOpen, setIsOpen] = useState(props.isOpen || false);
 
@@ -16,6 +17,26 @@ export function Model(props) {
             setIsOpen(props.isOpen);
         }
     }, [props.isOpen]);
+
+    // Handle screen texture updates
+    useEffect(() => {
+        if (props.screenImage && screenMeshRef.current) {
+            // Create a new texture loader
+            const textureLoader = new THREE.TextureLoader();
+
+            // Load the texture
+            textureLoader.load(props.screenImage, (texture) => {
+                // Create a new material with the texture
+                const newMaterial = new THREE.MeshBasicMaterial({
+                    map: texture,
+                    side: THREE.DoubleSide,
+                });
+
+                // Apply the new material to the screen mesh
+                screenMeshRef.current.material = newMaterial;
+            });
+        }
+    }, [props.screenImage]);
 
     // Update materials to silver
     useEffect(() => {
@@ -51,7 +72,7 @@ export function Model(props) {
             materials.TrackPad_Buttons.roughness = 0.25;
         }
 
-        // Keep screen materials as they are
+        // Keep screen materials as they are for initial state
         if (materials.Windows) {
             materials.Windows.color = new THREE.Color('#F0F0F0');
             materials.Windows.metalness = 0.1;
@@ -132,6 +153,7 @@ export function Model(props) {
                                     material={materials.TrackPad_Buttons}
                                 />
                                 <mesh
+                                    ref={screenMeshRef}
                                     castShadow
                                     receiveShadow
                                     geometry={nodes.Screen_Windows_0.geometry}
