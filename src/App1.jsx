@@ -304,7 +304,7 @@ const App1 = () => {
                           <Model />
                         </Stage>
                       </Suspense>
-                      <OrbitControls ref={ref} autoRotate />
+                      <OrbitControls ref={ref} />
                     </Canvas>
                   </div>
                 </div>
