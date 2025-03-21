@@ -1,12 +1,46 @@
-
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef, useState, useEffect } from 'react';
+import { useGLTF } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 
 export function Model(props) {
-    const { nodes, materials } = useGLTF('/modern_laptop.glb')
+    const { nodes, materials } = useGLTF('/modern_laptop.glb');
+    const laptopScreenRef = useRef();
+    // Use the prop if provided, otherwise default to false
+    const [isOpen, setIsOpen] = useState(props.isOpen || false);
+
+    // Update when the prop changes
+    useEffect(() => {
+        if (props.isOpen !== undefined) {
+            setIsOpen(props.isOpen);
+        }
+    }, [props.isOpen]);
+
+    // Animation parameters
+    const animationSpeed = 0.1; // Increased from 0.05 for faster animation
+
+    // Animation frame
+    useFrame(() => {
+        if (!laptopScreenRef.current) return;
+
+        // Target values based on open/closed state
+        const targetYRotation = isOpen ? -1.571 : -1.40;
+        const targetScaleX = isOpen ? 0.034 : 0.934;
+        const targetScaleZ = isOpen ? 0.514 : 0.0175;
+
+        // Current values
+        const currentYRotation = laptopScreenRef.current.rotation.y;
+        const currentScaleX = laptopScreenRef.current.scale.x;
+        const currentScaleZ = laptopScreenRef.current.scale.z;
+
+        // Smooth interpolation
+        laptopScreenRef.current.rotation.y += (targetYRotation - currentYRotation) * animationSpeed;
+        laptopScreenRef.current.scale.x += (targetScaleX - currentScaleX) * animationSpeed;
+        laptopScreenRef.current.scale.z += (targetScaleZ - currentScaleZ) * animationSpeed;
+    });
+
     return (
         <group {...props} dispose={null}>
-            <group rotation={[Math.PI / 2, 0, 0]}>
+            <group rotation={[2*Math.PI / 3.8, 0, 0]}>
                 <group rotation={[-Math.PI, 0, 0]} scale={0.01}>
                     <group rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[3.347, 153, 100]}>
                         <mesh
@@ -28,9 +62,11 @@ export function Model(props) {
                             material={materials.TrackPad}
                         />
                         <group
+                            ref={laptopScreenRef}
                             position={[-1.58, 0, -2.009]}
-                            rotation={[0, -1.571, 0]}
-                            scale={[0.034, 0.196, 0.514]}>
+                            rotation={[0,-1.571, 0]}
+                            scale={[0.934, 0.196, 0.0175]}
+                        >
                             <mesh
                                 castShadow
                                 receiveShadow
@@ -133,7 +169,7 @@ export function Model(props) {
                 </group>
             </group>
         </group>
-    )
+    );
 }
 
-useGLTF.preload('/modern_laptop.glb')
+useGLTF.preload('/modern_laptop.glb');

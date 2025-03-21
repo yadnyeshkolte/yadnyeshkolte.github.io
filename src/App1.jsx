@@ -28,6 +28,8 @@ const App1 = () => {
   const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
   const [hoveredElementType, setHoveredElementType] = useState('default');
   const [activeProject, setActiveProject] = useState(null);
+  // Add this along with your other state declarations near the top of the App1 component
+  const [laptopOpen, setLaptopOpen] = useState(false);
   const ref = useRef();
 
   useEffect(() => {
@@ -125,6 +127,13 @@ const App1 = () => {
           y: lastKnownMouseEvent.clientY + scrollTop - 50,
         });
       }
+    }
+    const projectSection = document.querySelector('.project-section');
+    if (projectSection) {
+      const rect = projectSection.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight * 0.75 &&
+          rect.bottom > window.innerHeight * 0.25;
+      setLaptopOpen(isVisible);
     }
   }, []);
 
@@ -301,7 +310,7 @@ const App1 = () => {
                     <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
                       <Suspense fallback={null}>
                         <Stage controls={ref} preset="rembrandt" intensity={1} environment="city">
-                          <Model />
+                          <Model isOpen={laptopOpen} />
                         </Stage>
                       </Suspense>
                       <OrbitControls ref={ref} />
