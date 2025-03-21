@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 export function Model(props) {
-    const { nodes, materials } = useGLTF('/modern_laptop.glb');
+    const { nodes, materials } = useGLTF('/scene.gltf');
     const laptopScreenRef = useRef();
     const modelGroupRef = useRef();
     // Use the prop if provided, otherwise default to false
@@ -217,4 +217,4 @@ export function Model(props) {
     );
 }
 
-useGLTF.preload('/modern_laptop.glb');
+useGLTF.preload('/scene.gltf');
