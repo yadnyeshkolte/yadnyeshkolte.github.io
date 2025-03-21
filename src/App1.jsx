@@ -307,7 +307,7 @@ const App1 = () => {
                 <div className="project-display">
                   <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 0.4, 4] }}>
                     <Suspense fallback={null}>
-                      <Stage controls={ref} preset="rembrandt" intensity={1} environment="city">
+                      <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
                         <Model isOpen={laptopOpen} />
                       </Stage>
                     </Suspense>

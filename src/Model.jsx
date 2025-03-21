@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
 
 export function Model(props) {
     const { nodes, materials } = useGLTF('/modern_laptop.glb');
@@ -15,6 +16,48 @@ export function Model(props) {
             setIsOpen(props.isOpen);
         }
     }, [props.isOpen]);
+
+    // Update materials to silver
+    useEffect(() => {
+        // Define silver color and properties
+        const silverColor = new THREE.Color('#E8E8E8');
+        const silverMetalness = 0.8;
+        const silverRoughness = 0.2;
+
+        // Apply silver color to all laptop body materials
+        if (materials.Back) {
+            materials.Back.color = silverColor;
+            materials.Back.metalness = silverMetalness;
+            materials.Back.roughness = silverRoughness;
+        }
+
+        if (materials.Palm_Rest) {
+            materials.Palm_Rest.color = silverColor;
+            materials.Palm_Rest.metalness = silverMetalness;
+            materials.Palm_Rest.roughness = silverRoughness;
+        }
+
+        // TrackPad can stay slightly darker
+        if (materials.TrackPad) {
+            materials.TrackPad.color = new THREE.Color('#D0D0D0');
+            materials.TrackPad.metalness = 0.6;
+            materials.TrackPad.roughness = 0.3;
+        }
+
+        // Buttons can be slightly different shade
+        if (materials.TrackPad_Buttons) {
+            materials.TrackPad_Buttons.color = new THREE.Color('#CCCCCC');
+            materials.TrackPad_Buttons.metalness = 0.7;
+            materials.TrackPad_Buttons.roughness = 0.25;
+        }
+
+        // Keep screen materials as they are
+        if (materials.Windows) {
+            materials.Windows.color = new THREE.Color('#F0F0F0');
+            materials.Windows.metalness = 0.1;
+            materials.Windows.roughness = 0.05;
+        }
+    }, [materials]);
 
     // Animation parameters
     const animationSpeed = 0.1; // Increased from 0.05 for faster animation
