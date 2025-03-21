@@ -305,13 +305,13 @@ const App1 = () => {
                   </div>
                 </div>
                 <div className="project-display">
-                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 1.0, 4.5] }}>
+                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 0.4, 4] }}>
                     <Suspense fallback={null}>
                       <Stage controls={ref} preset="rembrandt" intensity={1} environment="city">
                         <Model isOpen={laptopOpen} />
                       </Stage>
                     </Suspense>
-                    <OrbitControls ref={ref} />
+                    <OrbitControls ref={ref} target={[0, 0.7, 0]}/>
                   </Canvas>
                 </div>
               </div>
