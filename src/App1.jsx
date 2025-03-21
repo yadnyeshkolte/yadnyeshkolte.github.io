@@ -307,7 +307,8 @@ const App1 = () => {
                 <div className="project-display">
                   <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 0.4, 4] }}>
                     <Suspense fallback={null}>
-                      <Stage controls={ref} preset="rembrandt" intensity={0.1} environment="forest" shadows={false}>
+                      <Stage controls={ref} preset="rembrandt" intensity={0.1} environment="city" shadows={false}>
+                        //Remember change from city to the night in dark mode
                         <Model isOpen={laptopOpen} />
                       </Stage>
                     </Suspense>
