@@ -27,31 +27,30 @@
     flex: 0 0 auto;
     width: 240px;
     height: 100px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    z-index: 6;
     backdrop-filter: blur(12px);
     border-radius: 12px;
     padding: 18px;
     margin: 0 5px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.12);
     transform: translateY(0);
     user-select: none; /* Prevent text selection during drag */
     overflow: hidden;
 }
 
 .project-carousel .project-card.active {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    z-index: 6;
+    background: rgba(173, 216, 230, 0.9);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(8px);
+
 }
 
 .project-carousel .project-card:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(8px);
 }
 
 .project-carousel .project-title {
@@ -101,6 +100,12 @@
     .project-carousel .project-card.active {
         transform: translateY(-15px) scale(1.05);
     }
+}
+
+.dark .project-carousel .project-card.active {
+    background: rgba(128, 128, 128, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
 }
 
 @media (max-width: 768px) {

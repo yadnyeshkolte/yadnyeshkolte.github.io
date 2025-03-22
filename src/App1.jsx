@@ -333,7 +333,7 @@ const App1 = () => {
 
                 {/* 3D Model Display */}
                 <div className="project-display">
-                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 0.6, 4] }}>
+                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0.8, 0.6, 4] }}>
                     <Suspense fallback={null}>
                       <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
                         <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
