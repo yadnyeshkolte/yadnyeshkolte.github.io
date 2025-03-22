@@ -339,7 +339,7 @@ const App1 = () => {
                         <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
                       </Stage>
                     </Suspense>
-                    <OrbitControls ref={ref} target={[0, 0.8, 0]}/>
+                    <OrbitControls ref={ref} target={[0, 0.85, 0]}/>
                   </Canvas>
 
                   {/* Carousel of project cards positioned behind the laptop */}
