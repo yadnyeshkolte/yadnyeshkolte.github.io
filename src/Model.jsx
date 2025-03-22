@@ -26,14 +26,54 @@ export function Model(props) {
 
             // Load the texture
             textureLoader.load(props.screenImage, (texture) => {
-                // Create a new material with the texture
-                const newMaterial = new THREE.MeshBasicMaterial({
-                    map: texture,
-                    side: THREE.DoubleSide,
-                });
+                // Create an offscreen canvas to manipulate the texture
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
 
-                // Apply the new material to the screen mesh
-                screenMeshRef.current.material = newMaterial;
+                // Create an image to draw onto the canvas
+                const image = new Image();
+                image.onload = function() {
+                    // Set canvas dimensions to match the image
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+
+                    // Draw the image
+                    context.drawImage(image, 0, 0);
+
+                    // Get the image data
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+
+                    // Adjust contrast and brightness
+                    const contrast = 1;  // Higher contrast
+                    const brightness = -100; // Slightly darker to offset the white overlay
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        // Apply contrast and brightness adjustments to RGB channels
+                        data[i] = Math.min(255, Math.max(0, (data[i] - 128) * contrast + 128 + brightness));
+                        data[i+1] = Math.min(255, Math.max(0, (data[i+1] - 128) * contrast + 128 + brightness));
+                        data[i+2] = Math.min(255, Math.max(0, (data[i+2] - 128) * contrast + 128 + brightness));
+                    }
+
+                    // Put the modified image data back on the canvas
+                    context.putImageData(imageData, 0, 0);
+
+                    // Create a new texture from the canvas
+                    const adjustedTexture = new THREE.CanvasTexture(canvas);
+                    adjustedTexture.anisotropy = 16;
+
+                    // Create material with the adjusted texture
+                    const newMaterial = new THREE.MeshBasicMaterial({
+                        map: adjustedTexture,
+                        side: THREE.DoubleSide
+                    });
+
+                    // Apply the new material
+                    screenMeshRef.current.material = newMaterial;
+                };
+
+                // Set image source to the texture image
+                image.src = texture.image.src;
             });
         }
     }, [props.screenImage]);
@@ -41,9 +81,10 @@ export function Model(props) {
     // Update materials to silver
     useEffect(() => {
         // Define silver color and properties
-        const silverColor = new THREE.Color('#E8E8E8');
+        const silverColor = new THREE.Color('#ADD8E6');
         const silverMetalness = 0.8;
         const silverRoughness = 0.2;
+
 
         // Apply silver color to all laptop body materials
         if (materials.Back) {
@@ -67,7 +108,7 @@ export function Model(props) {
 
         // Buttons can be slightly different shade
         if (materials.TrackPad_Buttons) {
-            materials.TrackPad_Buttons.color = new THREE.Color('#CCCCCC');
+            materials.TrackPad_Buttons.color = new THREE.Color('#ADD8E6');
             materials.TrackPad_Buttons.metalness = 0.7;
             materials.TrackPad_Buttons.roughness = 0.25;
         }
@@ -77,7 +118,10 @@ export function Model(props) {
             materials.Windows.color = new THREE.Color('#F0F0F0');
             materials.Windows.metalness = 0.1;
             materials.Windows.roughness = 0.05;
+            materials.Windows.opacity = 0;
+            materials.Windows.transparent = true;
         }
+
     }, [materials]);
 
     // Animation parameters

@@ -304,7 +304,7 @@ const App1 = () => {
                           tabIndex={0}
                           onClick={() => handleProjectClick(id)}
                       >
-                        <h3 className="project-title">{project.title}</h3>
+                        <b className="project--title">{project.title}</b>
                         <p className="project-summary">{project.summary}</p>
                         <div className="project-tags">
                           {project.tags.map((tag, index) => (
@@ -315,7 +315,7 @@ const App1 = () => {
                   ))}
                 </div>
                 <div className="project-display">
-                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 0.7, 4] }}>
+                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0.8, 0.7, 4] }}>
                     <Suspense fallback={null}>
                       <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
                         <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
