@@ -80,11 +80,6 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
                 >
                     <h3 className="project-title">{project.title}</h3>
                     <p className="project-summary">{project.summary}</p>
-                    <div className="project-tags">
-                        {project.tags.map((tag, i) => (
-                            <span key={i} className="tag">{tag}</span>
-                        ))}
-                    </div>
                 </div>
             ))}
         </div>

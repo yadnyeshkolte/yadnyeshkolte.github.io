@@ -3,7 +3,7 @@
 .project-section {
     position: relative;
     overflow: hidden;
-    padding: 4rem 2rem !important;
+    padding: 2rem !important;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -17,15 +17,15 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+    gap: 2rem;
     align-items: center;
     overflow: visible;
 }
 
-/* Project info sidebar (was project-sidebar) */
+/* Project info sidebar */
 .project-info {
     width: 15%;
     height: 100%;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,7 +46,23 @@
 }
 
 /* Media Queries for responsiveness */
+@media (max-width: 1200px) {
+    .project-showcase {
+        gap: 1rem;
+    }
+
+    .project-info {
+        width: 40%;
+    }
+}
+
 @media (max-width: 768px) {
+    .project-section {
+        padding: 1rem !important;
+        height: auto;
+        min-height: 100vh;
+    }
+
     .project-showcase {
         flex-direction: column;
     }
@@ -54,11 +70,13 @@
     .project-info {
         width: 100%;
         height: auto;
-        max-height: 40%;
-        padding: 1rem;
+        max-height: none;
+        padding: 0;
+        margin-bottom: 2rem;
     }
 
     .project-display {
-        height: 60%;
+        height: 70vh;
+        width: 100%;
     }
 }

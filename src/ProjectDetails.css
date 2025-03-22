@@ -3,27 +3,24 @@
     height: 100%;
     padding: 2rem;
     position: relative;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 2;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .details-title {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .details-content {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
+    flex: 1;
 }
 
 .details-summary {
@@ -50,7 +47,7 @@
 }
 
 .details-tag {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 4px;
     padding: 0.4rem 0.8rem;
     font-size: 0.85rem;
@@ -60,8 +57,9 @@
 }
 
 .details-tag:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .details-features ul {
@@ -82,25 +80,24 @@
     position: absolute;
     left: 0;
 }
+
 /* Responsive adjustments */
-@media (min-width: 768px) {
-    .details-content {
-        flex-direction: row;
+@media (min-width: 769px) and (max-width: 1200px) {
+    .project-details {
+        padding: 1.5rem;
     }
 
-    .details-summary {
-        flex: 2;
-    }
-
-    .details-visualization {
-        flex: 1;
-        margin-top: 0;
+    .details-title {
+        font-size: 1.75rem;
+        margin-bottom: 1.25rem;
     }
 }
 
 @media (max-width: 768px) {
     .project-details {
-        padding: 1rem;
+        padding: 1.25rem;
+        height: auto;
+        max-height: 100%;
     }
 
     .details-title {
@@ -110,5 +107,10 @@
 
     .details-summary h3 {
         font-size: 1.1rem;
+    }
+
+    .details-features li {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
     }
 }
