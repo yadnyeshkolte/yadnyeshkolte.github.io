@@ -4,7 +4,6 @@ import reactLogo from './assets/yadnyesh.jpg'
 import NavigationBar from './smallcomponents/NavigationBar.jsx';
 import SocialIcons from './smallcomponents/SocialIcons.jsx';
 import ShaderModel from './smallcomponents/ShaderModel.jsx'
-import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import { useSharedCarousel } from './hooks/useSharedCarousel.js';
 import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
@@ -315,7 +314,7 @@ const App1 = () => {
                   ))}
                 </div>
                 <div className="project-display">
-                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0.8, 0.7, 4] }}>
+                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 0.7, 4] }}>
                     <Suspense fallback={null}>
                       <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
                         <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
