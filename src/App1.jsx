@@ -17,6 +17,10 @@ import { Model } from './Model.jsx'
 import crossdocsImage from './assets/1.png';
 import telegramBotImage from './assets/2.png';
 import guestbookImage from './assets/3.png';
+import githubImage from './assets/4.png';
+import lensImage from './assets/5.png';
+import blackgithubImage from './assets/6.png';
+import blacklensImage from './assets/7.png';
 
 const App1 = () => {
 
@@ -49,6 +53,30 @@ const App1 = () => {
       summary: 'Continuous delivery pipeline with Argo CD and GitOps',
       tags: ['DevOps', 'Kubernetes', 'Docker'],
       image: guestbookImage
+    },
+    'github': {
+      title: 'Github App Deployment',
+      summary: 'Continuous delivery Github gitops',
+      tags: ['Github', 'Kubernetes', 'Docker'],
+      image: githubImage
+    },
+    'lens': {
+      title: 'Guestbook App Deployment',
+      summary: 'Lens Pipeline',
+      tags: ['Lens', 'Terraform', 'Docker'],
+      image: lensImage
+    },
+    'blackgithub': {
+      title: 'Dark mode Github App Deployment',
+      summary: 'Continuous delivery Github gitops',
+      tags: ['Github', 'Kubernetes', 'Docker'],
+      image: blackgithubImage
+    },
+    'blacklens': {
+      title: 'Dark mode Guestbook App Deployment',
+      summary: 'Lens Pipeline',
+      tags: ['Lens', 'Terraform', 'Docker'],
+      image: blacklensImage
     }
   };
 
