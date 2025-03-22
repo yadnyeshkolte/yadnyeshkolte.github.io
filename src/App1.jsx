@@ -21,6 +21,8 @@ import githubImage from './assets/4.png';
 import lensImage from './assets/5.png';
 import blackgithubImage from './assets/6.png';
 import blacklensImage from './assets/7.png';
+import ProjectCarousel from './ProjectCarousel';
+import ProjectDetails from './ProjectDetails';
 
 const App1 = () => {
 
@@ -322,25 +324,14 @@ const App1 = () => {
             </section>
             <section className="section project-section">
               <div className="project-showcase">
-                <div className="project-sidebar">
-                  {Object.entries(projects).map(([id, project]) => (
-                      <div
-                          key={id}
-                          className={`project-card ${activeProject === id ? 'active' : ''}`}
-                          role="button"
-                          tabIndex={0}
-                          onClick={() => handleProjectClick(id)}
-                      >
-                        <b className="project--title">{project.title}</b>
-                        <p className="project-summary">{project.summary}</p>
-                        <div className="project-tags">
-                          {project.tags.map((tag, index) => (
-                              <span key={index} className="tag">{tag}</span>
-                          ))}
-                        </div>
-                      </div>
-                  ))}
+                {/* Project Details - Now where the sidebar used to be */}
+                <div className="project-info">
+                  <ProjectDetails
+                      project={projects[activeProject]}
+                  />
                 </div>
+
+                {/* 3D Model Display */}
                 <div className="project-display">
                   <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0, 0.7, 4] }}>
                     <Suspense fallback={null}>
@@ -348,8 +339,15 @@ const App1 = () => {
                         <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
                       </Stage>
                     </Suspense>
-                    <OrbitControls ref={ref} target={[0, 0.7, 0]}/>
+                    <OrbitControls ref={ref} target={[0, 0.9, 0]}/>
                   </Canvas>
+
+                  {/* Carousel of project cards positioned behind the laptop */}
+                  <ProjectCarousel
+                      projects={projects}
+                      activeProject={activeProject}
+                      onProjectChange={handleProjectClick}
+                  />
                 </div>
               </div>
             </section>

@@ -1,10 +1,10 @@
-/* Project section styles */
+/* Updated Project section styles */
 
 .project-section {
     position: relative;
     overflow: hidden;
     padding: 4rem 2rem !important;
-    height: 100vh; /* Full viewport height for better centering */
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,22 +17,21 @@
     height: 100%;
     display: flex;
     flex-direction: row;
-    align-items: center; /* Center vertically */
+    align-items: center;
     overflow: visible;
 }
 
-/* Reduce sidebar to 10% */
-.project-sidebar {
-    width: 10%;
-    padding: 1rem;
-    overflow-y: auto;
-    max-height: 100%;
+/* Project info sidebar (was project-sidebar) */
+.project-info {
+    width: 15%;
+    height: 100%;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    justify-content: center;
 }
 
-/* Expand display to take remaining space */
+/* Project display area */
 .project-display {
     flex: 1;
     height: 100%;
@@ -40,58 +39,11 @@
     display: flex;
 }
 
-/* Project cards styling */
-.project-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    border-radius: 0.5rem;
-    padding: 0.75rem;
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+/* Ensure the Canvas container takes full height */
+.project-display > div {
+    height: 100%;
+    width: 100%;
 }
-
-.project-card.active {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateX(5px);
-}
-
-.project-card:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.project-title {
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-.project-summary {
-    font-size: 0.75rem;
-    margin-bottom: 0.5rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-}
-
-.tag {
-    font-size: 0.65rem;
-    padding: 0.15rem 0.3rem;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 0.25rem;
-    white-space: nowrap;
-}
-
 
 /* Media Queries for responsiveness */
 @media (max-width: 768px) {
@@ -99,21 +51,14 @@
         flex-direction: column;
     }
 
-    .project-sidebar {
+    .project-info {
         width: 100%;
-        max-height: 30%;
-        flex-direction: row;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding: 0.5rem;
-    }
-
-    .project-card {
-        min-width: 200px;
-        flex-shrink: 0;
+        height: auto;
+        max-height: 40%;
+        padding: 1rem;
     }
 
     .project-display {
-        height: 70%;
+        height: 60%;
     }
 }
