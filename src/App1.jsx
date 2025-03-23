@@ -255,12 +255,12 @@ const App1 = () => {
             </div>
             <section className="section intro-section">
               <div className="intro-quote-side">
-                <div className="quote-container hoverable" onMouseEnter={() => handleTextHover('quote')} onMouseLeave={handleTextLeave}>
+                /*<div className="quote-container hoverable" onMouseEnter={() => handleTextHover('quote')} onMouseLeave={handleTextLeave}>
                   <blockquote className="quote">
                     Great ambition is the passion of a great character
                   </blockquote>
                   <cite className="quote-author">- Napoleon Bonaparte</cite>
-                </div>
+                </div>*/
               </div>
               <div className="intro-content-side">
                 <div className="content-wrapper">
