@@ -23,6 +23,8 @@ import blackgithubImage from './assets/6.png';
 import blacklensImage from './assets/7.png';
 import ProjectCarousel from './ProjectCarousel';
 import ProjectDetails from './ProjectDetails';
+// Import the projects data
+import projectsData from './projectsData';
 
 const App1 = () => {
 
@@ -34,53 +36,10 @@ const App1 = () => {
   const [hoveredElementType, setHoveredElementType] = useState('default');
   const [activeProject, setActiveProject] = useState('crossdocs'); // Default to first project
   const [laptopOpen, setLaptopOpen] = useState(false);
-  const [currentProjectImage, setCurrentProjectImage] = useState(crossdocsImage); // Default image
+  const [currentProjectImage, setCurrentProjectImage] = useState(projectsData.crossdocs.image); // Default image
   const ref = useRef();
 
-  const projects = {
-    'crossdocs': {
-      title: 'Cross-platform Markdown editor',
-      summary: 'Kotlin Compose Multiplatform app with real-time preview and AI assistance',
-      tags: ['Kotlin', 'Multiplatform', 'AI'],
-      image: crossdocsImage
-    },
-    'telegram-bot': {
-      title: 'ESP32-Based Telegram Bot',
-      summary: 'ATM-like functionality using microcontroller integration',
-      tags: ['IoT', 'Java', 'Python'],
-      image: telegramBotImage
-    },
-    'guestbook': {
-      title: 'Guestbook App Deployment',
-      summary: 'Continuous delivery pipeline with Argo CD and GitOps',
-      tags: ['DevOps', 'Kubernetes', 'Docker'],
-      image: guestbookImage
-    },
-    'github': {
-      title: 'Github App Deployment',
-      summary: 'Continuous delivery Github gitops',
-      tags: ['Github', 'Kubernetes', 'Docker'],
-      image: githubImage
-    },
-    'lens': {
-      title: 'Guestbook App Deployment',
-      summary: 'Lens Pipeline',
-      tags: ['Lens', 'Terraform', 'Docker'],
-      image: lensImage
-    },
-    'blackgithub': {
-      title: 'Dark mode Github App Deployment',
-      summary: 'Continuous delivery Github gitops',
-      tags: ['Github', 'Kubernetes', 'Docker'],
-      image: blackgithubImage
-    },
-    'blacklens': {
-      title: 'Dark mode Guestbook App Deployment',
-      summary: 'Lens Pipeline',
-      tags: ['Lens', 'Terraform', 'Docker'],
-      image: blacklensImage
-    }
-  };
+  const projects = projectsData;
 
   useEffect(() => {
     if (activeProject && projects[activeProject]) {
@@ -324,7 +283,7 @@ const App1 = () => {
             </section>
             <section className="section project-section">
               <div className="project-showcase">
-                {/* Project Details - Now where the sidebar used to be */}
+                {/* Project Details - Now using our enhanced component */}
                 <div className="project-info">
                   <ProjectDetails
                       project={projects[activeProject]}
@@ -342,7 +301,7 @@ const App1 = () => {
                     <OrbitControls ref={ref} target={[0, 0.85, 0]}/>
                   </Canvas>
 
-                  {/* Carousel of project cards positioned behind the laptop */}
+                  {/* Carousel of project cards */}
                   <ProjectCarousel
                       projects={projects}
                       activeProject={activeProject}
