@@ -3,7 +3,6 @@ import NavigationBar from './smallcomponents/NavigationBar.jsx';
 import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons.jsx';
 import ShaderModel from './smallcomponents/ShaderModel.jsx';
-import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import {useEffect} from "react";
 import { useSharedCarousel } from './hooks/useSharedCarousel.js';
@@ -75,12 +74,6 @@ const App2 = () => {
         </div>
         <section className="section intro-section">
           <div className="intro-quote-side">
-            <div className="quote-container">
-              <blockquote className="quote">
-                Nothing is more difficult, and therefore more precious, than to be able to decide
-              </blockquote>
-              <cite className="quote-author">- Napoleon Bonaparte</cite>
-            </div>
           </div>
           <div className="intro-content-side">
             <div className="content-wrapper">
@@ -101,8 +94,6 @@ const App2 = () => {
             </div>
           </div>
         </section>
-
-
         <section className="section project-section">
         </section>
         <section className="section tech-stack-section">

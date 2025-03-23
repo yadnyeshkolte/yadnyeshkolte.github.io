@@ -14,13 +14,6 @@ import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-an
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stage } from '@react-three/drei'
 import { Model } from './Model.jsx'
-import crossdocsImage from './assets/1.png';
-import telegramBotImage from './assets/2.png';
-import guestbookImage from './assets/3.png';
-import githubImage from './assets/4.png';
-import lensImage from './assets/5.png';
-import blackgithubImage from './assets/6.png';
-import blacklensImage from './assets/7.png';
 import ProjectCarousel from './ProjectCarousel';
 import ProjectDetails from './ProjectDetails';
 // Import the projects data
@@ -255,12 +248,6 @@ const App1 = () => {
             </div>
             <section className="section intro-section">
               <div className="intro-quote-side">
-                /*<div className="quote-container hoverable" onMouseEnter={() => handleTextHover('quote')} onMouseLeave={handleTextLeave}>
-                  <blockquote className="quote">
-                    Great ambition is the passion of a great character
-                  </blockquote>
-                  <cite className="quote-author">- Napoleon Bonaparte</cite>
-                </div>*/
               </div>
               <div className="intro-content-side">
                 <div className="content-wrapper">
@@ -281,7 +268,7 @@ const App1 = () => {
                 </div>
               </div>
             </section>
-            <section className="project-section">
+            <section className="section project-section">
               {/* Project details sidebar - 20% width */}
               <div className="project-info">
                 <ProjectDetails project={projects[activeProject]} />
