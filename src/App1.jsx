@@ -281,33 +281,36 @@ const App1 = () => {
                 </div>
               </div>
             </section>
-            <section className="section project-section">
-              <div className="project-showcase">
-                {/* Project Details - Now using our enhanced component */}
-                <div className="project-info">
-                  <ProjectDetails
-                      project={projects[activeProject]}
-                  />
-                </div>
+            <section className="project-section">
+              {/* Project details sidebar - 20% width */}
+              <div className="project-info">
+                <ProjectDetails project={projects[activeProject]} />
+              </div>
 
-                {/* 3D Model Display */}
-                <div className="project-display">
-                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0.8, 0.6, 4] }}>
-                    <Suspense fallback={null}>
-                      <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
-                        <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
-                      </Stage>
-                    </Suspense>
-                    <OrbitControls ref={ref} target={[0, 0.85, 0]}/>
-                  </Canvas>
+              {/* Container for 3D model and carousel - 80% width */}
+              <div className="project-display-container">
 
-                  {/* Carousel of project cards */}
+                {/* Carousel area - 10% height */}
+                <div className="project-carousel-container">
                   <ProjectCarousel
                       projects={projects}
                       activeProject={activeProject}
                       onProjectChange={handleProjectClick}
                   />
                 </div>
+                {/* 3D model area - 90% height */}
+                <div className="project-model-view">
+                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}>
+                    <Suspense fallback={null}>
+                      <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
+                        <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
+                      </Stage>
+                    </Suspense>
+                    <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
+                  </Canvas>
+                </div>
+
+
               </div>
             </section>
             <section className="section tech-stack-section">

@@ -10,7 +10,7 @@ import blacklensImage from './assets/7.png';
 const projectsData = {
     'crossdocs': {
         id: 'crossdocs',
-        title: 'Cross-platform Markdown Editor',
+        title: 'Cross-platform Markdown Editor Mobile App',
         summary: 'Kotlin Compose Multiplatform app with real-time preview and AI assistance for Markdown editing across platforms.',
         tags: ['Kotlin', 'Multiplatform', 'AI', 'Markdown'],
         image: crossdocsImage,

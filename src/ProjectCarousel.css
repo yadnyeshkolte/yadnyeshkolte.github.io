@@ -1,11 +1,5 @@
 .project-carousel {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     display: flex;
-    gap: 20px;
-    padding: 20px 30px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     scrollbar-width: none; /* Hide scrollbar for Firefox */
@@ -15,6 +9,7 @@
     pointer-events: auto;
     scroll-behavior: smooth;
     transition: opacity 0.3s ease;
+    padding-bottom: 1%;
 }
 
 .project-carousel.transitioning {
@@ -33,15 +28,14 @@
 
 .project-carousel .project-card {
     flex: 0 0 auto;
-    width: 240px;
-    height: 100px;
+    width: 20%;
+    height: 10%;
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
     z-index: 6;
     backdrop-filter: blur(12px);
     border-radius: 12px;
-    padding: 18px;
+    padding: 1%;
     margin: 0 5px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -79,20 +73,6 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.4;
-}
-
-.project-carousel .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.project-carousel .tag {
-    font-size: 0.65rem;
-    padding: 3px 8px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 4px;
-    white-space: nowrap;
 }
 
 /* Media queries for responsiveness */
