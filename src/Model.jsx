@@ -46,7 +46,7 @@ export function Model(props) {
 
                     // Adjust contrast and brightness
                     const contrast = 1;  // Higher contrast
-                    const brightness = -100; // Slightly darker to offset the white overlay
+                    const brightness = -90; // Slightly darker to offset the white overlay
 
                     for (let i = 0; i < data.length; i += 4) {
                         // Apply contrast and brightness adjustments to RGB channels
