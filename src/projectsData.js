@@ -1,48 +1,91 @@
 // In a new file called projectsData.js
 import crossdocsImage from './assets/1.png';
-import telegramBotImage from './assets/2.png';
-import guestbookImage from './assets/3.png';
-import githubImage from './assets/4.png';
+import structviz3dImage from './assets/2.png';
+import opensourcepenImage from './assets/3.png';
+import flagsImage from './assets/4.png';
 import lensImage from './assets/5.png';
-import blackgithubImage from './assets/6.png';
-import blacklensImage from './assets/7.png';
+import imfapiImage from './assets/6.png';
+import telegramBotImage from './assets/7.png';
+import structviz3dDesktopImage from './assets/8.png';
 
 const projectsData = {
     'crossdocs': {
         id: 'crossdocs',
-        title: 'Cross-platform Markdown Editor Mobile App',
-        summary: 'Kotlin Compose Multiplatform app with real-time preview and AI assistance for Markdown editing across platforms.',
-        tags: ['Kotlin', 'Multiplatform', 'AI', 'Markdown'],
+        title: 'CrossDocs - Cross-platform Markdown Editor',
+        summary: 'A powerful and lightweight cross-platform Markdown editor with real-time preview and AI assistance, built with Compose Multiplatform.',
+        tags: ['Kotlin', 'Compose Multiplatform', 'AI', 'Markdown'],
         image: crossdocsImage,
         links: [
-            { type: 'github', label: 'View Code', url: 'https://github.com/yourusername/crossdocs' },
-            { type: 'live', label: 'Live Demo', url: 'https://your-demo-url.com' },
-            { type: 'releases', label: 'Download', url: 'https://github.com/yourusername/crossdocs/releases' }
+            { type: 'github', label: 'View Code', url: 'https://github.com/yadnyeshkolte/CrossDocs' },
+            { type: 'releases', label: 'Releases', url: 'https://github.com/yadnyeshkolte/CrossDocs/releases/tag/v1.0.0' }
         ],
         features: [
-            'Real-time preview of markdown content',
-            'AI-powered writing assistance',
-            'Cross-platform compatibility (macOS, Windows, Linux)',
-            'Syntax highlighting and formatting tools',
-            'Cloud synchronization for documents'
+            'Real-time Markdown Preview - See your changes instantly',
+            'Dark/Light Theme - Easy on your eyes, day and night',
+            'AI Assistant - Powered by Google\'s Gemini AI',
+            'Cross-Platform - Works on all major platforms (Windows, macOS, Linux, Android)',
+            'Lightweight & Efficient - High performance, low resource usage',
+            'In-App Markdown Guide - Detailed reference for developers'
         ]
     },
-    'telegram-bot': {
-        id: 'telegram-bot',
-        title: 'ESP32-Based Telegram Bot',
-        summary: 'ATM-like functionality using microcontroller integration with Telegram for remote control and monitoring.',
-        tags: ['IoT', 'Java', 'Python', 'ESP32', 'Telegram API'],
-        image: telegramBotImage,
+    'structviz3d': {
+        id: 'structviz3d',
+        title: 'StructViz3D',
+        summary: 'Web-based 3D structural engineering model viewer for visualizing and interacting with STL and GLTF files directly in the browser.',
+        tags: ['Three.js', 'React', 'WebGL', '3D Visualization', 'Engineering'],
+        image: structviz3dImage,
         links: [
-            { type: 'github', label: 'Source Code', url: 'https://github.com/yourusername/telegram-bot' },
-            { type: 'demo', label: 'Video Demo', url: 'https://youtube.com/your-demo' }
+            { type: 'github', label: 'Source Code', url: 'https://github.com/yadnyeshkolte/structviz3d-react' },
+            { type: 'demo', label: 'Live Demo', url: 'https://yadnyeshkolte.github.io/structviz3d-react/' },
+            { type: 'video', label: 'Video Demo', url: 'https://youtu.be/8gEaS0dXfAg' },
+            { type: 'github', label: 'API Repository', url: 'https://github.com/yadnyeshkolte/structviz3d-api' }
         ],
         features: [
-            'Secure authentication system',
-            'Real-time transaction processing',
-            'Integration with microcontrollers for physical interactions',
-            'Push notifications for status updates',
-            'Low power consumption optimization'
+            'High-performance 3D rendering with Three.js',
+            'Multiple file format support (STL, GLTF/GLB)',
+            'Advanced camera controls with orthographic and perspective modes',
+            'Comprehensive viewing options including wireframe and sketch rendering',
+            'Flexible lighting system and model orientation controls',
+            'Responsive design for desktop and mobile devices'
+        ]
+    },
+    'flutter_app': {
+        id: 'flutter_app',
+        title: 'Flutter Prototype E-Commerce App',
+        summary: 'A cross-platform e-commerce prototype application built with Flutter using the MVVM architecture pattern, demonstrating best practices for state management, navigation, data persistence, and interactive user experiences.',
+        tags: ['Flutter', 'Dart', 'MVVM', 'E-Commerce', 'Mobile'],
+        image: opensourcepenImage, // You'll need to replace with your actual image variable
+        links: [
+            { type: 'github', label: 'Repository', url: 'https://github.com/yadnyeshkolte/opensourcepen' }
+        ],
+        features: [
+            'Interactive 3D Onboarding - Multi-step process with smooth transitions and 3D model rendering',
+            'Authentication System - User login with credential validation and session persistence',
+            'Product Management - Catalog browsing with images and details',
+            'Shopping Cart - Real-time updates and persistent between sessions',
+            'Order Management - Placement, history tracking, and status updates',
+            'MVVM Architecture - Clean separation of models, views, and viewmodels',
+            'Provider State Management - Efficient state updates with selective listeners'
+        ]
+    },
+    'svg-country-flags': {
+        id: 'svg-country-flags',
+        title: 'SVG Country Flags 2x1',
+        summary: 'A lightweight, flexible package for working with detailed country flags in JavaScript applications. Provides flag SVGs, emoji, and country data with 2:1 aspect ratio.',
+        tags: ['JavaScript', 'SVG', 'React', 'Vue', 'TypeScript', 'Frontend'],
+        image: flagsImage, // You'll need to update this to an appropriate image
+        links: [
+            { type: 'github', label: 'Repository', url: 'https://github.com/yadnyeshkolte/country-flags-svg-2x1' },
+            { type: 'demo', label: 'Live Demo', url: 'https://yadnyeshkolte.github.io/svg-country-flags-2x1/' },
+            { type: 'npm', label: 'NPM Package', url: 'https://www.npmjs.com/package/svg-country-flags-2x1' }
+        ],
+        features: [
+            'Consistent 2:1 aspect ratio for all flags',
+            'Framework integration (React, Vue)',
+            'TypeScript support',
+            'Flag emoji conversion',
+            'Country code validation',
+            'Flag search and filtering'
         ]
     },
     'guestbook': {
@@ -50,11 +93,9 @@ const projectsData = {
         title: 'Guestbook App Deployment',
         summary: 'Continuous delivery pipeline with Argo CD and GitOps for a modern, scalable guestbook application.',
         tags: ['DevOps', 'Kubernetes', 'Docker', 'ArgoCD', 'GitOps'],
-        image: guestbookImage,
+        image: lensImage,
         links: [
-            { type: 'github', label: 'Repository', url: 'https://github.com/yourusername/guestbook' },
-            { type: 'live', label: 'Live App', url: 'https://your-guestbook-app.com' },
-            { type: 'aws', label: 'Infrastructure', url: 'https://aws.amazon.com/your-deployment' }
+            { type: 'github', label: 'Gist', url: 'https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a' },
         ],
         features: [
             'GitOps-based deployment workflow',
@@ -64,78 +105,65 @@ const projectsData = {
             'Automatic rollbacks on failed deployments'
         ]
     },
-    'github': {
-        id: 'github',
-        title: 'GitHub App Deployment',
-        summary: 'Continuous delivery with GitHub Actions and GitOps principles for seamless application deployment.',
-        tags: ['GitHub', 'Kubernetes', 'Docker', 'CI/CD', 'GitHub Actions'],
-        image: githubImage,
+    'imf-gadgets': {
+        id: 'imf-gadgets',
+        title: 'IMF Gadget Management System API',
+        summary: 'A comprehensive API for tracking and managing mission gadgets with authentication, status tracking, and self-destruct capabilities.',
+        tags: ['Node.js', 'Express.js', 'PostgreSQL', 'Sequelize', 'JWT', 'REST API'],
+        image: imfapiImage, // You'll need to update this with your actual image variable
         links: [
-            { type: 'github', label: 'Source', url: 'https://github.com/yourusername/github-app' },
-            { type: 'live', label: 'Production', url: 'https://your-app-url.com' }
+            { type: 'github', label: 'Repository', url: 'https://github.com/yadnyeshkolte/imf-gadgets-api' },
+            { type: 'github', label: 'Frontend Repo', url: 'https://github.com/yadnyeshkolte/imf-gadgets-dashboards' },
+            { type: 'website', label: 'Web Application', url: 'https://yadnyeshkolte.github.io/imf-gadgets-dashboards/' },
+            { type: 'api', label: 'API Documentation', url: 'https://documenter.getpostman.com/view/41932986/2sAYX9kzTN' }
         ],
         features: [
-            'GitHub Actions workflow automation',
-            'Container-based deployment',
-            'Automatic environment promotion',
-            'Integrated testing and quality gates',
-            'Deployment metrics and monitoring'
+            'JWT-based authentication system',
+            'Random codename generation for gadgets',
+            'Mission success probability calculation',
+            'Status tracking (Available, Deployed, Destroyed, Decommissioned)',
+            'Soft delete implementation with decommission timestamps',
+            'Self-destruct sequence for gadgets'
         ]
     },
-    'lens': {
-        id: 'lens',
-        title: 'Lens Pipeline Management',
-        summary: 'Kubernetes management with Lens IDE integrated with custom deployment pipelines.',
-        tags: ['Lens', 'Terraform', 'Docker', 'Kubernetes', 'Infrastructure'],
-        image: lensImage,
+    'esp32-telegram-atm': {
+        id: 'esp32-telegram-atm',
+        title: 'ESP32 ATM Telegram Bot',
+        summary: 'An ATM-like system using ESP32 microcontroller with Telegram bot interface and Google Sheets integration for banking operations.',
+        tags: ['ESP32', 'Telegram Bot', 'C++', 'Embedded', 'IoT', 'Google Sheets'],
+        image: telegramBotImage, // You may want to replace this with a relevant image
         links: [
-            { type: 'gitlab', label: 'GitLab', url: 'https://gitlab.com/yourusername/lens-project' },
-            { type: 'release', label: 'Latest Release', url: 'https://gitlab.com/yourusername/lens-project/-/releases' }
+            { type: 'github', label: 'Gist', url: 'https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a' },
+            { type: 'youtube', label: 'Demo Video', url: 'https://youtube.com/watch?v=1mQ0rEVkSAc' },
+            { type: 'blog', label: 'Blog', url: 'https://yadnyeshkolte.github.io/blog/posts/esp32-atm-telegrambot-project/' }
         ],
         features: [
-            'Visual Kubernetes cluster management',
-            'Infrastructure automation with Terraform',
-            'Multi-environment deployment support',
-            'Custom resource visualization',
-            'Integrated monitoring dashboards'
+            'User authentication with OTP and username/password',
+            'Balance inquiry and transaction history',
+            'Money withdrawal with note denomination management',
+            'Money deposit functionality',
+            'Touch-based input interface',
+            'Google Sheets integration for transaction logging'
         ]
     },
-    'blackgithub': {
-        id: 'blackgithub',
-        title: 'Dark Mode GitHub App',
-        summary: 'Dark-themed version of the GitHub app deployment with enhanced visualization features.',
-        tags: ['GitHub', 'Kubernetes', 'Docker', 'Dark Mode', 'UI/UX'],
-        image: blackgithubImage,
+    'structviz3ddesktop': {
+        id: 'structviz3ddesktop',
+        title: 'StructViz3D Desktop',
+        summary: 'A desktop application for 3D structure visualization built on .NET 8.0 with WPF and WebView2.',
+        tags: ['C#', 'WPF', 'WebView2', 'WebGL', '3D Visualization', '.NET 8.0'],
+        image: structviz3dDesktopImage,
         links: [
-            { type: 'github', label: 'Repository', url: 'https://github.com/yourusername/dark-github-app' },
-            { type: 'live', label: 'Live Version', url: 'https://dark.your-app-url.com' },
-            { type: 'releases', label: 'Releases', url: 'https://github.com/yourusername/dark-github-app/releases' }
+            { type: 'github', label: 'Source Code', url: 'https://github.com/yadnyeshkolte/StructViz3DDesktop' },
+            { type: 'youtube', label: 'Demo Video', url: 'https://youtu.be/8gEaS0dXfAg' },
+            { type: 'release', label: 'Download', url: 'https://github.com/yadnyeshkolte/StructViz3DDesktop/releases' }
         ],
         features: [
-            'Accessibility-focused dark mode interface',
-            'Enhanced visualization for deployment stages',
-            'Resource utilization dashboards',
-            'Custom theme configuration',
-            'Reduced eye strain for night operations'
-        ]
-    },
-    'blacklens': {
-        id: 'blacklens',
-        title: 'Dark Mode Lens Pipeline',
-        summary: 'Enhanced dark theme for Lens pipeline management with additional visualization tools.',
-        tags: ['Lens', 'Terraform', 'Docker', 'Dark Mode', 'Analytics'],
-        image: blacklensImage,
-        links: [
-            { type: 'gitlab', label: 'GitLab', url: 'https://gitlab.com/yourusername/dark-lens' },
-            { type: 'aws', label: 'AWS Infrastructure', url: 'https://aws.amazon.com/your-deployment' },
-            { type: 'release', label: 'Download', url: 'https://gitlab.com/yourusername/dark-lens/-/releases' }
-        ],
-        features: [
-            'Advanced dark theme UI optimized for long sessions',
-            'Custom visualization components',
-            'Resource usage analytics',
-            'Integrated alerting system',
-            'One-click deployment rollbacks'
+            'Intuitive interface for visualizing 3D models',
+            'Support for STL file format',
+            'Hybrid architecture combining native C# with web-based rendering',
+            'Secure file system operations using C# backend',
+            'Interactive 3D manipulation capabilities',
+            'Modern UI with native desktop application feel'
         ]
     }
 };
