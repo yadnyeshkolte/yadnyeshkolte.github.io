@@ -25,8 +25,8 @@
   position: relative;
   background: radial-gradient(circle at top right, white, lightblue, #89cff0);
   color: black;
-  mask-image: radial-gradient(circle at var(--x) var(--y), transparent var(--circle-size), black 50px);
-  -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent var(--circle-size), black 50px);
+  mask-image: radial-gradient(circle at var(--x) var(--y), transparent var(--circle-size), black 0px);
+  -webkit-mask-image: radial-gradient(circle at var(--x) var(--y), transparent var(--circle-size), black 0px);
 }
 
 /* Add styles for text hover effect */

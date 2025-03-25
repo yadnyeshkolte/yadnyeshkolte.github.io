@@ -55,18 +55,6 @@ const ProjectDetails = ({ project }) => {
                         </div>
                     )}
 
-                    {/* Technologies */}
-                    {project.tags && project.tags.length > 0 && (
-                        <div className="details-technologies">
-                            <h3>Technologies</h3>
-                            <div className="tags-container">
-                                {project.tags.map((tag, index) => (
-                                    <span key={index} className="details-tag">{tag}</span>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
                     {/* Key Features */}
                     {project.features && project.features.length > 0 && (
                         <div className="details-features">
@@ -76,6 +64,18 @@ const ProjectDetails = ({ project }) => {
                                     <li key={index}>{feature}</li>
                                 ))}
                             </ul>
+                        </div>
+                    )}
+
+                    {/* Technologies */}
+                    {project.tags && project.tags.length > 0 && (
+                        <div className="details-technologies">
+                            <h3>Technologies</h3>
+                            <div className="tags-container">
+                                {project.tags.map((tag, index) => (
+                                    <span key={index} className="details-tag">{tag}</span>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>

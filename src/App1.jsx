@@ -220,13 +220,6 @@ const App1 = () => {
   ];
   const [currentCert, setCurrentCert, isTransitioning] = useSharedCarousel(certifications);
 
-  useEffect(() => {
-    console.log('Certification changed:', {
-      index: currentCert,
-      title: certifications[currentCert]?.title
-    });
-  }, [currentCert, certifications]);
-
 
   return (
       <div className="app1-container" onMouseMove={handleMouseMove}>
@@ -287,12 +280,28 @@ const App1 = () => {
                 </div>
                 {/* 3D model area - 90% height */}
                 <div className="project-model-view">
-                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}>
+                  <Canvas
+                      shadows
+                      dpr={[1, 2]}
+                      camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
+                      // Disable user interaction
+                      onPointerDownCapture={(e) => e.stopPropagation()}
+                      onWheelCapture={(e) => e.stopPropagation()}
+
+                  >
                     <Suspense fallback={null}>
-                      <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
+                      <Stage
+                          controls={ref}
+                          preset="rembrandt"
+                          intensity={1}
+                          environment="city"
+                          shadows={false}
+                          adjustCamera={false}
+                      >
                         <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
                       </Stage>
                     </Suspense>
+                    {/* Remove OrbitControls completely */}
                     <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
                   </Canvas>
                 </div>
