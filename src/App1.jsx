@@ -220,13 +220,6 @@ const App1 = () => {
   ];
   const [currentCert, setCurrentCert, isTransitioning] = useSharedCarousel(certifications);
 
-  useEffect(() => {
-    console.log('Certification changed:', {
-      index: currentCert,
-      title: certifications[currentCert]?.title
-    });
-  }, [currentCert, certifications]);
-
 
   return (
       <div className="app1-container" onMouseMove={handleMouseMove}>
