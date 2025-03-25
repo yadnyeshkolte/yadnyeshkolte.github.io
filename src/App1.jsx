@@ -34,11 +34,39 @@ const App1 = () => {
 
   const projects = projectsData;
 
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Function to check dark mode
+    const checkDarkMode = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setIsDarkMode(isDark);
+    };
+
+    // Initial check
+    checkDarkMode();
+
+    // Observer for theme changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   useEffect(() => {
     if (activeProject && projects[activeProject]) {
-      setCurrentProjectImage(projects[activeProject].image);
+      // Select image based on dark mode
+      const projectImage = isDarkMode
+          ? projects[activeProject].darkImage || projects[activeProject].image
+          : projects[activeProject].image;
+      setCurrentProjectImage(projectImage);
     }
-  }, [activeProject]);
+  }, [activeProject, isDarkMode]);
 
   useEffect(() => {
     let animationId;
