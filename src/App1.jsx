@@ -296,6 +296,7 @@ const App1 = () => {
                           intensity={1}
                           environment="city"
                           shadows={false}
+                          adjustCamera={false}
                       >
                         <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
                       </Stage>
