@@ -1,21 +1,21 @@
 // In a new file called projectsData.js
-import crossdocsImage from './assets/1.png';
-import structviz3dImage from './assets/2.png';
-import opensourcepenImage from './assets/3.png';
-import flagsImage from './assets/4.png';
-import lensImage from './assets/5.png';
-import imfapiImage from './assets/6.png';
-import telegramBotImage from './assets/7.png';
-import structviz3dDesktopImage from './assets/8.png';
+import crossdocsImage from './assets/project-section-light-theme/1.png';
+import structviz3dImage from './assets/project-section-light-theme/2.png';
+import opensourcepenImage from './assets/project-section-light-theme/3.png';
+import flagsImage from './assets/project-section-light-theme/4.png';
+import lensImage from './assets/project-section-light-theme/5.png';
+import imfapiImage from './assets/project-section-light-theme/6.png';
+import telegramBotImage from './assets/project-section-light-theme/7.png';
+import structviz3dDesktopImage from './assets/project-section-light-theme/8.png';
 
-import crossdocsDarkImage from './assets/1dark.png';
-import structviz3dDarkImage from './assets/2dark.png';
-import opensourcepenDarkImage from './assets/3dark.png';
-import flagsDarkImage from './assets/4dark.png';
-import lensDarkImage from './assets/5dark.png';
-import imfapiDarkImage from './assets/6dark.png';
-import telegramBotDarkImage from './assets/7dark.png';
-import structviz3dDesktopDarkImage from './assets/8dark.png';
+import crossdocsDarkImage from './assets/project-section-dark-theme/1dark.png';
+import structviz3dDarkImage from './assets/project-section-dark-theme/2dark.png';
+import opensourcepenDarkImage from './assets/project-section-dark-theme/3dark.png';
+import flagsDarkImage from './assets/project-section-dark-theme/4dark.png';
+import lensDarkImage from './assets/project-section-dark-theme/5dark.png';
+import imfapiDarkImage from './assets/project-section-dark-theme/6dark.png';
+import telegramBotDarkImage from './assets/project-section-dark-theme/7dark.png';
+import structviz3dDesktopDarkImage from './assets/project-section-dark-theme/8dark.png';
 
 const projectsData = {
     'crossdocs': {
