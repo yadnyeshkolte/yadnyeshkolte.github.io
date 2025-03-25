@@ -4,7 +4,6 @@ import reactLogo from './assets/yadnyesh.jpg'
 import NavigationBar from './smallcomponents/NavigationBar.jsx';
 import SocialIcons from './smallcomponents/SocialIcons.jsx';
 import ShaderModel from './smallcomponents/ShaderModel.jsx'
-import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import { useSharedCarousel } from './hooks/useSharedCarousel.js';
 import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
@@ -12,12 +11,13 @@ import githubCert from './assets/certifications/github-foundations.png'
 import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
 import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
 import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
-import LaptopDisplay from './LaptopDisplay.jsx';
-import './LaptopDisplay.css';
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stage } from '@react-three/drei'
 import { Model } from './Model.jsx'
-
+import ProjectCarousel from './ProjectCarousel';
+import ProjectDetails from './ProjectDetails';
+// Import the projects data
+import projectsData from './projectsData';
 
 const App1 = () => {
 
@@ -27,8 +27,18 @@ const App1 = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
   const [hoveredElementType, setHoveredElementType] = useState('default');
-  const [activeProject, setActiveProject] = useState(null);
+  const [activeProject, setActiveProject] = useState('crossdocs'); // Default to first project
+  const [laptopOpen, setLaptopOpen] = useState(false);
+  const [currentProjectImage, setCurrentProjectImage] = useState(projectsData.crossdocs.image); // Default image
   const ref = useRef();
+
+  const projects = projectsData;
+
+  useEffect(() => {
+    if (activeProject && projects[activeProject]) {
+      setCurrentProjectImage(projects[activeProject].image);
+    }
+  }, [activeProject]);
 
   useEffect(() => {
     let animationId;
@@ -126,6 +136,13 @@ const App1 = () => {
         });
       }
     }
+    const projectSection = document.querySelector('.project-section');
+    if (projectSection) {
+      const rect = projectSection.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight * 0.75 &&
+          rect.bottom > window.innerHeight * 0.25;
+      setLaptopOpen(isVisible);
+    }
   }, []);
 
 // Similarly, modify handleMouseMove
@@ -158,6 +175,14 @@ const App1 = () => {
     setIsAnimating(false);
     // We keep the element type when leaving to maintain the same
     // proportional shrinking as growing
+  };
+
+  const handleProjectClick = (projectId) => {
+    setActiveProject(projectId);
+    // Make sure laptop is open when a project is selected
+    if (!laptopOpen) {
+      setLaptopOpen(true);
+    }
   };
 
 
@@ -223,12 +248,6 @@ const App1 = () => {
             </div>
             <section className="section intro-section">
               <div className="intro-quote-side">
-                <div className="quote-container hoverable" onMouseEnter={() => handleTextHover('quote')} onMouseLeave={handleTextLeave}>
-                  <blockquote className="quote">
-                    Great ambition is the passion of a great character
-                  </blockquote>
-                  <cite className="quote-author">- Napoleon Bonaparte</cite>
-                </div>
               </div>
               <div className="intro-content-side">
                 <div className="content-wrapper">
@@ -250,66 +269,36 @@ const App1 = () => {
               </div>
             </section>
             <section className="section project-section">
-                <div className="project-showcase">
-                  <div className="project-sidebar">
-                    <div
-                        className={`project-card ${activeProject === 'crossdocs' ? 'active' : ''}`}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => setActiveProject('crossdocs')}
-                    >
-                      <h3 className="project-title">Cross-platform Markdown editor</h3>
-                      <p className="project-summary">Kotlin Compose Multiplatform app with real-time preview and AI assistance</p>
-                      <div className="project-tags">
-                        <span className="tag">Kotlin</span>
-                        <span className="tag">Multiplatform</span>
-                        <span className="tag">AI</span>
-                      </div>
-                    </div>
+              {/* Project details sidebar - 20% width */}
+              <div className="project-info">
+                <ProjectDetails project={projects[activeProject]} />
+              </div>
 
-                    <div
-                        className={`project-card ${activeProject === 'telegram-bot' ? 'active' : ''}`}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => setActiveProject('telegram-bot')}
-                    >
-                      <h3 className="project-title">ESP32-Based Telegram Bot</h3>
-                      <p className="project-summary">ATM-like functionality using microcontroller integration</p>
-                      <div className="project-tags">
-                        <span className="tag">IoT</span>
-                        <span className="tag">Java</span>
-                        <span className="tag">Python</span>
-                      </div>
-                    </div>
+              {/* Container for 3D model and carousel - 80% width */}
+              <div className="project-display-container">
 
-                    <div
-                        className={`project-card ${activeProject === 'guestbook' ? 'active' : ''}`}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => setActiveProject('guestbook')}
-                    >
-                      <h3 className="project-title">Guestbook App Deployment</h3>
-                      <p className="project-summary">Continuous delivery pipeline with Argo CD and GitOps</p>
-                      <div className="project-tags">
-                        <span className="tag">DevOps</span>
-                        <span className="tag">Kubernetes</span>
-                        <span className="tag">Docker</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="project-display">
-                    <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
-                      <Suspense fallback={null}>
-                        <Stage controls={ref} preset="rembrandt" intensity={1}  environment="city">
-                          false
-                          <Model />
-                          false
-                        </Stage>
-                      </Suspense>
-                      <OrbitControls ref={ref} autoRotate />
-                    </Canvas>
-                  </div>
+                {/* Carousel area - 10% height */}
+                <div className="project-carousel-container">
+                  <ProjectCarousel
+                      projects={projects}
+                      activeProject={activeProject}
+                      onProjectChange={handleProjectClick}
+                  />
                 </div>
+                {/* 3D model area - 90% height */}
+                <div className="project-model-view">
+                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}>
+                    <Suspense fallback={null}>
+                      <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
+                        <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
+                      </Stage>
+                    </Suspense>
+                    <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
+                  </Canvas>
+                </div>
+
+
+              </div>
             </section>
             <section className="section tech-stack-section">
               <div className="tech-container">

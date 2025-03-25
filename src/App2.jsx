@@ -3,7 +3,6 @@ import NavigationBar from './smallcomponents/NavigationBar.jsx';
 import reactLogo from './assets/yadnyesh.jpg'
 import SocialIcons from './smallcomponents/SocialIcons.jsx';
 import ShaderModel from './smallcomponents/ShaderModel.jsx';
-import ProjectCard from "./smallcomponents/ProjectCard.jsx";
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import {useEffect} from "react";
 import { useSharedCarousel } from './hooks/useSharedCarousel.js';
@@ -75,12 +74,6 @@ const App2 = () => {
         </div>
         <section className="section intro-section">
           <div className="intro-quote-side">
-            <div className="quote-container">
-              <blockquote className="quote">
-                Nothing is more difficult, and therefore more precious, than to be able to decide
-              </blockquote>
-              <cite className="quote-author">- Napoleon Bonaparte</cite>
-            </div>
           </div>
           <div className="intro-content-side">
             <div className="content-wrapper">
@@ -101,29 +94,7 @@ const App2 = () => {
             </div>
           </div>
         </section>
-
-
         <section className="section project-section">
-          <div className="project-section-background"></div>
-          <div className="project-content">
-            <div className="projects-grid">
-              <ProjectCard
-                  title="Cross-platform Markdown editor with AI assistance"
-                  description="Integrated Google's Gemini AI to provide real-time writing assistance, including suggestions, formatting help, and content ideas. Implemented APIs and message buses for seamless communication between the open-source Markdown editor and the Gemini AI, ensuring efficient data exchange and real-time feedback."
-                  githubUrl="https://github.com/yadnyeshkolte/CrossDocs"
-              />
-              <ProjectCard
-                  title="ESP32-Based ATM-Like Functioning Telegram Bot"
-                  description="This resulted in a remarkable 40% improvement in response time efficiency and enhanced transactional throughput. By bridging telecommunications technology with IoT applications, this innovative solution showcased an elegant approach to creating a user-centric, secure digital banking platform that adheres to Software Development Life Cycle (SDLC) best practices."
-                  githubUrl="https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a"
-              />
-              <ProjectCard
-                  title="Guestbook Application Deployment"
-                  description="Key features included real-time application synchronization, robust CI/CD pipelines, and automated policy enforcement, resulting in a secure and user-centric deployment process. The implementation also highlighted the effective use of Kubernetes' declarative approach, significantly enhancing response time efficiency and transactional throughput."
-                  githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
-              />
-            </div>
-          </div>
         </section>
         <section className="section tech-stack-section">
           <div className="tech-container">
