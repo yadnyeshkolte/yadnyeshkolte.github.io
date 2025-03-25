@@ -285,6 +285,9 @@ const App1 = () => {
                       dpr={[1, 2]}
                       camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
                       // Disable user interaction
+                      onPointerDownCapture={(e) => e.stopPropagation()}
+                      onWheelCapture={(e) => e.stopPropagation()}
+
                   >
                     <Suspense fallback={null}>
                       <Stage
