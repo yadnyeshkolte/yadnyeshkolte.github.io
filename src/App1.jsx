@@ -287,12 +287,24 @@ const App1 = () => {
                 </div>
                 {/* 3D model area - 90% height */}
                 <div className="project-model-view">
-                  <Canvas shadows dpr={[1, 2]} camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}>
+                  <Canvas
+                      shadows
+                      dpr={[1, 2]}
+                      camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
+                      // Disable user interaction
+                  >
                     <Suspense fallback={null}>
-                      <Stage controls={ref} preset="rembrandt" intensity={1} environment="city" shadows={false}>
+                      <Stage
+                          controls={ref}
+                          preset="rembrandt"
+                          intensity={1}
+                          environment="city"
+                          shadows={false}
+                      >
                         <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
                       </Stage>
                     </Suspense>
+                    {/* Remove OrbitControls completely */}
                     <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
                   </Canvas>
                 </div>
