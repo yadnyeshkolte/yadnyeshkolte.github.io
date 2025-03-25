@@ -10,6 +10,92 @@ export function Model(props) {
     const screenMeshRef = useRef();
     // Use the prop if provided, otherwise default to false
     const [isOpen, setIsOpen] = useState(props.isOpen || false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const checkDarkMode = () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            setIsDarkMode(isDark);
+        };
+
+        // Initial check
+        checkDarkMode();
+
+        // Observer for theme changes
+        const observer = new MutationObserver(checkDarkMode);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    // Dark mode material changes
+    useEffect(() => {
+        if (!materials) return;
+
+        // Dark mode color scheme
+        const darkModeColors = {
+            back: isDarkMode ? new THREE.Color('#3A3A3A') : new THREE.Color('#F0F0F0'),
+            palmRest: isDarkMode ? new THREE.Color('#404040') : new THREE.Color('#75d1ee'),
+            trackPad: isDarkMode ? new THREE.Color('#2C2C2C') : new THREE.Color('#FFFFFF'),
+            trackPadButtons: isDarkMode ? new THREE.Color('#505050') : new THREE.Color('#ADD8E6'),
+            windows: isDarkMode ? new THREE.Color('#1E1E1E') : new THREE.Color('#ADD8E6')
+        };
+
+        const darkModeMetalness = {
+            back: isDarkMode ? 0 : 0.3,
+            palmRest: isDarkMode ? 0 : 0.2,
+            trackPad: isDarkMode ? 0 : 0.4,
+            trackPadButtons: isDarkMode ? 0 : 0.3,
+            windows: isDarkMode ? 0 : 0.1
+        };
+
+        const darkModeRoughness = {
+            back: isDarkMode ? 0.9 : 0.5,
+            palmRest: isDarkMode ? 0.9 : 0.6,
+            trackPad: isDarkMode ? 0.9 : 0.4,
+            trackPadButtons: isDarkMode ? 0.9 : 0.5,
+            windows: isDarkMode ? 0.9 : 0.05
+        };
+
+        // Apply colors to materials
+        if (materials.Back) {
+            materials.Back.color = darkModeColors.back;
+            materials.Back.metalness = darkModeMetalness.back;
+            materials.Back.roughness = darkModeRoughness.back;
+        }
+
+        if (materials.Palm_Rest) {
+            materials.Palm_Rest.color = darkModeColors.palmRest;
+            materials.Palm_Rest.metalness = darkModeMetalness.palmRest;
+            materials.Palm_Rest.roughness = darkModeRoughness.palmRest;
+        }
+
+        if (materials.TrackPad) {
+            materials.TrackPad.color = darkModeColors.trackPad;
+            materials.TrackPad.metalness = darkModeMetalness.trackPad;
+            materials.TrackPad.roughness = darkModeRoughness.trackPad;
+        }
+
+        if (materials.TrackPad_Buttons) {
+            materials.TrackPad_Buttons.color = darkModeColors.trackPadButtons;
+            materials.TrackPad_Buttons.metalness = darkModeMetalness.trackPadButtons;
+            materials.TrackPad_Buttons.roughness = darkModeRoughness.trackPadButtons;
+        }
+
+        if (materials.Windows) {
+            materials.Windows.color = darkModeColors.windows;
+            materials.Windows.metalness = darkModeMetalness.windows;
+            materials.Windows.roughness = darkModeRoughness.windows;
+            materials.Windows.opacity = isDarkMode ? 0.1 : 0;
+            materials.Windows.transparent = true;
+        }
+    }, [isDarkMode, materials]);
+
 
     // Update when the prop changes
     useEffect(() => {
@@ -78,51 +164,6 @@ export function Model(props) {
         }
     }, [props.screenImage]);
 
-    // Update materials to silver
-    useEffect(() => {
-        // Define silver color and properties
-        const silverColor = new THREE.Color('#ADD8E6');
-        const silverMetalness = 0.8;
-        const silverRoughness = 0.2;
-
-
-        // Apply silver color to all laptop body materials
-        if (materials.Back) {
-            materials.Back.color = silverColor;
-            materials.Back.metalness = silverMetalness;
-            materials.Back.roughness = silverRoughness;
-        }
-
-        if (materials.Palm_Rest) {
-            materials.Palm_Rest.color = silverColor;
-            materials.Palm_Rest.metalness = silverMetalness;
-            materials.Palm_Rest.roughness = silverRoughness;
-        }
-
-        // TrackPad can stay slightly darker
-        if (materials.TrackPad) {
-            materials.TrackPad.color = new THREE.Color('#D0D0D0');
-            materials.TrackPad.metalness = 0.6;
-            materials.TrackPad.roughness = 0.3;
-        }
-
-        // Buttons can be slightly different shade
-        if (materials.TrackPad_Buttons) {
-            materials.TrackPad_Buttons.color = new THREE.Color('#ADD8E6');
-            materials.TrackPad_Buttons.metalness = 0.7;
-            materials.TrackPad_Buttons.roughness = 0.25;
-        }
-
-        // Keep screen materials as they are for initial state
-        if (materials.Windows) {
-            materials.Windows.color = new THREE.Color('#F0F0F0');
-            materials.Windows.metalness = 0.1;
-            materials.Windows.roughness = 0.05;
-            materials.Windows.opacity = 0;
-            materials.Windows.transparent = true;
-        }
-
-    }, [materials]);
 
     // Animation parameters
     const animationSpeed = 0.1; // Increased from 0.05 for faster animation
