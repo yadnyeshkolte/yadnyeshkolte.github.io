@@ -53,7 +53,7 @@ const ProjectDetails = ({ project }) => {
     if (!project) return null;
 
     // Animation variants
-    const titleVariants = {
+    const variants = {
         hidden: { opacity: 0, x: -20 },
         visible: {
             opacity: 1,
@@ -65,108 +65,57 @@ const ProjectDetails = ({ project }) => {
         }
     };
 
-    const descriptionVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: "spring",
-                stiffness: 100
-            }
-        }
-    };
-
-    const linksVariants = {
-        hidden: {
-            opacity: 0,
-            scale: 0.8
-        },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            transition: {
-                type: "spring",
-                stiffness: 300
-            }
-        }
-    };
-
-    const featuresVariants = {
-        hidden: {
-            opacity: 0,
-            x: -20
-        },
-        visible: {
-            opacity: 1,
-            x: 0,
-            transition: {
-                type: "spring",
-                stiffness: 100,
-                delay: 0.2
-            }
-        }
-    };
-
-    const tagsVariants = {
-        hidden: {
-            opacity: 0,
-            scale: 0.8
-        },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            transition: {
-                type: "spring",
-                stiffness: 300
-            }
-        }
-    };
-
     return (
         <div className="project-details">
-            <AnimatePresence mode="wait">
-                {/* Title Animation */}
+            <AnimatePresence mode="popLayout">
                 {animationStage >= 1 && (
-                    <motion.h3>
+                    <motion.h3
+                        key={`title-${project.title}`}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={variants}
+                    >
                         {project.title}
                     </motion.h3>
                 )}
 
                 <div className="details-content">
                     <div className="details-summary">
-                        {/* Description Animation */}
                         {animationStage >= 2 && (
                             <motion.p
                                 key={`description-${project.title}`}
                                 initial="hidden"
                                 animate="visible"
-                                variants={descriptionVariants}
+                                exit="hidden"
+                                variants={variants}
                             >
                                 {project.summary}
                             </motion.p>
                         )}
 
-                        {/* Project Links Animation */}
                         {animationStage >= 3 && project.links && project.links.length > 0 && (
                             <div className="details-links">
                                 <h3>Project Links</h3>
                                 <motion.div
+                                    key={`links-${project.title}`}
                                     className="links-container"
                                     initial="hidden"
                                     animate="visible"
-                                    variants={linksVariants}
+                                    exit="hidden"
+                                    variants={variants}
                                 >
                                     {project.links.map((link, index) => (
                                         <motion.a
-                                            key={index}
+                                            key={`link-${index}-${link.type}`}
                                             href={link.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="link-button"
                                             initial="hidden"
                                             animate="visible"
-                                            variants={linksVariants}
+                                            exit="hidden"
+                                            variants={variants}
                                         >
                                             {getLinkIcon(link.type)}
                                             <span>{link.label || link.type}</span>
@@ -176,21 +125,23 @@ const ProjectDetails = ({ project }) => {
                             </div>
                         )}
 
-                        {/* Key Features Animation */}
                         {animationStage >= 4 && project.features && project.features.length > 0 && (
                             <div className="details-features">
                                 <h3>Key Features</h3>
                                 <motion.ul
+                                    key={`features-${project.title}`}
                                     initial="hidden"
                                     animate="visible"
-                                    variants={featuresVariants}
+                                    exit="hidden"
+                                    variants={variants}
                                 >
                                     {project.features.map((feature, index) => (
                                         <motion.li
-                                            key={index}
+                                            key={`feature-${index}`}
                                             initial="hidden"
                                             animate="visible"
-                                            variants={featuresVariants}
+                                            exit="hidden"
+                                            variants={variants}
                                         >
                                             {feature}
                                         </motion.li>
@@ -199,23 +150,25 @@ const ProjectDetails = ({ project }) => {
                             </div>
                         )}
 
-                        {/* Technologies Animation */}
                         {animationStage >= 5 && project.tags && project.tags.length > 0 && (
                             <div className="details-technologies">
                                 <h3>Technologies</h3>
                                 <motion.div
+                                    key={`tags-${project.title}`}
                                     className="tags-container"
                                     initial="hidden"
                                     animate="visible"
-                                    variants={tagsVariants}
+                                    exit="hidden"
+                                    variants={variants}
                                 >
                                     {project.tags.map((tag, index) => (
                                         <motion.span
-                                            key={index}
+                                            key={`tag-${index}`}
                                             className="details-tag"
                                             initial="hidden"
                                             animate="visible"
-                                            variants={tagsVariants}
+                                            exit="hidden"
+                                            variants={variants}
                                         >
                                             {tag}
                                         </motion.span>
