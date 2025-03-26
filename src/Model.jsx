@@ -4,7 +4,7 @@ import {useFrame} from '@react-three/fiber';
 import * as THREE from 'three';
 
 export function Model(props) {
-    const { nodes, materials } = useGLTF('/scene.gltf');
+    const { nodes, materials } = useGLTF('/scene.glb');
     const laptopScreenRef = useRef();
     const modelGroupRef = useRef();
     const screenMeshRef = useRef();
@@ -38,63 +38,64 @@ export function Model(props) {
     useEffect(() => {
         if (!materials) return;
 
-        // Dark mode color scheme
+        // Get all material names
+        const materialNames = Object.keys(materials);
+
+        // Dark mode color scheme with more flexible approach
         const darkModeColors = {
-            back: isDarkMode ? new THREE.Color('#3A3A3A') : new THREE.Color('#F0F0F0'),
-            palmRest: isDarkMode ? new THREE.Color('#404040') : new THREE.Color('#75d1ee'),
-            trackPad: isDarkMode ? new THREE.Color('#2C2C2C') : new THREE.Color('#FFFFFF'),
-            trackPadButtons: isDarkMode ? new THREE.Color('#505050') : new THREE.Color('#ADD8E6'),
-            windows: isDarkMode ? new THREE.Color('#1E1E1E') : new THREE.Color('#ADD8E6')
+            default: isDarkMode ? new THREE.Color('#3A3A3A') : new THREE.Color('#F0F0F0'),
+            surface: isDarkMode ? new THREE.Color('#404040') : new THREE.Color('#75d1ee'),
+            accent: isDarkMode ? new THREE.Color('#505050') : new THREE.Color('#ADD8E6'),
+            detail: isDarkMode ? new THREE.Color('#505050') : new THREE.Color('#ADD8E6')
         };
 
         const darkModeMetalness = {
-            back: isDarkMode ? 0 : 0.3,
-            palmRest: isDarkMode ? 0 : 0.2,
-            trackPad: isDarkMode ? 0 : 0.4,
-            trackPadButtons: isDarkMode ? 0 : 0.3,
-            windows: isDarkMode ? 0 : 0.1
+            default: isDarkMode ? 0 : 0.3,
+            surface: isDarkMode ? 0 : 0.2,
+            accent: isDarkMode ? 0 : 0.4,
+            detail: isDarkMode ? 0 : 0.3
         };
 
         const darkModeRoughness = {
-            back: isDarkMode ? 0.9 : 0.5,
-            palmRest: isDarkMode ? 0.9 : 0.6,
-            trackPad: isDarkMode ? 0.9 : 0.4,
-            trackPadButtons: isDarkMode ? 0.9 : 0.5,
-            windows: isDarkMode ? 0.9 : 0.05
+            default: isDarkMode ? 0.9 : 0.5,
+            surface: isDarkMode ? 0.9 : 0.6,
+            accent: isDarkMode ? 0.9 : 0.4,
+            detail: isDarkMode ? 0.9 : 0.5
         };
 
-        // Apply colors to materials
-        if (materials.Back) {
-            materials.Back.color = darkModeColors.back;
-            materials.Back.metalness = darkModeMetalness.back;
-            materials.Back.roughness = darkModeRoughness.back;
-        }
+        // Mapping of color patterns to apply
+        const colorMappings = {
+            'back': 'default',
+            'palm': 'surface',
+            'trackpad': 'accent',
+            'buttons': 'detail',
+            'logo': 'detail',
+            'windows': 'detail'
+        };
 
-        if (materials.Palm_Rest) {
-            materials.Palm_Rest.color = darkModeColors.palmRest;
-            materials.Palm_Rest.metalness = darkModeMetalness.palmRest;
-            materials.Palm_Rest.roughness = darkModeRoughness.palmRest;
-        }
+        // Iterate through materials and apply dark mode transformations
+        materialNames.forEach(materialName => {
+            const material = materials[materialName];
+            if (!material) return;
 
-        if (materials.TrackPad) {
-            materials.TrackPad.color = darkModeColors.trackPad;
-            materials.TrackPad.metalness = darkModeMetalness.trackPad;
-            materials.TrackPad.roughness = darkModeRoughness.trackPad;
-        }
+            // Find the appropriate color mapping
+            const matchingKey = Object.keys(colorMappings).find(key =>
+                materialName.toLowerCase().includes(key)
+            );
 
-        if (materials.TrackPad_Buttons) {
-            materials.TrackPad_Buttons.color = darkModeColors.trackPadButtons;
-            materials.TrackPad_Buttons.metalness = darkModeMetalness.trackPadButtons;
-            materials.TrackPad_Buttons.roughness = darkModeRoughness.trackPadButtons;
-        }
+            const colorType = matchingKey ? colorMappings[matchingKey] : 'default';
 
-        if (materials.Windows) {
-            materials.Windows.color = darkModeColors.windows;
-            materials.Windows.metalness = darkModeMetalness.windows;
-            materials.Windows.roughness = darkModeRoughness.windows;
-            materials.Windows.opacity = isDarkMode ? 0.1 : 0;
-            materials.Windows.transparent = true;
-        }
+            // Apply color transformations
+            material.color = darkModeColors[colorType];
+            material.metalness = darkModeMetalness[colorType];
+            material.roughness = darkModeRoughness[colorType];
+
+            // Special handling for windows or transparent materials
+            if (materialName.toLowerCase().includes('windows')) {
+                material.opacity = isDarkMode ? 0.1 : 0;
+                material.transparent = true;
+            }
+        });
     }, [isDarkMode, materials]);
 
 
@@ -259,20 +260,20 @@ export function Model(props) {
                             castShadow
                             receiveShadow
                             geometry={nodes.Cube_Palm_Rest_0.geometry}
-                            material={materials.Palm_Rest}
-                        />
-                        <mesh scale={[1, 1, 1]}
-                            ref={keyboardMeshRef}
-                            castShadow
-                            receiveShadow
-                            geometry={nodes.Cube_TrackPad_Buttons_0.geometry}
-                            material={materials.TrackPad_Buttons}
+                            material={materials['Palm_Rest.001']}
                         />
                         <mesh
                             castShadow
                             receiveShadow
                             geometry={nodes.Cube_TrackPad_0.geometry}
-                            material={materials.TrackPad}
+                            material={materials['TrackPad.001']}
+                        />
+                        <mesh scale={[1, 1, 1]}
+                              ref={keyboardMeshRef}
+                              castShadow
+                              receiveShadow
+                              geometry={nodes.Cube_TrackPad_Buttons_0.geometry}
+                              material={materials['TrackPad_Buttons.001']}
                         />
                         <group
                             ref={laptopScreenRef}
@@ -280,92 +281,101 @@ export function Model(props) {
                             rotation={[0,-1.571, 0]}
                             scale={[0.934, 0.196, 0.0175]}
                         >
+                        <mesh
+                            castShadow
+                            receiveShadow
+                            geometry={nodes.Rotator2_Back_0.geometry}
+                            material={materials['Back.001']}
+                        />
+                        <group ref={laptopScreenRef} scale={[0.532, 5.112, 58.181]}>
                             <mesh
                                 castShadow
                                 receiveShadow
-                                geometry={nodes.Rotator2_Back_0.geometry}
-                                material={materials.Back}
+                                geometry={nodes.Screen_Back_0.geometry}
+                                material={materials['Back.001']}
                             />
-                            <group scale={[0.532, 5.112, 58.181]}>
-                                <mesh
-                                    castShadow
-                                    receiveShadow
-                                    geometry={nodes.Screen_Back_0.geometry}
-                                    material={materials.Back}
-                                />
-                                <mesh
-                                    castShadow
-                                    receiveShadow
-                                    geometry={nodes.Screen_TrackPad_Buttons_0.geometry}
-                                    material={materials.TrackPad_Buttons}
-                                />
-                                <mesh
-                                    ref={screenMeshRef}
-                                    castShadow
-                                    receiveShadow
-                                    geometry={nodes.Screen_Windows_0.geometry}
-                                    material={materials.Windows}
-                                />
-                                <mesh
-                                    castShadow
-                                    receiveShadow
-                                    geometry={nodes.WebCam_WebCam_0.geometry}
-                                    material={materials.WebCam}
-                                    position={[-1.103, 0, 1.918]}
-                                    rotation={[0, -1.571, 0]}
-                                    scale={[0.03, 0.02, 0.041]}
-                                />
-                                <mesh
-                                    castShadow
-                                    receiveShadow
-                                    geometry={nodes.Edge1_Back_0.geometry}
-                                    material={materials.Back}
-                                    position={[-2.088, 0.985, 1.933]}
-                                    scale={[1.33, 0.016, 0.055]}
-                                />
-                                <mesh
-                                    castShadow
-                                    receiveShadow
-                                    geometry={nodes.Edge2_Back_0.geometry}
-                                    material={materials.Back}
-                                    position={[-2.088, -0.989, 1.933]}
-                                    rotation={[0, 0, -Math.PI]}
-                                    scale={[-1.33, 0.016, 0.055]}
-                                />
-                            </group>
+                            <mesh
+                                castShadow
+                                receiveShadow
+                                geometry={nodes.Screen_TrackPad_Buttons_0.geometry}
+                                material={materials['TrackPad_Buttons.001']}
+                            />
+                            <mesh
+                                ref={screenMeshRef}
+                                castShadow
+                                receiveShadow
+                                geometry={nodes.Screen_Windows_0.geometry}
+                                material={materials['Windows.001']}
+                            />
+                            <mesh
+                                castShadow
+                                receiveShadow
+                                geometry={nodes.Edge1_Back_0.geometry}
+                                material={materials['Back.001']}
+                                position={[-2.088, 0.985, 1.933]}
+                                scale={[1.33, 0.016, 0.055]}
+                            />
+                            <mesh
+                                castShadow
+                                receiveShadow
+                                geometry={nodes.Edge2_Back_0.geometry}
+                                material={materials['Back.001']}
+                                position={[-2.088, -0.989, 1.933]}
+                                rotation={[-Math.PI, 0, -Math.PI]}
+                                scale={[-1.33, -0.016, -0.055]}
+                            />
+                            <mesh
+                                castShadow
+                                receiveShadow
+                                geometry={nodes.WebCam_WebCam_0.geometry}
+                                material={materials['WebCam.001']}
+                                position={[-1.103, 0, 1.918]}
+                                rotation={[0, -1.571, 0]}
+                                scale={[0.03, 0.02, 0.041]}
+                            />
                         </group>
                     </group>
-                    <mesh
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Cube101_TrackPad_0.geometry}
-                        material={materials.TrackPad}
-                        position={[-0.492, 185.906, 6.694]}
-                        rotation={[0, 0, Math.PI / 2]}
-                        scale={[1.719, 6.171, 0.849]}
-                    />
-                    <mesh
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Plane_Processor_logo_0.geometry}
-                        material={materials.Processor_logo}
-                        position={[123.149, 52.954, 6.896]}
-                        rotation={[0, 0, Math.PI / 2]}
-                        scale={[8.108, 8.837, 8.108]}
-                    />
-                    <mesh
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Plane001_GPU_Logo_0.geometry}
-                        material={materials.GPU_Logo}
-                        position={[119.561, 30.985, 6.896]}
-                        rotation={[0, 0, Math.PI / 2]}
-                        scale={[5.779, 12.851, 8.108]}
-                    />
                 </group>
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Plane_Processor_logo_0.geometry}
+                    material={materials['Processor_logo.001']}
+                    position={[123.149, 52.954, 6.896]}
+                    rotation={[0, 0, Math.PI / 2]}
+                    scale={[8.108, 8.837, 8.108]}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Plane001_GPU_Logo_0.geometry}
+                    material={materials['GPU_Logo.001']}
+                    position={[119.561, 30.985, 6.896]}
+                    rotation={[0, 0, Math.PI / 2]}
+                    scale={[5.779, 12.851, 8.108]}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Plane002_Windows_Logo_0.geometry}
+                    material={materials['Windows_Logo.001']}
+                    position={[-102.437, 89.688, 7.617]}
+                    rotation={[0, 0, Math.PI / 2]}
+                    scale={6.416}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Text_Kays_0.geometry}
+                    material={materials['Kays.001']}
+                    position={[-136.886, 171.478, 7.599]}
+                    scale={[5.056, 4.28, 15.83]}
+                />
             </group>
         </group>
+</group>
+
     );
 }
 
-useGLTF.preload('/scene.gltf');
+useGLTF.preload('/scene.glb');
