@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useGLTF } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import React, {useEffect, useRef, useState} from 'react';
+import {useGLTF} from '@react-three/drei';
+import {useFrame} from '@react-three/fiber';
 import * as THREE from 'three';
 
 export function Model(props) {
@@ -11,6 +11,7 @@ export function Model(props) {
     // Use the prop if provided, otherwise default to false
     const [isOpen, setIsOpen] = useState(props.isOpen || false);
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const keyboardMeshRef = useRef();
 
     useEffect(() => {
         const checkDarkMode = () => {
@@ -165,6 +166,66 @@ export function Model(props) {
     }, [props.screenImage]);
 
 
+    useEffect(() => {
+        if (props.keyboardImage && keyboardMeshRef.current) {
+            const textureLoader = new THREE.TextureLoader();
+
+            textureLoader.load(props.keyboardImage, (texture) => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+
+                const image = new Image();
+                image.onload = function() {
+                    // Set canvas to a larger size to ensure high resolution
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+
+                    // Draw the original image
+                    context.drawImage(image, 0, 0);
+
+                    // Image data processing
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+
+                    // Slightly enhance contrast and reduce brightness
+                    const contrast = 1.2;
+                    const brightness = -40;
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, Math.max(0, (data[i] - 128) * contrast + 128 + brightness));
+                        data[i+1] = Math.min(255, Math.max(0, (data[i+1] - 128) * contrast + 128 + brightness));
+                        data[i+2] = Math.min(255, Math.max(0, (data[i+2] - 128) * contrast + 128 + brightness));
+                    }
+
+                    context.putImageData(imageData, 0, 0);
+
+                    // Create texture with better mapping
+                    const adjustedTexture = new THREE.CanvasTexture(canvas);
+                    adjustedTexture.anisotropy = 16;
+                    adjustedTexture.wrapS = THREE.RepeatWrapping;
+                    adjustedTexture.wrapT = THREE.RepeatWrapping;
+
+                    // Important: Adjust repeat to cover the entire keyboard surface
+                    adjustedTexture.repeat.set(3.83, 4);  // Adjust these values to fit your keyboard texture
+                    adjustedTexture.offset.set(0, 0);  // Adjust offset if needed
+
+                    // Create material with adjusted texture and better rendering properties
+                    keyboardMeshRef.current.material = new THREE.MeshStandardMaterial({
+                        map: adjustedTexture,
+                        side: THREE.FrontSide,
+                        metalness: 0.1,
+                        roughness: 0.7,
+                        // Add some ambient occlusion to give depth
+                        aoMapIntensity: 0.5
+                    });
+                };
+
+                image.src = texture.image.src;
+            });
+        }
+    }, [props.keyboardImage]);
+
+
     // Animation parameters
     const animationSpeed = 0.1; // Increased from 0.05 for faster animation
 
@@ -200,7 +261,8 @@ export function Model(props) {
                             geometry={nodes.Cube_Palm_Rest_0.geometry}
                             material={materials.Palm_Rest}
                         />
-                        <mesh
+                        <mesh scale={[1, 1, 1]}
+                            ref={keyboardMeshRef}
                             castShadow
                             receiveShadow
                             geometry={nodes.Cube_TrackPad_Buttons_0.geometry}
@@ -273,24 +335,15 @@ export function Model(props) {
                             </group>
                         </group>
                     </group>
-                    <group
-                        position={[-130.703, 124.06, 6.694]}
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Cube101_TrackPad_0.geometry}
+                        material={materials.TrackPad}
+                        position={[-0.492, 185.906, 6.694]}
                         rotation={[0, 0, Math.PI / 2]}
-                        scale={[6.521, 11.075, 0.849]}>
-                        <mesh
-                            castShadow
-                            receiveShadow
-                            geometry={nodes.Cube004_TrackPad_0.geometry}
-                            material={materials.TrackPad}
-                        />
-                        <mesh
-                            castShadow
-                            receiveShadow
-                            geometry={nodes.Cube004_Material_0.geometry}
-                            material={materials.Material}
-                        />
-                    </group>
-
+                        scale={[1.719, 6.171, 0.849]}
+                    />
                     <mesh
                         castShadow
                         receiveShadow
@@ -308,15 +361,6 @@ export function Model(props) {
                         position={[119.561, 30.985, 6.896]}
                         rotation={[0, 0, Math.PI / 2]}
                         scale={[5.779, 12.851, 8.108]}
-                    />
-                    <mesh
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Plane002_Windows_Logo_0.geometry}
-                        material={materials.Windows_Logo}
-                        position={[-102.437, 89.688, 7.617]}
-                        rotation={[0, 0, Math.PI / 2]}
-                        scale={6.416}
                     />
                 </group>
             </group>

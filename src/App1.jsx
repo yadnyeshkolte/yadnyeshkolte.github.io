@@ -18,6 +18,8 @@ import ProjectCarousel from './ProjectCarousel';
 import ProjectDetails from './ProjectDetails';
 // Import the projects data
 import projectsData from './projectsData';
+import keyboardLightImage from './assets/keyboardlight.png';
+import keyboardDarkImage from './assets/keyboarddark.png';
 
 const App1 = () => {
 
@@ -326,7 +328,11 @@ const App1 = () => {
                           shadows={false}
                           adjustCamera={false}
                       >
-                        <Model isOpen={laptopOpen} screenImage={currentProjectImage} />
+                        <Model
+                            isOpen={laptopOpen}
+                            screenImage={currentProjectImage}
+                            keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
+                        />
                       </Stage>
                     </Suspense>
                     {/* Remove OrbitControls completely */}
