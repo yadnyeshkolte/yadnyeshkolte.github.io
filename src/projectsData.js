@@ -16,24 +16,29 @@ import lensDarkImage from './assets/project-section-dark-theme/5dark.png';
 import imfapiDarkImage from './assets/project-section-dark-theme/6dark.png';
 import telegramBotDarkImage from './assets/project-section-dark-theme/7dark.png';
 import structviz3dDesktopDarkImage from './assets/project-section-dark-theme/8dark.png';
-import defaultIntroImage from './assets/default-screen.png';
+import defaultIntroImage from './assets/default-screen-light.png';
 import defaultIntroDarkImage from './assets/default-screen-dark.png';
 
 const projectsData = {
     'default': {
         id: 'default',
-        title: 'Yadnyesh Kolte',
-        summary: 'Motivated Software Engineer with expertise in developing and deploying high-quality solutions. Proficient in full stack development, AI integration, and continuous delivery.',
-        tags: ['Software Engineering', 'Full Stack Development', 'AI Integration', 'DevOps'],
+        title: 'Projects',
+        summary: 'Crafting code in the comfort of Ubuntu, with GNOME\'s intuitive interface as my primary development companion. While occasionally exploring Fedora, my heart belongs to Ubuntu\'s seamless blend of functionality and user-friendly design. These projects showcase my journey through Cross-Platform development, embracing open-source philosophy and elegant simplicity.',
         image: defaultIntroImage,
-        darkImage: defaultIntroDarkImage, // You can create a separate dark mode image if desired
-        links: [],
+        darkImage: defaultIntroDarkImage,
+        links: [
+            { type: 'github', label: 'Github Profile', url: 'https://github.com/yadnyeshkolte' },
+            { type: 'demo', label: 'Jekyll Blog', url: 'https://yadnyeshkolte.github.io/blog/' },
+            { type: 'package', label: 'Packages', url: 'https://github.com/yadnyeshkolte?tab=packages' },
+            { type: 'gitlab', label: 'GitLab Profile', url: 'https://gitlab.com/yadnyeshkolte' },
+            { type: 'box', label: 'Source Code', url: 'https://github.com/yadnyeshkolte/yadnyeshkolte.github.io' },
+
+        ],
         features: [
-            'Full Stack Web Development',
-            'Cross-Platform Application Design',
-            'Cloud and DevOps Solutions',
-            'AI and Machine Learning Integration',
-            'Agile and Scrum Methodologies'
+            'Spanning web, mobile, and desktop applications',
+            'Multi-Platform Development in cross-platform technologies',
+            'Continuous Learning and Constantly exploring new technologies and frameworks',
+            'DevOps and CI/CD - Implementing modern development and deployment practices'
         ]
     },
     'crossdocs': {
