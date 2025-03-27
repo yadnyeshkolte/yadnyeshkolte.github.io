@@ -4,6 +4,7 @@
     position: relative;
     z-index: 2;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -109,9 +110,11 @@
 }
 
 /* Responsive adjustments */
-@media (min-width: 769px) and (max-width: 1200px) {
+@media (min-width: 769px) and (max-width: 1024px) {
     .project-details {
         padding: 1.5rem;
+        width: 85vw;
+        overflow-x: hidden;
     }
 
     .details-title {
@@ -125,6 +128,7 @@
         padding: 1.25rem;
         height: auto;
         max-height: 100%;
+        width: 90%;
     }
 
     .details-title {
