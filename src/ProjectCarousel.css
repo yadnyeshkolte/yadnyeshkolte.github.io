@@ -28,7 +28,7 @@
 
 .project-carousel .project-card {
     flex: 0 0 auto;
-    width: 15%;
+    width: 20%;
     height: 10%;
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.35);
