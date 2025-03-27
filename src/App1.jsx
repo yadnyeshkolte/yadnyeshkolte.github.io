@@ -315,8 +315,8 @@ const App1 = () => {
                       dpr={[1, 2]}
                       camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
                       style={{
-                        width: '100%',
-                        height: '100%',
+                        width: '50%',
+                        height: '50%',
                         maxHeight: '100%',
                         minWidth:'100%'
                       }}
