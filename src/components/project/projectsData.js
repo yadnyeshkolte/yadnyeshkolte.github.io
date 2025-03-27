@@ -91,7 +91,8 @@ const projectsData = {
         image: opensourcepenImage, // You'll need to replace with your actual image variable
         darkImage: opensourcepenDarkImage,
         links: [
-            { type: 'github', label: 'Repository', url: 'https://github.com/yadnyeshkolte/opensourcepen' }
+            { type: 'github', label: 'Repository', url: 'https://github.com/yadnyeshkolte/opensourcepen' },
+            { type: 'gitlab', label: 'GitLab', url: 'https://gitlab.com/yadnyeshkolte/opensourcepen' }
         ],
         features: [
             'Interactive 3D Onboarding - Multi-step process with smooth transitions and 3D model rendering',
