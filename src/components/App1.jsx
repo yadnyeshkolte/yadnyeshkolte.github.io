@@ -1,25 +1,25 @@
 import {useCallback, useEffect, useState, useRef, Suspense} from 'react';
 import './App1.css';
-import reactLogo from './assets/yadnyesh.jpg'
-import NavigationBar from './smallcomponents/NavigationBar.jsx';
-import SocialIcons from './smallcomponents/SocialIcons.jsx';
-import ShaderModel from './smallcomponents/ShaderModel.jsx'
+import reactLogo from '../assets/yadnyesh.jpg'
+import NavigationBar from '../smallcomponents/NavigationBar.jsx';
+import SocialIcons from '../smallcomponents/SocialIcons.jsx';
+import ShaderModel from '../smallcomponents/ShaderModel.jsx'
 import {Cloud, Code2, Database, Loader2, Wrench} from "lucide-react";
-import { useSharedCarousel } from './hooks/useSharedCarousel.js';
-import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
-import githubCert from './assets/certifications/github-foundations.png'
-import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
-import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
-import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
+import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
+import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.png'
+import githubCert from '../assets/certifications/github-foundations.png'
+import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.png'
+import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.png'
+import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
 import { Canvas } from '@react-three/fiber'
 import {Html, OrbitControls, Stage} from '@react-three/drei'
-import { Model } from './Model.jsx'
-import ProjectCarousel from './ProjectCarousel';
-import ProjectDetails from './ProjectDetails';
+import { Model } from './project/Model.jsx'
+import ProjectCarousel from './project/ProjectCarousel.jsx';
+import ProjectDetails from './project/ProjectDetails.jsx';
 // Import the projects data
-import projectsData from './projectsData';
-import keyboardLightImage from './assets/keyboardlight.png';
-import keyboardDarkImage from './assets/keyboarddark.png';
+import projectsData from './project/projectsData.js';
+import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.png';
+import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.png';
 
 function Loader() {
   return (

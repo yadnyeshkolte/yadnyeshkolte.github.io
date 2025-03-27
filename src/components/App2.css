@@ -1,7 +1,7 @@
 /* App2.css - Base styles */
-@import './styles2/Intro2.css';
-@import './styles2/Project2.css';
-@import './styles2/Tech2.css';
+@import 'styles2/Intro2.css';
+@import 'styles2/Project2.css';
+@import 'styles2/Tech2.css';
 
 .app2-container {
   position: fixed;

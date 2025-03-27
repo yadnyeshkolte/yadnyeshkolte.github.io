@@ -1,7 +1,7 @@
 /* Base styles for App1 */
-@import './styles1/Intro1.css';
-@import './styles1/Project1.css';
-@import './styles1/Tech1.css';
+@import 'styles1/Intro1.css';
+@import 'styles1/Project1.css';
+@import 'styles1/Tech1.css';
 
 .app1-container {
   position: fixed;
