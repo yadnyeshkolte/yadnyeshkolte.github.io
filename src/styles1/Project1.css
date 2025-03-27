@@ -75,6 +75,7 @@
     .project-info {
         max-height: 40vh;
         padding: 0.5rem;
+        width: 95%;
     }
 
     .project-model-view {
@@ -97,6 +98,7 @@
 
     .project-info {
         max-height: 50vh;
+        width: 95%;
     }
 
     .project-model-view {
