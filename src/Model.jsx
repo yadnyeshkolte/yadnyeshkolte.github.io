@@ -2,9 +2,10 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useGLTF} from '@react-three/drei';
 import {useFrame} from '@react-three/fiber';
 import * as THREE from 'three';
+import sceneGLB from '/scene.glb'; // Import the GLB file directly
 
 export function Model(props) {
-    const { nodes, materials } = useGLTF('/scene.glb');
+    const { nodes, materials } = useGLTF(sceneGLB);
     const laptopScreenRef = useRef();
     const modelGroupRef = useRef();
     const screenMeshRef = useRef();
@@ -378,4 +379,4 @@ export function Model(props) {
     );
 }
 
-useGLTF.preload('/scene.glb');
+useGLTF.preload(sceneGLB);
