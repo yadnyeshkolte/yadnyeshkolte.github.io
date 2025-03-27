@@ -47,11 +47,21 @@ const App1 = () => {
   const [activeProject, setActiveProject] = useState('default');
   const [laptopOpen, setLaptopOpen] = useState(false);
   const [currentProjectImage, setCurrentProjectImage] = useState(projectsData.crossdocs.image); // Default image
+  const [isModelVisible, setIsModelVisible] = useState(false);
   const ref = useRef();
 
   const projects = projectsData;
 
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Delay showing the 3D model by 1 second
+    const modelRevealTimer = setTimeout(() => {
+      setIsModelVisible(true);
+    }, 2000);
+
+    return () => clearTimeout(modelRevealTimer);
+  }, []);
 
   useEffect(() => {
     // Function to check dark mode
@@ -333,9 +343,10 @@ const App1 = () => {
                         width: '50%',
                         height: '50%',
                         maxHeight: '100%',
-                        minWidth:'100%'
+                        minWidth:'100%',
+                        opacity: isModelVisible ? 1 : 0,
+                        transition: 'opacity 0.5s ease-in-out'
                       }}
-                      // Disable user interaction
                       onPointerDownCapture={(e) => e.stopPropagation()}
                       onWheelCapture={(e) => e.stopPropagation()}
                   >
@@ -354,7 +365,6 @@ const App1 = () => {
                             keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
                         />
                       </Stage>
-                      {/* Remove OrbitControls completely */}
                       <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
                     </Suspense>
                   </Canvas>

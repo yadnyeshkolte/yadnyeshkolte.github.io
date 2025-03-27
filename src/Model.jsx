@@ -336,14 +336,41 @@ export function Model(props) {
                         </group>
                     </group>
                 </group>
-                <mesh
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Text_Kays_0.geometry}
-                    material={materials['Kays.001']}
-                    position={[-136.886, 171.478, 7.599]}
-                    scale={[5.056, 4.28, 15.83]}
-                />
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Plane_Processor_logo_0.geometry}
+                        material={materials['Processor_logo.001']}
+                        position={[123.149, 52.954, 6.896]}
+                        rotation={[0, 0, Math.PI / 2]}
+                        scale={[8.108, 8.837, 8.108]}
+                    />
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Plane001_GPU_Logo_0.geometry}
+                        material={materials['GPU_Logo.001']}
+                        position={[119.561, 30.985, 6.896]}
+                        rotation={[0, 0, Math.PI / 2]}
+                        scale={[5.779, 12.851, 8.108]}
+                    />
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Plane002_Windows_Logo_0.geometry}
+                        material={materials['Windows_Logo.001']}
+                        position={[-102.437, 89.688, 7.617]}
+                        rotation={[0, 0, Math.PI / 2]}
+                        scale={6.416}
+                    />
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Text_Kays_0.geometry}
+                        material={materials['Kays.001']}
+                        position={[-136.886, 171.478, 7.599]}
+                        scale={[5.056, 4.28, 15.83]}
+                    />
             </group>
         </group>
 </group>
