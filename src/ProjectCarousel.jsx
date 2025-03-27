@@ -77,10 +77,11 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
 
     // Handle project change with smooth transition
     const handleProjectClick = (id) => {
-        if (id === activeProject) return;
+        // If clicking the same project, deselect (go to default)
+        const newActiveProject = activeProject === id ? 'default' : id;
 
         setIsTransitioning(true);
-        onProjectChange(id);
+        onProjectChange(newActiveProject);
 
         setTimeout(() => {
             setIsTransitioning(false);
@@ -113,17 +114,19 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
             onTouchEnd={handleTouchEnd}
             onTouchMove={handleTouchMove}
         >
-            {Object.entries(projects).map(([id, project]) => (
-                <div
-                    key={id}
-                    data-project-id={id}
-                    className={`project-card ${activeProject === id ? 'active' : ''}`}
-                    onClick={() => handleProjectClick(id)}
-                >
-                    <h3 className="project-title">{project.title}</h3>
-                    <p className="project-summary">{project.summary}</p>
-                </div>
-            ))}
+            {Object.entries(projects)
+                .filter(([id]) => id !== 'default') // Exclude default project
+                .map(([id, project]) => (
+                    <div
+                        key={id}
+                        data-project-id={id}
+                        className={`project-card ${activeProject === id ? 'active' : ''}`}
+                        onClick={() => handleProjectClick(id)}
+                    >
+                        <h3 className="project-title">{project.title}</h3>
+                        <p className="project-summary">{project.summary}</p>
+                    </div>
+                ))}
         </div>
     );
 };

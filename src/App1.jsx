@@ -29,7 +29,7 @@ const App1 = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
   const [hoveredElementType, setHoveredElementType] = useState('default');
-  const [activeProject, setActiveProject] = useState('crossdocs'); // Default to first project
+  const [activeProject, setActiveProject] = useState('default');
   const [laptopOpen, setLaptopOpen] = useState(false);
   const [currentProjectImage, setCurrentProjectImage] = useState(projectsData.crossdocs.image); // Default image
   const ref = useRef();
@@ -208,13 +208,14 @@ const App1 = () => {
   };
 
   const handleProjectClick = (projectId) => {
-    setActiveProject(projectId);
-    // Make sure laptop is open when a project is selected
-    if (!laptopOpen) {
-      setLaptopOpen(true);
-    }
-  };
+    // If clicking the same project, deselect and go to default
+    setActiveProject(prevProject =>
+        prevProject === projectId ? 'default' : projectId
+    );
 
+    // Ensure laptop is open when a project is selected or when in default state
+    setLaptopOpen(true);
+  };
 
   const certifications = [
     {

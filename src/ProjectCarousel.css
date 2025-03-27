@@ -86,7 +86,8 @@
     }
 
     .project-carousel .project-card.active {
-        transform: translateY(-15px) scale(1.05);
+        transform: translateY(15px) scale(1.05);
+        background: rgba(173, 216, 230, 0.9);
     }
 }
 
@@ -107,6 +108,14 @@
         width: 180px;
         height: 130px;
         padding: 12px;
+        background: rgba(173, 216, 230, 0.9);
+    }
+    .dark .project-carousel .project-card {
+        background: rgba(255, 255, 255, 0.15);
+    }
+    .project-carousel .project-card.active {
+        transform: translateY(15px) scale(1.05);
+        background: rgba(255, 255, 255, 0.15);
     }
 
     .project-carousel .project-title {

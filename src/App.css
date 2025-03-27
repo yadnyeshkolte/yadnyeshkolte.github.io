@@ -9,7 +9,7 @@
   height: 100vh;
   width: 100%;
   overflow-y: auto;
-  background-color: white; /* Light mode default */
+  background: radial-gradient(circle at top right, white, lightblue, #89cff0);
   color: black; /* Light mode default */
   transition: background-color 0.3s ease, color 0.3s ease;
 }

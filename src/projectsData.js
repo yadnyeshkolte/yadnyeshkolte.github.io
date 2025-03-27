@@ -16,8 +16,26 @@ import lensDarkImage from './assets/project-section-dark-theme/5dark.png';
 import imfapiDarkImage from './assets/project-section-dark-theme/6dark.png';
 import telegramBotDarkImage from './assets/project-section-dark-theme/7dark.png';
 import structviz3dDesktopDarkImage from './assets/project-section-dark-theme/8dark.png';
+import defaultIntroImage from './assets/default-screen.png';
+import defaultIntroDarkImage from './assets/default-screen-dark.png';
 
 const projectsData = {
+    'default': {
+        id: 'default',
+        title: 'Yadnyesh Kolte',
+        summary: 'Motivated Software Engineer with expertise in developing and deploying high-quality solutions. Proficient in full stack development, AI integration, and continuous delivery.',
+        tags: ['Software Engineering', 'Full Stack Development', 'AI Integration', 'DevOps'],
+        image: defaultIntroImage,
+        darkImage: defaultIntroDarkImage, // You can create a separate dark mode image if desired
+        links: [],
+        features: [
+            'Full Stack Web Development',
+            'Cross-Platform Application Design',
+            'Cloud and DevOps Solutions',
+            'AI and Machine Learning Integration',
+            'Agile and Scrum Methodologies'
+        ]
+    },
     'crossdocs': {
         id: 'crossdocs',
         title: 'CrossDocs - Cross-platform Markdown Editor',
