@@ -48,7 +48,7 @@
 
 /* Carousel area */
 .project-carousel-container {
-    width: 100%;
+    width: 100dvw;
     height: auto;
     overflow-x: auto;
     display: flex;
@@ -57,6 +57,7 @@
     margin-bottom: 1rem;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    transform: translateX(-2rem);
 }
 
 /* Mobile Breakpoint (max-width: 768px) */
