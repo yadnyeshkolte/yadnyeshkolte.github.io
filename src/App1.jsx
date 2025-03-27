@@ -4,7 +4,7 @@ import reactLogo from './assets/yadnyesh.jpg'
 import NavigationBar from './smallcomponents/NavigationBar.jsx';
 import SocialIcons from './smallcomponents/SocialIcons.jsx';
 import ShaderModel from './smallcomponents/ShaderModel.jsx'
-import {Cloud, Code2, Database, Wrench} from "lucide-react";
+import {Cloud, Code2, Database, Loader2, Wrench} from "lucide-react";
 import { useSharedCarousel } from './hooks/useSharedCarousel.js';
 import awsCert from './assets/certifications/aws-educate-introduction-to-cloud-101.png'
 import githubCert from './assets/certifications/github-foundations.png'
@@ -12,7 +12,7 @@ import fdc3Cert from './assets/certifications/lfel1000-introduction-to-fdc3.png'
 import openSourceCert from './assets/certifications/lfd137-open-source-contribution-in-finance.png'
 import devopsCert from "./assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Stage } from '@react-three/drei'
+import {Html, OrbitControls, Stage} from '@react-three/drei'
 import { Model } from './Model.jsx'
 import ProjectCarousel from './ProjectCarousel';
 import ProjectDetails from './ProjectDetails';
@@ -20,6 +20,21 @@ import ProjectDetails from './ProjectDetails';
 import projectsData from './projectsData';
 import keyboardLightImage from './assets/keyboardlight.png';
 import keyboardDarkImage from './assets/keyboarddark.png';
+
+function Loader() {
+  return (
+      <Html center>
+        <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-black/80 z-50">
+          <div className="text-center">
+            <Loader2 className="animate-spin mx-auto mb-4 text-blue-500 dark:text-blue-300" size={48} />
+            <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+              Loading...
+            </p>
+          </div>
+        </div>
+      </Html>
+  );
+}
 
 const App1 = () => {
 
@@ -300,7 +315,6 @@ const App1 = () => {
 
               {/* Container for 3D model and carousel - 80% width */}
               <div className="project-display-container">
-
                 {/* Carousel area - 10% height */}
                 <div className="project-carousel-container">
                   <ProjectCarousel
@@ -324,9 +338,8 @@ const App1 = () => {
                       // Disable user interaction
                       onPointerDownCapture={(e) => e.stopPropagation()}
                       onWheelCapture={(e) => e.stopPropagation()}
-
                   >
-                    <Suspense fallback={null}>
+                    <Suspense fallback={<Loader />}>
                       <Stage
                           controls={ref}
                           preset="rembrandt"
@@ -341,13 +354,11 @@ const App1 = () => {
                             keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
                         />
                       </Stage>
+                      {/* Remove OrbitControls completely */}
+                      <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
                     </Suspense>
-                    {/* Remove OrbitControls completely */}
-                    <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
                   </Canvas>
                 </div>
-
-
               </div>
             </section>
             <section className="section tech-stack-section">
