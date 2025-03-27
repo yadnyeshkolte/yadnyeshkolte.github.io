@@ -1,18 +1,40 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState, useRef, Suspense} from 'react';
 import './App1.css';
 import reactLogo from '../assets/yadnyesh.jpg'
 import NavigationBar from '../smallcomponents/NavigationBar.jsx';
 import SocialIcons from '../smallcomponents/SocialIcons.jsx';
 import ShaderModel from '../smallcomponents/ShaderModel.jsx'
-import ProjectCard from "../smallcomponents/ProjectCard.jsx";
-import {Cloud, Code2, Database, Wrench} from "lucide-react";
+import {Cloud, Code2, Database, Loader2, Wrench} from "lucide-react";
 import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
 import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.png'
 import githubCert from '../assets/certifications/github-foundations.png'
 import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.png'
 import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.png'
 import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
+import { Canvas } from '@react-three/fiber'
+import {Html, OrbitControls, Stage} from '@react-three/drei'
+import { Model } from './project/Model.jsx'
+import ProjectCarousel from './project/ProjectCarousel.jsx';
+import ProjectDetails from './project/ProjectDetails.jsx';
+// Import the projects data
+import projectsData from './project/projectsData.js';
+import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.png';
+import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.png';
 
+function Loader() {
+  return (
+      <Html center>
+        <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-black/80 z-50">
+          <div className="text-center">
+            <Loader2 className="animate-spin mx-auto mb-4 text-blue-500 dark:text-blue-300" size={48} />
+            <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+              Loading...
+            </p>
+          </div>
+        </div>
+      </Html>
+  );
+}
 
 const App1 = () => {
 
@@ -22,15 +44,65 @@ const App1 = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
   const [hoveredElementType, setHoveredElementType] = useState('default');
+  const [activeProject, setActiveProject] = useState('default');
+  const [laptopOpen, setLaptopOpen] = useState(false);
+  const [currentProjectImage, setCurrentProjectImage] = useState(projectsData.crossdocs.image); // Default image
+  const [isModelVisible, setIsModelVisible] = useState(false);
+  const ref = useRef();
+
+  const projects = projectsData;
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Delay showing the 3D model by 1 second
+    const modelRevealTimer = setTimeout(() => {
+      setIsModelVisible(true);
+    }, 2000);
+
+    return () => clearTimeout(modelRevealTimer);
+  }, []);
+
+  useEffect(() => {
+    // Function to check dark mode
+    const checkDarkMode = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setIsDarkMode(isDark);
+    };
+
+    // Initial check
+    checkDarkMode();
+
+    // Observer for theme changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (activeProject && projects[activeProject]) {
+      // Select image based on dark mode
+      const projectImage = isDarkMode
+          ? projects[activeProject].darkImage || projects[activeProject].image
+          : projects[activeProject].image;
+      setCurrentProjectImage(projectImage);
+    }
+  }, [activeProject, isDarkMode]);
 
   useEffect(() => {
     let animationId;
     let currentSize = circleSize;
     // Set different target sizes based on the hovered element type
     let targetSize = isAnimating
-        ? (hoveredElementType === 'intro' ? 150 :
+        ? (hoveredElementType === 'intro' ? 120 :
             hoveredElementType === 'certificate' ? 200 :
-                hoveredElementType === 'quote' ? 220 :
+                hoveredElementType === 'quote' ? 180 :
                     hoveredElementType === 'project' ? 250 :
                 250) // Default size for other elements
         : 0;
@@ -119,6 +191,13 @@ const App1 = () => {
         });
       }
     }
+    const projectSection = document.querySelector('.project-section');
+    if (projectSection) {
+      const rect = projectSection.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight * 0.75 &&
+          rect.bottom > window.innerHeight * 0.25;
+      setLaptopOpen(isVisible);
+    }
   }, []);
 
 // Similarly, modify handleMouseMove
@@ -153,6 +232,15 @@ const App1 = () => {
     // proportional shrinking as growing
   };
 
+  const handleProjectClick = (projectId) => {
+    // If clicking the same project, deselect and go to default
+    setActiveProject(prevProject =>
+        prevProject === projectId ? 'default' : projectId
+    );
+
+    // Ensure laptop is open when a project is selected or when in default state
+    setLaptopOpen(true);
+  };
 
   const certifications = [
     {
@@ -188,19 +276,12 @@ const App1 = () => {
   ];
   const [currentCert, setCurrentCert, isTransitioning] = useSharedCarousel(certifications);
 
-  useEffect(() => {
-    console.log('Certification changed:', {
-      index: currentCert,
-      title: certifications[currentCert]?.title
-    });
-  }, [currentCert, certifications]);
-
 
   return (
       <div className="app1-container" onMouseMove={handleMouseMove}>
         <NavigationBar
             githubUrl="https://github.com/yadnyeshkolte"
-            blogUrl="https://cyberconnaught.wordpress.com/"
+            blogUrl="https://yadnyeshkolte.github.io/blog/"
         />
         <div className="app1-scrollable" onScroll={handleScroll}>
           <div
@@ -216,12 +297,6 @@ const App1 = () => {
             </div>
             <section className="section intro-section">
               <div className="intro-quote-side">
-                <div className="quote-container hoverable" onMouseEnter={() => handleTextHover('quote')} onMouseLeave={handleTextLeave}>
-                  <blockquote className="quote">
-                    Great ambition is the passion of a great character
-                  </blockquote>
-                  <cite className="quote-author">- Napoleon Bonaparte</cite>
-                </div>
               </div>
               <div className="intro-content-side">
                 <div className="content-wrapper">
@@ -243,30 +318,56 @@ const App1 = () => {
               </div>
             </section>
             <section className="section project-section">
-              <div className="project-section-background"></div>
-              <div className="project-content">
-                <div className="projects-grid">
-                  <ProjectCard
-                      title="Cross-platform Markdown editor with AI assistance"
-                      description="Developed a cross-platform Markdown editor using Kotlin Compose Multiplatform, featuring real-time preview, dark/light themes, and in-app Markdown guide. Packaged the application for Windows, macOS, Linux, and Android, ensuring native performance and seamless installation across platforms."
-                      githubUrl="https://github.com/yadnyeshkolte/CrossDocs"
-                      onHover={() => handleTextHover('project')}
-                      onLeave={handleTextLeave}
+              {/* Project details sidebar - 20% width */}
+              <div className="project-info">
+                <ProjectDetails project={projects[activeProject]} />
+              </div>
+
+              {/* Container for 3D model and carousel - 80% width */}
+              <div className="project-display-container">
+                {/* Carousel area - 10% height */}
+                <div className="project-carousel-container">
+                  <ProjectCarousel
+                      projects={projects}
+                      activeProject={activeProject}
+                      onProjectChange={handleProjectClick}
                   />
-                  <ProjectCard
-                      title="ESP32-Based ATM-Like Functioning Telegram Bot"
-                      description="Developed a cool Telegram bot integrated with an ESP32 microcontroller to simulate advanced ATM functionalities, leveraging Java, C++, and Python to create a robust communication system for remote banking transactions. The project demonstrated programming expertise by implementing hardware-software interaction that optimized microcontroller programming methodologies."
-                      githubUrl="https://gist.github.com/yadnyeshkolte/02981d86fcf5e6614c0ebf917a44949a"
-                      onHover={() => handleTextHover('project')}
-                      onLeave={handleTextLeave}
-                  />
-                  <ProjectCard
-                      title="Guestbook Application Deployment"
-                      description="Developed a comprehensive continuous delivery pipeline leveraging Argo CD and GitOps principles for Kubernetes. The project incorporated tools like Docker, GitHub, Helm, Lens, and DateTree, facilitating efficient container orchestration and version control."
-                      githubUrl="https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a"
-                      onHover={() => handleTextHover('project')}
-                      onLeave={handleTextLeave}
-                  />
+                </div>
+                {/* 3D model area - 90% height */}
+                <div className="project-model-view">
+                  <Canvas
+                      shadows
+                      dpr={[1, 2]}
+                      camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
+                      style={{
+                        width: '50%',
+                        height: '50%',
+                        maxHeight: '100%',
+                        minWidth:'100%',
+                        opacity: isModelVisible ? 1 : 0,
+                        transition: 'opacity 0.5s ease-in-out'
+                      }}
+                      onPointerDownCapture={(e) => e.stopPropagation()}
+                      onWheelCapture={(e) => e.stopPropagation()}
+                  >
+                    <Suspense fallback={<Loader />}>
+                      <Stage
+                          controls={ref}
+                          preset="rembrandt"
+                          intensity={1}
+                          environment="city"
+                          shadows={false}
+                          adjustCamera={false}
+                      >
+                        <Model
+                            isOpen={laptopOpen}
+                            screenImage={currentProjectImage}
+                            keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
+                        />
+                      </Stage>
+                      <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
+                    </Suspense>
+                  </Canvas>
                 </div>
               </div>
             </section>
