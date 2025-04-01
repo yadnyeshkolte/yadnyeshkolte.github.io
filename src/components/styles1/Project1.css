@@ -20,8 +20,9 @@
     overflow-x: hidden;
     padding: 1rem;
     border-radius: 20px;
-    border: 2px solid gray;
     order: 2;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
 }
 
 /* Right container for 3D model and carousel */
@@ -58,6 +59,12 @@
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     transform: translateX(-2rem);
+}
+
+
+.dark .project-info {
+    background-color: rgba(35, 35, 28, 0.5);
+    box-shadow: 0 15px 25px rgba(49, 49, 49, 0.9);
 }
 
 /* Mobile Breakpoint (max-width: 768px) */
@@ -154,3 +161,4 @@
         max-height: 40vh;
     }
 }
+

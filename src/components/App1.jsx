@@ -3,7 +3,6 @@ import './App1.css';
 import reactLogo from '../assets/yadnyesh.jpg'
 import NavigationBar from '../smallcomponents/NavigationBar.jsx';
 import SocialIcons from '../smallcomponents/SocialIcons.jsx';
-import ShaderModel from '../smallcomponents/ShaderModel.jsx'
 import {Cloud, Code2, Database, Loader2, Wrench} from "lucide-react";
 import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
 import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.webp'
@@ -11,8 +10,6 @@ import githubCert from '../assets/certifications/github-foundations.webp'
 import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.webp'
 import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.webp'
 import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.webp";
-import { Canvas } from '@react-three/fiber'
-import {Html, OrbitControls, Stage} from '@react-three/drei'
 // Import ProjectCarousel and ProjectDetails normally as they don't contain heavy 3D components
 import ProjectCarousel from './project/ProjectCarousel.jsx';
 import ProjectDetails from './project/ProjectDetails.jsx';
@@ -20,6 +17,12 @@ import ProjectDetails from './project/ProjectDetails.jsx';
 import projectsData from './project/projectsData.js';
 import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.webp';
 import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.webp';
+import {OrbitControls, Stage} from "@react-three/drei";
+import { Canvas } from '@react-three/fiber';
+
+
+// Lazy load the ShaderModel component
+const ShaderModel = lazy(() => import('../smallcomponents/ShaderModel.jsx'));
 
 // Lazy load the Model component
 const Model = lazy(() => import('./project/Model.jsx').then(module => ({
@@ -28,70 +31,105 @@ const Model = lazy(() => import('./project/Model.jsx').then(module => ({
 
 function Loader() {
   return (
-      <Html center>
-        <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-black/80 z-50">
-          <div className="text-center">
-            <Loader2 className="animate-spin mx-auto mb-4 text-blue-500 dark:text-blue-300" size={48} />
-            <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
-              Loading...
-            </p>
-          </div>
+      <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-black/80 z-50">
+        <div className="text-center">
+          <Loader2 className="animate-spin mx-auto mb-4 text-blue-500 dark:text-blue-300" size={48} />
+          <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+            Loading...
+          </p>
         </div>
-      </Html>
+      </div>
   );
 }
 
-// Create a separate component for the 3D model section to better handle loading
-// eslint-disable-next-line react/prop-types
-const ModelSection = ({ laptopOpen, currentProjectImage, isDarkMode }) => {
-  const ref = useRef();
-  const [isModelLoaded, setIsModelLoaded] = useState(false);
+const ModelSection = lazy(() => import('./project/Model').then(() => ({
+  default: ({ laptopOpen, currentProjectImage, isDarkMode }) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const ref = useRef();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [isModelLoaded, setIsModelLoaded] = useState(false);
 
-  // Set a timeout to indicate when model should be visible
-  useEffect(() => {
-    const loadTimer = setTimeout(() => {
-      setIsModelLoaded(true);
-    }, 500);
+    // Set a timeout to indicate when model should be visible
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      const loadTimer = setTimeout(() => {
+        setIsModelLoaded(true);
+      }, 500);
 
-    return () => clearTimeout(loadTimer);
-  }, []);
+      return () => clearTimeout(loadTimer);
+    }, []);
 
-  return (
-      <Canvas
-          shadows
-          dpr={[1, 2]}
-          camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
-          style={{
-            width: '50%',
-            height: '50%',
-            maxHeight: '100%',
-            minWidth:'100%',
-            opacity: isModelLoaded ? 1 : 0,
-            transition: 'opacity 0.5s ease-in-out'
-          }}
-          onPointerDownCapture={(e) => e.stopPropagation()}
-          onWheelCapture={(e) => e.stopPropagation()}
-      >
-        <Suspense fallback={<Loader />}>
-          <Stage
-              controls={ref}
-              preset="rembrandt"
-              intensity={1}
-              environment="city"
-              shadows={false}
-              adjustCamera={false}
-          >
-            <Model
-                isOpen={laptopOpen}
-                screenImage={currentProjectImage}
-                keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
-            />
-          </Stage>
-          <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
-        </Suspense>
-      </Canvas>
-  );
-};
+    return (
+        <Canvas
+            shadows
+            dpr={[1, 2]}
+            camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
+            style={{
+              width: '50%',
+              height: '50%',
+              maxHeight: '100%',
+              minWidth:'100%',
+              opacity: isModelLoaded ? 1 : 0,
+              transition: 'opacity 0.5s ease-in-out'
+            }}
+            onPointerDownCapture={(e) => e.stopPropagation()}
+            onWheelCapture={(e) => e.stopPropagation()}
+        >
+          <Suspense fallback={null}>
+            <Stage
+                controls={ref}
+                preset="rembrandt"
+                intensity={1}
+                environment="city"
+                shadows={false}
+                adjustCamera={false}
+            >
+              <Model
+                  isOpen={laptopOpen}
+                  screenImage={currentProjectImage}
+                  keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
+              />
+            </Stage>
+            <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
+          </Suspense>
+        </Canvas>
+    );
+  }
+})));
+
+// Define certifications array outside the component
+const certifications = [
+  {
+    id: 1,
+    image: awsCert,
+    title: "AWS Educate Introduction to Cloud 101",
+    skills: ["Amazon Web Services (AWS)", "AWS Cloud", "AWS Cloud Computing", "Cloud Foundations"]
+  },
+  {
+    id: 2,
+    image: githubCert,
+    title: "GitHub Foundations",
+    skills: ["Build Pipeline", "Continuous Delivery", "Continuous Integration", "DevOps", "GitHub", "GitHub Actions"]
+  },
+  {
+    id: 3,
+    image: devopsCert,
+    title: "LFS162: Introduction to DevOps and Site Reliability Engineering",
+    skills: ["CI/CD", "Cloud Computing", "Containers", "DevOps", "IAC", "Kubernetes", "SRE"]
+  },
+  {
+    id: 4,
+    image: fdc3Cert,
+    title: "LFEL1000: Introduction to FDC3",
+    skills: ["Application Interoperability", "FDC3 Components", "FDC3 Standard"]
+  },
+  {
+    id: 5,
+    image: openSourceCert,
+    title: "LFD137: Open Source Contribution in Finance",
+    skills: ["Open Source Readiness", "Finance", "Regulation"]
+  }
+];
 
 const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
@@ -105,28 +143,62 @@ const App1 = () => {
   const [currentProjectImage, setCurrentProjectImage] = useState(projectsData.crossdocs.image); // Default image
   const [shouldRenderModel, setShouldRenderModel] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [shouldRenderShader, setShouldRenderShader] = useState(false);
   const projects = projectsData;
+
+  // Use memo for heavy operations
+  const animationTargetSize = useCallback(() => {
+    if (!isAnimating) return 0;
+
+    switch(hoveredElementType) {
+      case 'intro': return 120;
+      case 'certificate': return 200;
+      case 'quote': return 180;
+      case 'project': return 250;
+      default: return 250;
+    }
+  }, [isAnimating, hoveredElementType]);
 
   // Implement Intersection Observer to load model only when in viewport
   useEffect(() => {
+    const observerOptions = { threshold: 0.1 }; // Trigger when 10% of element is visible
+
     // Create observer for the project section
-    const observer = new IntersectionObserver((entries) => {
+    const projectObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         // Only start loading the 3D model when the project section is in view
         if (entry.isIntersecting) {
           setShouldRenderModel(true);
-          observer.disconnect();
+          projectObserver.disconnect();
         }
       });
-    }, { threshold: 0.1 }); // Trigger when 10% of element is visible
+    }, observerOptions);
 
-    // Observe the project section
+    // Create observer for the shader section
+    const shaderObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setShouldRenderShader(true);
+          shaderObserver.disconnect();
+        }
+      });
+    }, observerOptions);
+
+    // Observe the sections
     const projectSection = document.querySelector('.project-section');
     if (projectSection) {
-      observer.observe(projectSection);
+      projectObserver.observe(projectSection);
     }
 
-    return () => observer.disconnect();
+    const shaderSection = document.querySelector('.shader');
+    if (shaderSection) {
+      shaderObserver.observe(shaderSection);
+    }
+
+    return () => {
+      projectObserver.disconnect();
+      shaderObserver.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -159,22 +231,16 @@ const App1 = () => {
           : projects[activeProject].image;
       setCurrentProjectImage(projectImage);
     }
-  }, [activeProject, isDarkMode]);
+  }, [activeProject, isDarkMode, projects]);
 
+  // Debounced circle animation
   useEffect(() => {
     let animationId;
+    const targetSize = animationTargetSize();
     let currentSize = circleSize;
-    // Set different target sizes based on the hovered element type
-    let targetSize = isAnimating
-        ? (hoveredElementType === 'intro' ? 120 :
-            hoveredElementType === 'certificate' ? 200 :
-                hoveredElementType === 'quote' ? 180 :
-                    hoveredElementType === 'project' ? 250 :
-                        250) // Default size for other elements
-        : 0;
 
     const animate = () => {
-      if (currentSize !== targetSize) {
+      if (Math.abs(currentSize - targetSize) > 0.5) {
         // Use the same animation speed for both growing and shrinking
         // Using a smaller value creates a smoother transition
         const delta = isAnimating
@@ -191,14 +257,10 @@ const App1 = () => {
         currentSize = Math.max(0, Math.min(250, currentSize));
 
         setCircleSize(currentSize);
-
-        // Continue animation if we haven't reached target
-        if (Math.abs(currentSize - targetSize) > 0.5) {
-          animationId = requestAnimationFrame(animate);
-        } else {
-          // Snap to exact target when we're very close
-          setCircleSize(targetSize);
-        }
+        animationId = requestAnimationFrame(animate);
+      } else {
+        // Snap to exact target when we're very close
+        setCircleSize(targetSize);
       }
     };
 
@@ -207,17 +269,22 @@ const App1 = () => {
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, [isAnimating, hoveredElementType, circleSize]);
+  }, [isAnimating, hoveredElementType, circleSize, animationTargetSize]);
 
-
+  // Throttled mouse position update
   useEffect(() => {
     let animationFrameId;
+    let lastUpdateTime = 0;
+    const THROTTLE_MS = 16; // Roughly 60fps
 
-    const animate = () => {
-      setCirclePosition(current => ({
-        x: current.x + (targetPosition.x - current.x) * 0.01,
-        y: current.y + (targetPosition.y - current.y) * 0.01
-      }));
+    const animate = (timestamp) => {
+      if (timestamp - lastUpdateTime >= THROTTLE_MS) {
+        setCirclePosition(current => ({
+          x: current.x + (targetPosition.x - current.x) * 0.1,
+          y: current.y + (targetPosition.y - current.y) * 0.1
+        }));
+        lastUpdateTime = timestamp;
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -229,6 +296,7 @@ const App1 = () => {
     };
   }, [targetPosition]);
 
+  // Throttled scroll handler
   const handleScroll = useCallback((e) => {
     const scrollTop = e.target.scrollTop;
     setScrollY(scrollTop);
@@ -249,13 +317,10 @@ const App1 = () => {
           x: lastKnownMouseEvent.clientX - 50,
           y: lastKnownMouseEvent.clientY + scrollTop - 50,
         });
-
-        setCirclePosition({
-          x: lastKnownMouseEvent.clientX - 50,
-          y: lastKnownMouseEvent.clientY + scrollTop - 50,
-        });
       }
     }
+
+    // Check if project section is visible
     const projectSection = document.querySelector('.project-section');
     if (projectSection) {
       const rect = projectSection.getBoundingClientRect();
@@ -265,6 +330,7 @@ const App1 = () => {
     }
   }, []);
 
+  // Debounced mouse move handler
   const handleMouseMove = useCallback((e) => {
     // Only handle mouse move if not on mobile
     if (window.innerWidth > 768) {
@@ -277,26 +343,29 @@ const App1 = () => {
         x: e.clientX - 50,
         y: e.clientY + scrollTop - 50,
       });
-
-      setCirclePosition({
-        x: e.clientX - 50,
-        y: e.clientY + scrollTop - 50,
-      });
     }
   }, []);
 
-  const handleTextHover = (elementType = 'default') => {
+  // Use a throttled version of handleMouseMove
+  const throttledMouseMove = useCallback((e) => {
+    if (!window.throttleTimer) {
+      window.throttleTimer = setTimeout(() => {
+        handleMouseMove(e);
+        window.throttleTimer = null;
+      }, 16); // ~60fps
+    }
+  }, [handleMouseMove]);
+
+  const handleTextHover = useCallback((elementType = 'default') => {
     setIsAnimating(true);
     setHoveredElementType(elementType);
-  };
+  }, []);
 
-  const handleTextLeave = () => {
+  const handleTextLeave = useCallback(() => {
     setIsAnimating(false);
-    // We keep the element type when leaving to maintain the same
-    // proportional shrinking as growing
-  };
+  }, []);
 
-  const handleProjectClick = (projectId) => {
+  const handleProjectClick = useCallback((projectId) => {
     // If clicking the same project, deselect and go to default
     setActiveProject(prevProject =>
         prevProject === projectId ? 'default' : projectId
@@ -304,45 +373,12 @@ const App1 = () => {
 
     // Ensure laptop is open when a project is selected or when in default state
     setLaptopOpen(true);
-  };
+  }, []);
 
-  const certifications = [
-    {
-      id: 1,
-      image: awsCert,
-      title: "AWS Educate Introduction to Cloud 101",
-      skills: ["Amazon Web Services (AWS)", "AWS Cloud", "AWS Cloud Computing", "Cloud Foundations"]
-    },
-    {
-      id: 2,
-      image: githubCert,
-      title: "GitHub Foundations",
-      skills: ["Build Pipeline", "Continuous Delivery", "Continuous Integration", "DevOps", "GitHub", "GitHub Actions"]
-    },
-    {
-      id: 3,
-      image: devopsCert,
-      title: "LFS162: Introduction to DevOps and Site Reliability Engineering",
-      skills: ["CI/CD", "Cloud Computing", "Containers", "DevOps", "IAC", "Kubernetes", "SRE"]
-    },
-    {
-      id: 4,
-      image: fdc3Cert,
-      title: "LFEL1000: Introduction to FDC3",
-      skills: ["Application Interoperability", "FDC3 Components", "FDC3 Standard"]
-    },
-    {
-      id: 5,
-      image: openSourceCert,
-      title: "LFD137: Open Source Contribution in Finance",
-      skills: ["Open Source Readiness", "Finance", "Regulation"]
-    }
-  ];
   const [currentCert, setCurrentCert, isTransitioning] = useSharedCarousel(certifications);
 
-
   return (
-      <div className="app1-container" onMouseMove={handleMouseMove}>
+      <div className="app1-container" onMouseMove={throttledMouseMove}>
         <NavigationBar
             githubUrl="https://github.com/yadnyeshkolte"
             blogUrl="https://yadnyeshkolte.github.io/blog/"
@@ -357,7 +393,11 @@ const App1 = () => {
               }}
           >
             <div className='shader'>
-              <ShaderModel/>
+              {shouldRenderShader && (
+                  <Suspense fallback={<Loader />}>
+                    <ShaderModel />
+                  </Suspense>
+              )}
             </div>
             <section className="section intro-section">
               <div className="intro-quote-side">
@@ -400,11 +440,13 @@ const App1 = () => {
                 {/* 3D model area - 90% height */}
                 <div className="project-model-view">
                   {shouldRenderModel ? (
-                      <ModelSection
-                          laptopOpen={laptopOpen}
-                          currentProjectImage={currentProjectImage}
-                          isDarkMode={isDarkMode}
-                      />
+                      <Suspense fallback={<Loader />}>
+                        <ModelSection
+                            laptopOpen={laptopOpen}
+                            currentProjectImage={currentProjectImage}
+                            isDarkMode={isDarkMode}
+                        />
+                      </Suspense>
                   ) : (
                       <div className="model-placeholder flex items-center justify-center h-full">
                         <Loader2 className="animate-spin text-blue-500 dark:text-blue-300" size={48} />
