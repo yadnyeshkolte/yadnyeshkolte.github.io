@@ -29,18 +29,40 @@ const Model = lazy(() => import('./project/Model.jsx').then(module => ({
   default: module.Model
 })));
 
+
 function Loader() {
   return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-black/80 z-50">
-        <div className="text-center">
-          <Loader2 className="animate-spin mx-auto mb-4 text-blue-500 dark:text-blue-300" size={48} />
-          <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 10
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <Loader2
+              style={{
+                animation: 'spin 1s linear infinite',
+                color: '#606060'
+              }}
+              size={48}
+          />
+          <p style={{
+            fontSize: '1.125rem',
+            fontWeight: 600,
+            color: '#4b5563'
+          }}>
             Loading...
           </p>
         </div>
       </div>
   );
 }
+
 
 const ModelSection = lazy(() => import('./project/Model').then(() => ({
   default: ({ laptopOpen, currentProjectImage, isDarkMode }) => {
@@ -394,7 +416,7 @@ const App1 = () => {
           >
             <div className='shader'>
               {shouldRenderShader && (
-                  <Suspense fallback={<Loader />}>
+                  <Suspense>
                     <ShaderModel />
                   </Suspense>
               )}

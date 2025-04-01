@@ -84,6 +84,7 @@
         min-height: 30%;
         max-height: 50%;
         height: 40%;
+        position: relative;
     }
 
     .project-carousel-container {
@@ -162,3 +163,7 @@
     }
 }
 
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
