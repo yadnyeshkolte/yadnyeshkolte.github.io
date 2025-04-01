@@ -31,50 +31,6 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
             carouselRef.current.scrollLeft = targetScrollLeft;
         }
     };
-
-    // Mouse events for drag scrolling - using smoother approach
-    const handleMouseDown = (e) => {
-        setIsDragging(true);
-        setStartX(e.pageX - carouselRef.current.offsetLeft);
-        setScrollLeft(carouselRef.current.scrollLeft);
-        // Change cursor style
-        carouselRef.current.style.cursor = 'grabbing';
-    };
-
-    const handleMouseUp = () => {
-        setIsDragging(false);
-        // Restore cursor style
-        if (carouselRef.current) {
-            carouselRef.current.style.cursor = 'grab';
-        }
-    };
-
-    const handleMouseMove = (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX - carouselRef.current.offsetLeft;
-        const walk = (x - startX) * 1.5; // Reduced for smoother movement
-        carouselRef.current.scrollLeft = scrollLeft - walk;
-    };
-
-    // Touch events for mobile - smoother implementation
-    const handleTouchStart = (e) => {
-        setIsDragging(true);
-        setStartX(e.touches[0].pageX - carouselRef.current.offsetLeft);
-        setScrollLeft(carouselRef.current.scrollLeft);
-    };
-
-    const handleTouchEnd = () => {
-        setIsDragging(false);
-    };
-
-    const handleTouchMove = (e) => {
-        if (!isDragging) return;
-        const x = e.touches[0].pageX - carouselRef.current.offsetLeft;
-        const walk = (x - startX) * 1.5; // Reduced for smoother movement
-        carouselRef.current.scrollLeft = scrollLeft - walk;
-    };
-
     // Handle project change with smooth transition
     const handleProjectClick = (id) => {
         // If clicking the same project, deselect (go to default)
@@ -102,17 +58,74 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
         }
     }, []);
 
+    useEffect(() => {
+        const carousel = carouselRef.current;
+        if (!carousel) return;
+
+        // Function handlers
+        const mouseDown = (e) => {
+            setIsDragging(true);
+            setStartX(e.pageX - carousel.offsetLeft);
+            setScrollLeft(carousel.scrollLeft);
+            carousel.style.cursor = 'grabbing';
+        };
+
+        const mouseUp = () => {
+            setIsDragging(false);
+            if (carousel) {
+                carousel.style.cursor = 'grab';
+            }
+        };
+
+        const mouseMove = (e) => {
+            if (!isDragging) return;
+            e.preventDefault(); // Note: this means we can't use passive for mouseMove
+            const x = e.pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            carousel.scrollLeft = scrollLeft - walk;
+        };
+
+        const touchStart = (e) => {
+            setIsDragging(true);
+            setStartX(e.touches[0].pageX - carousel.offsetLeft);
+            setScrollLeft(carousel.scrollLeft);
+        };
+
+        const touchEnd = () => {
+            setIsDragging(false);
+        };
+
+        const touchMove = (e) => {
+            if (!isDragging) return;
+        };
+
+        // Add event listeners with passive option
+        carousel.addEventListener('mousedown', mouseDown, { passive: true });
+        carousel.addEventListener('mouseup', mouseUp, { passive: true });
+        carousel.addEventListener('mouseleave', mouseUp, { passive: true });
+        carousel.addEventListener('mousemove', mouseMove); // Can't be passive due to preventDefault
+
+        carousel.addEventListener('touchstart', touchStart, { passive: true });
+        carousel.addEventListener('touchend', touchEnd, { passive: true });
+        carousel.addEventListener('touchmove', touchMove, { passive: true });
+
+        // Cleanup function
+        return () => {
+            carousel.removeEventListener('mousedown', mouseDown);
+            carousel.removeEventListener('mouseup', mouseUp);
+            carousel.removeEventListener('mouseleave', mouseUp);
+            carousel.removeEventListener('mousemove', mouseMove);
+
+            carousel.removeEventListener('touchstart', touchStart);
+            carousel.removeEventListener('touchend', touchEnd);
+            carousel.removeEventListener('touchmove', touchMove);
+        };
+    }, [isDragging, scrollLeft, startX]);
+
     return (
         <div
             className={`project-carousel ${isTransitioning ? 'transitioning' : ''}`}
             ref={carouselRef}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            onMouseMove={handleMouseMove}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            onTouchMove={handleTouchMove}
         >
             {Object.entries(projects)
                 .filter(([id]) => id !== 'default') // Exclude default project
