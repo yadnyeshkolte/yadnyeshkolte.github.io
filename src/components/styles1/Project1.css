@@ -61,6 +61,12 @@
     transform: translateX(-2rem);
 }
 
+
+.dark .project-info {
+    background-color: rgba(35, 35, 28, 0.5);
+    box-shadow: 0 15px 25px rgba(49, 49, 49, 0.9);
+}
+
 /* Mobile Breakpoint (max-width: 768px) */
 @media screen and (max-width: 768px) {
     .project-section {
@@ -155,3 +161,4 @@
         max-height: 40vh;
     }
 }
+
