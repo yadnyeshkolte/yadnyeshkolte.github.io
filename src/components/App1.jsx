@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState, useRef, lazy, Suspense} from 'react';
+import {useCallback, useEffect, useState, useRef, lazy, Suspense} from 'react';
 import './App1.css';
 import reactLogo from '../assets/yadnyesh.jpg'
 import NavigationBar from '../smallcomponents/NavigationBar.jsx';
@@ -18,27 +18,11 @@ import projectsData from './project/projectsData.js';
 import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.webp';
 import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.webp';
 import {OrbitControls, Stage} from "@react-three/drei";
+import { Canvas } from '@react-three/fiber';
+
 
 // Lazy load the ShaderModel component
 const ShaderModel = lazy(() => import('../smallcomponents/ShaderModel.jsx'));
-
-// Lazy load the Canvas and related components
-const ThreeCanvas = lazy(() =>
-    Promise.all([
-      import('@react-three/fiber').then(module => ({ Canvas: module.Canvas })),
-      import('@react-three/drei').then(module => ({
-        Html: module.Html,
-        OrbitControls: module.OrbitControls,
-        Stage: module.Stage
-      }))
-    ]).then(([{ Canvas }, { Html, OrbitControls, Stage }]) => ({
-      default: ({ children }) => (
-          <Canvas {...children.props}>
-            {React.cloneElement(children, { Html, OrbitControls, Stage })}
-          </Canvas>
-      )
-    }))
-);
 
 // Lazy load the Model component
 const Model = lazy(() => import('./project/Model.jsx').then(module => ({
@@ -58,7 +42,6 @@ function Loader() {
   );
 }
 
-// Create a separate component for the 3D model section to better handle loading
 const ModelSection = lazy(() => import('./project/Model').then(() => ({
   default: ({ laptopOpen, currentProjectImage, isDarkMode }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -77,7 +60,7 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
     }, []);
 
     return (
-        <ThreeCanvas
+        <Canvas
             shadows
             dpr={[1, 2]}
             camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
@@ -92,7 +75,7 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
             onPointerDownCapture={(e) => e.stopPropagation()}
             onWheelCapture={(e) => e.stopPropagation()}
         >
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={null}>
             <Stage
                 controls={ref}
                 preset="rembrandt"
@@ -109,7 +92,7 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
             </Stage>
             <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
           </Suspense>
-        </ThreeCanvas>
+        </Canvas>
     );
   }
 })));

@@ -1,10 +1,9 @@
-import {useEffect, useRef, useState} from 'react';
-import {useGLTF} from '@react-three/drei';
-import {useFrame} from '@react-three/fiber';
+import { useEffect, useRef, useState } from 'react';
+import { useGLTF } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 export function Model(props) {
-
     const { nodes, materials } = useGLTF('/scene.gltf');
     const laptopScreenRef = useRef();
     const modelGroupRef = useRef();
@@ -99,15 +98,11 @@ export function Model(props) {
         });
     }, [isDarkMode, materials]);
 
-
     // Update when the prop changes
     useEffect(() => {
-        // eslint-disable-next-line react/prop-types
-        if (undefined !== props.isOpen) {
-            // eslint-disable-next-line react/prop-types
+        if (props.isOpen !== undefined) {
             setIsOpen(props.isOpen);
         }
-        // eslint-disable-next-line react/prop-types
     }, [props.isOpen]);
 
     // Handle screen texture updates
@@ -255,14 +250,10 @@ export function Model(props) {
     });
 
     return (
-        // eslint-disable-next-line react/no-unknown-property
         <group {...props} dispose={null} ref={modelGroupRef} position={[0, 0, 0]}>
             {/* Adjust the rotation to place laptop in the center of the view */}
-            {/* eslint-disable-next-line react/no-unknown-property */}
             <group rotation={[2*Math.PI / 4, 0, 0]} position={[0, 0, 0]}>
-                {/* eslint-disable-next-line react/no-unknown-property */}
                 <group rotation={[-Math.PI, 0, 0]} scale={0.01}>
-                    {/* eslint-disable-next-line react/no-unknown-property */}
                     <group rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[3.347, 153, 100]}>
                         <mesh
                             castShadow
@@ -289,61 +280,61 @@ export function Model(props) {
                             rotation={[0,-1.571, 0]}
                             scale={[0.934, 0.196, 0.0175]}
                         >
-                        <mesh
-                            castShadow
-                            receiveShadow
-                            geometry={nodes.Rotator2_Back_0.geometry}
-                            material={materials['Back.001']}
-                        />
-                        <group ref={laptopScreenRef} scale={[0.532, 5.112, 58.181]}>
                             <mesh
                                 castShadow
                                 receiveShadow
-                                geometry={nodes.Screen_Back_0.geometry}
+                                geometry={nodes.Rotator2_Back_0.geometry}
                                 material={materials['Back.001']}
                             />
-                            <mesh
-                                castShadow
-                                receiveShadow
-                                geometry={nodes.Screen_TrackPad_Buttons_0.geometry}
-                                material={materials['TrackPad_Buttons.001']}
-                            />
-                            <mesh
-                                ref={screenMeshRef}
-                                castShadow
-                                receiveShadow
-                                geometry={nodes.Screen_Windows_0.geometry}
-                                material={materials['Windows.001']}
-                            />
-                            <mesh
-                                castShadow
-                                receiveShadow
-                                geometry={nodes.Edge1_Back_0.geometry}
-                                material={materials['Back.001']}
-                                position={[-2.088, 0.985, 1.933]}
-                                scale={[1.33, 0.016, 0.055]}
-                            />
-                            <mesh
-                                castShadow
-                                receiveShadow
-                                geometry={nodes.Edge2_Back_0.geometry}
-                                material={materials['Back.001']}
-                                position={[-2.088, -0.989, 1.933]}
-                                rotation={[-Math.PI, 0, -Math.PI]}
-                                scale={[-1.33, -0.016, -0.055]}
-                            />
-                            <mesh
-                                castShadow
-                                receiveShadow
-                                geometry={nodes.WebCam_WebCam_0.geometry}
-                                material={materials['WebCam.001']}
-                                position={[-1.103, 0, 1.918]}
-                                rotation={[0, -1.571, 0]}
-                                scale={[0.03, 0.02, 0.041]}
-                            />
+                            <group scale={[0.532, 5.112, 58.181]}>
+                                <mesh
+                                    castShadow
+                                    receiveShadow
+                                    geometry={nodes.Screen_Back_0.geometry}
+                                    material={materials['Back.001']}
+                                />
+                                <mesh
+                                    castShadow
+                                    receiveShadow
+                                    geometry={nodes.Screen_TrackPad_Buttons_0.geometry}
+                                    material={materials['TrackPad_Buttons.001']}
+                                />
+                                <mesh
+                                    ref={screenMeshRef}
+                                    castShadow
+                                    receiveShadow
+                                    geometry={nodes.Screen_Windows_0.geometry}
+                                    material={materials['Windows.001']}
+                                />
+                                <mesh
+                                    castShadow
+                                    receiveShadow
+                                    geometry={nodes.Edge1_Back_0.geometry}
+                                    material={materials['Back.001']}
+                                    position={[-2.088, 0.985, 1.933]}
+                                    scale={[1.33, 0.016, 0.055]}
+                                />
+                                <mesh
+                                    castShadow
+                                    receiveShadow
+                                    geometry={nodes.Edge2_Back_0.geometry}
+                                    material={materials['Back.001']}
+                                    position={[-2.088, -0.989, 1.933]}
+                                    rotation={[-Math.PI, 0, -Math.PI]}
+                                    scale={[-1.33, -0.016, -0.055]}
+                                />
+                                <mesh
+                                    castShadow
+                                    receiveShadow
+                                    geometry={nodes.WebCam_WebCam_0.geometry}
+                                    material={materials['WebCam.001']}
+                                    position={[-1.103, 0, 1.918]}
+                                    rotation={[0, -1.571, 0]}
+                                    scale={[0.03, 0.02, 0.041]}
+                                />
+                            </group>
                         </group>
                     </group>
-                </group>
                     <mesh
                         castShadow
                         receiveShadow
@@ -379,10 +370,9 @@ export function Model(props) {
                         position={[-136.886, 171.478, 7.599]}
                         scale={[5.056, 4.28, 15.83]}
                     />
+                </group>
             </group>
         </group>
-</group>
-
     );
 }
 
