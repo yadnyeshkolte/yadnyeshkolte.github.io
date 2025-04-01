@@ -1,8 +1,8 @@
 ### 💻 Tech Stack that I had experience with
 
 #### 👨‍💻 Programming Languages
-![Java](https://custom-icon-badges.herokuapp.com/badge/-Java-000?&logo=Java-lang)
-![Shell](https://img.shields.io/badge/-Shell-000?&logo=GNOMETerminal)
+Java,
+Shell
 ![Vim Script](https://img.shields.io/badge/-Vim%20Script-000?&logo=vim&logoColor=green)
 ![Python](https://img.shields.io/badge/-Python-000?&logo=Python)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-000?&logo=JavaScript)
