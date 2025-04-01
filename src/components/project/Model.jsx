@@ -1,9 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useGLTF} from '@react-three/drei';
 import {useFrame} from '@react-three/fiber';
 import * as THREE from 'three';
 
 export function Model(props) {
+
     const { nodes, materials } = useGLTF('/scene.gltf');
     const laptopScreenRef = useRef();
     const modelGroupRef = useRef();
@@ -101,9 +102,12 @@ export function Model(props) {
 
     // Update when the prop changes
     useEffect(() => {
-        if (props.isOpen !== undefined) {
+        // eslint-disable-next-line react/prop-types
+        if (undefined !== props.isOpen) {
+            // eslint-disable-next-line react/prop-types
             setIsOpen(props.isOpen);
         }
+        // eslint-disable-next-line react/prop-types
     }, [props.isOpen]);
 
     // Handle screen texture updates
@@ -251,10 +255,14 @@ export function Model(props) {
     });
 
     return (
+        // eslint-disable-next-line react/no-unknown-property
         <group {...props} dispose={null} ref={modelGroupRef} position={[0, 0, 0]}>
             {/* Adjust the rotation to place laptop in the center of the view */}
+            {/* eslint-disable-next-line react/no-unknown-property */}
             <group rotation={[2*Math.PI / 4, 0, 0]} position={[0, 0, 0]}>
+                {/* eslint-disable-next-line react/no-unknown-property */}
                 <group rotation={[-Math.PI, 0, 0]} scale={0.01}>
+                    {/* eslint-disable-next-line react/no-unknown-property */}
                     <group rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[3.347, 153, 100]}>
                         <mesh
                             castShadow

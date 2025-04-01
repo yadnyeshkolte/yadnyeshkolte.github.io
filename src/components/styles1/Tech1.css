@@ -78,10 +78,6 @@
     transition: transform 0.3s ease, background-color 0.9s ease, box-shadow 0.9s ease;
 }
 
-.cert-section:hover {
-    background-color: #CFE8F1;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
 .cert-carousel {
     position: relative;
