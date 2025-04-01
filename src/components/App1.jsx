@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState, useRef, Suspense} from 'react';
+import {useCallback, useEffect, useState, useRef, lazy, Suspense} from 'react';
 import './App1.css';
 import reactLogo from '../assets/yadnyesh.jpg'
 import NavigationBar from '../smallcomponents/NavigationBar.jsx';
@@ -13,13 +13,18 @@ import openSourceCert from '../assets/certifications/lfd137-open-source-contribu
 import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
 import { Canvas } from '@react-three/fiber'
 import {Html, OrbitControls, Stage} from '@react-three/drei'
-import { Model } from './project/Model.jsx'
+// Import ProjectCarousel and ProjectDetails normally as they don't contain heavy 3D components
 import ProjectCarousel from './project/ProjectCarousel.jsx';
 import ProjectDetails from './project/ProjectDetails.jsx';
 // Import the projects data
 import projectsData from './project/projectsData.js';
 import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.png';
 import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.png';
+
+// Lazy load the Model component
+const Model = lazy(() => import('./project/Model.jsx').then(module => ({
+  default: module.Model
+})));
 
 function Loader() {
   return (
@@ -36,8 +41,58 @@ function Loader() {
   );
 }
 
-const App1 = () => {
+// Create a separate component for the 3D model section to better handle loading
+const ModelSection = ({ laptopOpen, currentProjectImage, isDarkMode }) => {
+  const ref = useRef();
+  const [isModelLoaded, setIsModelLoaded] = useState(false);
 
+  // Set a timeout to indicate when model should be visible
+  useEffect(() => {
+    const loadTimer = setTimeout(() => {
+      setIsModelLoaded(true);
+    }, 500);
+
+    return () => clearTimeout(loadTimer);
+  }, []);
+
+  return (
+      <Canvas
+          shadows
+          dpr={[1, 2]}
+          camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
+          style={{
+            width: '50%',
+            height: '50%',
+            maxHeight: '100%',
+            minWidth:'100%',
+            opacity: isModelLoaded ? 1 : 0,
+            transition: 'opacity 0.5s ease-in-out'
+          }}
+          onPointerDownCapture={(e) => e.stopPropagation()}
+          onWheelCapture={(e) => e.stopPropagation()}
+      >
+        <Suspense fallback={<Loader />}>
+          <Stage
+              controls={ref}
+              preset="rembrandt"
+              intensity={1}
+              environment="city"
+              shadows={false}
+              adjustCamera={false}
+          >
+            <Model
+                isOpen={laptopOpen}
+                screenImage={currentProjectImage}
+                keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
+            />
+          </Stage>
+          <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
+        </Suspense>
+      </Canvas>
+  );
+};
+
+const App1 = () => {
   const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
   const [scrollY, setScrollY] = useState(0);
   const [circleSize, setCircleSize] = useState(0);
@@ -47,20 +102,30 @@ const App1 = () => {
   const [activeProject, setActiveProject] = useState('default');
   const [laptopOpen, setLaptopOpen] = useState(false);
   const [currentProjectImage, setCurrentProjectImage] = useState(projectsData.crossdocs.image); // Default image
-  const [isModelVisible, setIsModelVisible] = useState(false);
-  const ref = useRef();
-
+  const [shouldRenderModel, setShouldRenderModel] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const projects = projectsData;
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
+  // Implement Intersection Observer to load model only when in viewport
   useEffect(() => {
-    // Delay showing the 3D model by 1 second
-    const modelRevealTimer = setTimeout(() => {
-      setIsModelVisible(true);
-    }, 2000);
+    // Create observer for the project section
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Only start loading the 3D model when the project section is in view
+        if (entry.isIntersecting) {
+          setShouldRenderModel(true);
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.1 }); // Trigger when 10% of element is visible
 
-    return () => clearTimeout(modelRevealTimer);
+    // Observe the project section
+    const projectSection = document.querySelector('.project-section');
+    if (projectSection) {
+      observer.observe(projectSection);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -104,7 +169,7 @@ const App1 = () => {
             hoveredElementType === 'certificate' ? 200 :
                 hoveredElementType === 'quote' ? 180 :
                     hoveredElementType === 'project' ? 250 :
-                250) // Default size for other elements
+                        250) // Default size for other elements
         : 0;
 
     const animate = () => {
@@ -163,7 +228,6 @@ const App1 = () => {
     };
   }, [targetPosition]);
 
-// In App1.jsx, modify the handleScroll function:
   const handleScroll = useCallback((e) => {
     const scrollTop = e.target.scrollTop;
     setScrollY(scrollTop);
@@ -200,7 +264,6 @@ const App1 = () => {
     }
   }, []);
 
-// Similarly, modify handleMouseMove
   const handleMouseMove = useCallback((e) => {
     // Only handle mouse move if not on mobile
     if (window.innerWidth > 768) {
@@ -335,39 +398,17 @@ const App1 = () => {
                 </div>
                 {/* 3D model area - 90% height */}
                 <div className="project-model-view">
-                  <Canvas
-                      shadows
-                      dpr={[1, 2]}
-                      camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
-                      style={{
-                        width: '50%',
-                        height: '50%',
-                        maxHeight: '100%',
-                        minWidth:'100%',
-                        opacity: isModelVisible ? 1 : 0,
-                        transition: 'opacity 0.5s ease-in-out'
-                      }}
-                      onPointerDownCapture={(e) => e.stopPropagation()}
-                      onWheelCapture={(e) => e.stopPropagation()}
-                  >
-                    <Suspense fallback={<Loader />}>
-                      <Stage
-                          controls={ref}
-                          preset="rembrandt"
-                          intensity={1}
-                          environment="city"
-                          shadows={false}
-                          adjustCamera={false}
-                      >
-                        <Model
-                            isOpen={laptopOpen}
-                            screenImage={currentProjectImage}
-                            keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
-                        />
-                      </Stage>
-                      <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
-                    </Suspense>
-                  </Canvas>
+                  {shouldRenderModel ? (
+                      <ModelSection
+                          laptopOpen={laptopOpen}
+                          currentProjectImage={currentProjectImage}
+                          isDarkMode={isDarkMode}
+                      />
+                  ) : (
+                      <div className="model-placeholder flex items-center justify-center h-full">
+                        <Loader2 className="animate-spin text-blue-500 dark:text-blue-300" size={48} />
+                      </div>
+                  )}
                 </div>
               </div>
             </section>
