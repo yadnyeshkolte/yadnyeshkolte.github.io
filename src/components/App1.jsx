@@ -6,11 +6,11 @@ import SocialIcons from '../smallcomponents/SocialIcons.jsx';
 import ShaderModel from '../smallcomponents/ShaderModel.jsx'
 import {Cloud, Code2, Database, Loader2, Wrench} from "lucide-react";
 import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
-import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.png'
-import githubCert from '../assets/certifications/github-foundations.png'
-import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.png'
-import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.png'
-import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png";
+import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.webp'
+import githubCert from '../assets/certifications/github-foundations.webp'
+import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.webp'
+import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.webp'
+import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.webp";
 import { Canvas } from '@react-three/fiber'
 import {Html, OrbitControls, Stage} from '@react-three/drei'
 // Import ProjectCarousel and ProjectDetails normally as they don't contain heavy 3D components
@@ -18,8 +18,8 @@ import ProjectCarousel from './project/ProjectCarousel.jsx';
 import ProjectDetails from './project/ProjectDetails.jsx';
 // Import the projects data
 import projectsData from './project/projectsData.js';
-import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.png';
-import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.png';
+import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.webp';
+import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.webp';
 
 // Lazy load the Model component
 const Model = lazy(() => import('./project/Model.jsx').then(module => ({
@@ -42,6 +42,7 @@ function Loader() {
 }
 
 // Create a separate component for the 3D model section to better handle loading
+// eslint-disable-next-line react/prop-types
 const ModelSection = ({ laptopOpen, currentProjectImage, isDarkMode }) => {
   const ref = useRef();
   const [isModelLoaded, setIsModelLoaded] = useState(false);

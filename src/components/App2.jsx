@@ -6,11 +6,11 @@ import ShaderModel from '../smallcomponents/ShaderModel.jsx';
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import {useEffect} from "react";
 import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
-import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.png'
-import githubCert from '../assets/certifications/github-foundations.png'
-import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.png'
-import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.png'
-import devopsCert from '../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.png'
+import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.webp'
+import githubCert from '../assets/certifications/github-foundations.webp'
+import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.webp'
+import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.webp'
+import devopsCert from '../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.webp'
 
 const App2 = () => {
   const handleScroll = (e) => {
