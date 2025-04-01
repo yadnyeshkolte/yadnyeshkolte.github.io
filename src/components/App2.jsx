@@ -4,7 +4,6 @@ import reactLogo from '../assets/yadnyesh.jpg'
 import SocialIcons from '../smallcomponents/SocialIcons.jsx';
 import ShaderModel from '../smallcomponents/ShaderModel.jsx';
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
-import {useEffect} from "react";
 import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
 import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.webp'
 import githubCert from '../assets/certifications/github-foundations.webp'
