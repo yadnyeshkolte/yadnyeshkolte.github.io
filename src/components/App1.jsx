@@ -85,7 +85,7 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
         <Canvas
             shadows
             dpr={[1, 2]}
-            camera={{ fov: 50, position: [0.8, 0.6, 3.5] }}
+            camera={{ fov: 50, position: [1, -0.6, 2.5] }}
             style={{
               width: '50%',
               height: '50%',
@@ -112,7 +112,7 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
                   keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
               />
             </Stage>
-            <OrbitControls ref={ref} target={[0, 0.6, 0]}/>
+            <OrbitControls ref={ref} target={[0, -0.4, 0]}/>
           </Suspense>
         </Canvas>
     );
