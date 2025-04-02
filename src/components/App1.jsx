@@ -94,8 +94,8 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
               opacity: isModelLoaded ? 1 : 0,
               transition: 'opacity 0.5s ease-in-out'
             }}
-            onPointerDownCapture={(e) => e.stopPropagation()}
-            onWheelCapture={(e) => e.stopPropagation()}
+            //onPointerDownCapture={(e) => e.stopPropagation()}
+            //onWheelCapture={(e) => e.stopPropagation()}
         >
           <Suspense fallback={null}>
             <Stage
