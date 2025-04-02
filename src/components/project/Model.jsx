@@ -226,7 +226,7 @@ export function Model(props) {
     }, [props.keyboardImage]);
 
     // Animation parameters
-    const animationSpeed = 0.1; // Animation speed
+    const animationSpeed = 0.05; // Animation speed
 
     // Animation frame for laptop opening/closing
     useFrame(() => {

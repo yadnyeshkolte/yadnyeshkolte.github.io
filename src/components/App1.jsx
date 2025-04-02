@@ -70,6 +70,10 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
     const ref = useRef();
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isModelLoaded, setIsModelLoaded] = useState(false);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [cameraPosition, setCameraPosition] = useState([0.1, -0.6, 3]);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [cameraFov, setCameraFov] = useState(50);
 
     // Set a timeout to indicate when model should be visible
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -81,11 +85,33 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
       return () => clearTimeout(loadTimer);
     }, []);
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      // Initial check
+      const handleResize = () => {
+        if (window.innerWidth > 1024) {
+          setCameraPosition([1, -0.6, 2.5]);
+          setCameraFov(50);
+        } else {
+          // Use your default camera position for larger screens
+          setCameraPosition([0, 0, 4]); // Adjust these values as needed
+          setCameraFov(45); // Adjust as needed
+        }
+      };
+
+      // Set initial value
+      handleResize();
+
+      // Listen for window resize
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         <Canvas
             shadows
             dpr={[1, 2]}
-            camera={{ fov: 50, position: [1, -0.6, 2.5] }}
+            camera={{ fov: cameraFov, position: cameraPosition }}
             style={{
               width: '50%',
               height: '50%',
@@ -94,8 +120,8 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
               opacity: isModelLoaded ? 1 : 0,
               transition: 'opacity 0.5s ease-in-out'
             }}
-            //onPointerDownCapture={(e) => e.stopPropagation()}
-            //onWheelCapture={(e) => e.stopPropagation()}
+            onPointerDownCapture={(e) => e.stopPropagation()}
+            onWheelCapture={(e) => e.stopPropagation()}
         >
           <Suspense fallback={null}>
             <Stage

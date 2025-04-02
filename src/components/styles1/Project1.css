@@ -37,6 +37,7 @@
     height: 50vh;
     min-height: 300px;
     position: relative;
+    overflow: visible;
 }
 
 .project-model-view canvas {
