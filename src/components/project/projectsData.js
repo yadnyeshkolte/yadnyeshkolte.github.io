@@ -1,20 +1,22 @@
 // In a new file called projectsData.js
 import crossdocsImage from '../../assets/project-section-light-theme/1.webp';
-import structviz3dImage from '../../assets/project-section-light-theme/2.webp';
+import frontqodeImage from '../../assets/project-section-light-theme/9.webp';
 import opensourcepenImage from '../../assets/project-section-light-theme/3.webp';
 import flagsImage from '../../assets/project-section-light-theme/4.webp';
 import lensImage from '../../assets/project-section-light-theme/5.webp';
 import imfapiImage from '../../assets/project-section-light-theme/6.webp';
 import telegramBotImage from '../../assets/project-section-light-theme/7.webp';
+import structviz3dImage from '../../assets/project-section-light-theme/2.webp';
 import structviz3dDesktopImage from '../../assets/project-section-light-theme/8.webp';
 
 import crossdocsDarkImage from '../../assets/project-section-dark-theme/1dark.webp';
-import structviz3dDarkImage from '../../assets/project-section-dark-theme/2dark.webp';
+import frontqodeDarkImage from '../../assets/project-section-dark-theme/9dark.webp';
 import opensourcepenDarkImage from '../../assets/project-section-dark-theme/3dark.webp';
 import flagsDarkImage from '../../assets/project-section-dark-theme/4dark.webp';
 import lensDarkImage from '../../assets/project-section-dark-theme/5dark.webp';
 import imfapiDarkImage from '../../assets/project-section-dark-theme/6dark.webp';
 import telegramBotDarkImage from '../../assets/project-section-dark-theme/7dark.webp';
+import structviz3dDarkImage from '../../assets/project-section-dark-theme/2dark.webp';
 import structviz3dDesktopDarkImage from '../../assets/project-section-dark-theme/8dark.webp';
 import defaultIntroImage from '../../assets/project-section-light-theme/default-screen-light.webp';
 import defaultIntroDarkImage from '../../assets/project-section-dark-theme/default-screen-dark.webp';
@@ -61,26 +63,25 @@ const projectsData = {
             'In-App Markdown Guide - Detailed reference for developers'
         ]
     },
-    'structviz3d': {
-        id: 'structviz3d',
-        title: 'StructViz3D',
-        summary: 'Web-based 3D structural engineering model viewer for visualizing and interacting with STL and GLTF files directly in the browser.',
-        tags: ['Three.js', 'React', 'WebGL', '3D Visualization', 'Engineering'],
-        image: structviz3dImage,
-        darkImage: structviz3dDarkImage,
+    'frontqode': {
+        id: 'frontqode',
+        title: 'Front Qode - Code Editor',
+        summary: 'The Uninterrupted Development Experience - Eliminating the productivity drain caused by context-switching between different development tools',
+        tags: ['TypeScript', 'React', 'webpack', 'Node', 'LSP', 'Groq', 'AI/Ml'],
+        image: frontqodeImage,
+        darkImage: frontqodeDarkImage,
         links: [
-            { type: 'github', label: 'Source Code', url: 'https://github.com/yadnyeshkolte/structviz3d-react' },
-            { type: 'demo', label: 'Live Demo', url: 'https://yadnyeshkolte.github.io/structviz3d-react/' },
-            { type: 'video', label: 'Video Demo', url: 'https://youtu.be/8gEaS0dXfAg' },
-            { type: 'github', label: 'API Repository', url: 'https://github.com/yadnyeshkolte/structviz3d-api' }
+            { type: 'github', label: 'Source Code', url: 'https://github.com/yadnyeshkolte/frontqode' },
+            { type: 'releases', label: 'Live Demo', url: 'https://github.com/yadnyeshkolte/frontqode/releases' },
+            { type: 'video', label: 'Video Demo', url: 'https://youtu.be/9m9UTx8AkoI' }
         ],
         features: [
-            'High-performance 3D rendering with Three.js',
-            'Multiple file format support (STL, GLTF/GLB)',
-            'Advanced camera controls with orthographic and perspective modes',
-            'Comprehensive viewing options including wireframe and sketch rendering',
-            'Flexible lighting system and model orientation controls',
-            'Responsive design for desktop and mobile devices'
+            'Cross-Platform Support - Works across different operating systems',
+            'Integration with Groq API for code completion and AI assistance',
+            'Integrated language servers for numerous programming languages',
+            'Select specific files to include in documentation or AI context',
+            'Code Intelligence - Function/class extraction and analysis capabilities',
+            'UI Automation Tools - Interact with external applications for testing or demonstrations'
         ]
     },
     'flutter_app': {
@@ -184,6 +185,28 @@ const projectsData = {
             'Money deposit functionality',
             'Touch-based input interface',
             'Google Sheets integration for transaction logging'
+        ]
+    },
+    'structviz3d': {
+        id: 'structviz3d',
+        title: 'StructViz3D',
+        summary: 'Web-based 3D structural engineering model viewer for visualizing and interacting with STL and GLTF files directly in the browser.',
+        tags: ['Three.js', 'React', 'WebGL', '3D Visualization', 'Engineering'],
+        image: structviz3dImage,
+        darkImage: structviz3dDarkImage,
+        links: [
+            { type: 'github', label: 'Source Code', url: 'https://github.com/yadnyeshkolte/structviz3d-react' },
+            { type: 'demo', label: 'Live Demo', url: 'https://yadnyeshkolte.github.io/structviz3d-react/' },
+            { type: 'video', label: 'Video Demo', url: 'https://youtu.be/8gEaS0dXfAg' },
+            { type: 'github', label: 'API Repository', url: 'https://github.com/yadnyeshkolte/structviz3d-api' }
+        ],
+        features: [
+            'High-performance 3D rendering with Three.js',
+            'Multiple file format support (STL, GLTF/GLB)',
+            'Advanced camera controls with orthographic and perspective modes',
+            'Comprehensive viewing options including wireframe and sketch rendering',
+            'Flexible lighting system and model orientation controls',
+            'Responsive design for desktop and mobile devices'
         ]
     },
     'structviz3ddesktop': {
