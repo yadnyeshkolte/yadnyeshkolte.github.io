@@ -29,7 +29,7 @@ const Model = lazy(() => import('./project/Model.jsx').then(module => ({
   default: module.Model
 })));
 
-
+/*
 function Loader() {
   return (
       <div style={{
@@ -62,7 +62,7 @@ function Loader() {
       </div>
   );
 }
-
+*/
 
 const ModelSection = lazy(() => import('./project/Model').then(() => ({
   default: ({ laptopOpen, currentProjectImage, isDarkMode }) => {
@@ -488,13 +488,11 @@ const App1 = () => {
                 {/* 3D model area - 90% height */}
                 <div className="project-model-view">
                   {shouldRenderModel ? (
-                      <Suspense fallback={<Loader />}>
                         <ModelSection
                             laptopOpen={laptopOpen}
                             currentProjectImage={currentProjectImage}
                             isDarkMode={isDarkMode}
                         />
-                      </Suspense>
                   ) : (
                       <div className="model-placeholder flex items-center justify-center h-full">
                         <Loader2 className="animate-spin text-blue-500 dark:text-blue-300" size={48} />
