@@ -1,8 +1,13 @@
 import React from 'react';
-import { useSharedForm } from '../hooks/useSharedForm.js';
+import { useSharedForm } from '../hooks/useSharedForm';
 import './OverlayContact.css';
 
-const OverlayContact = ({ isOpen, onClose }) => {
+interface OverlayContactProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+const OverlayContact: React.FC<OverlayContactProps> = ({ isOpen, onClose }) => {
     const { submitted, loading, error, handleSubmit } = useSharedForm();
 
     if (!isOpen) return null;

@@ -1,15 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
-const subscribers = new Set();
+// Define a minimal type for certifications if the full structure isn't known yet,
+// or use `any` if it's completely generic.  Ideally, this should be specific.
+interface Certification {
+  [key: string]: any;
+}
+
+const subscribers = new Set<Dispatch<SetStateAction<number>>>();
 let currentCertGlobal = 0;
-let globalTimer = null;
+let globalTimer: ReturnType<typeof setInterval> | null = null;
 let activeInstances = 0;
 
-export const useSharedCarousel = (certifications) => {
+export const useSharedCarousel = (certifications: Certification[]) => {
     const [currentCert, setCurrentCert] = useState(currentCertGlobal);
     const [isTransitioning, setIsTransitioning] = useState(false);
 
     useEffect(() => {
+        const handleCertChange = (index: number) => {
+            if (index >= 0 && index < certifications.length && !isTransitioning) {
+                setIsTransitioning(true);
+
+                // Delay actual change to allow fade-out
+                setTimeout(() => {
+                    currentCertGlobal = index;
+                    subscribers.forEach(setter => setter(index));
+
+                    // Allow fade-in
+                    setTimeout(() => {
+                        setIsTransitioning(false);
+                    }, 300);
+                }, 150);
+            }
+        };
+
         // Add subscriber
         subscribers.add(setCurrentCert);
         activeInstances++;
@@ -36,9 +59,9 @@ export const useSharedCarousel = (certifications) => {
                 globalTimer = null;
             }
         };
-    }, [certifications.length]);
+    }, [certifications.length, isTransitioning]);
 
-    const handleCertChange = (index) => {
+    const handleCertChange = (index: number) => {
         if (index >= 0 && index < certifications.length && !isTransitioning) {
             setIsTransitioning(true);
 
@@ -55,5 +78,5 @@ export const useSharedCarousel = (certifications) => {
         }
     };
 
-    return [currentCert, handleCertChange, isTransitioning];
+    return [currentCert, handleCertChange, isTransitioning] as const;
 };

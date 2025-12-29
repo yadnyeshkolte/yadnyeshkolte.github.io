@@ -1,7 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 
 // Create a shared state object outside of the hook
-const sharedState = {
+const sharedState: {
+    submitted: boolean;
+    loading: boolean;
+    error: string;
+    subscribers: Set<() => void>;
+} = {
     submitted: false,
     loading: false,
     error: '',
@@ -22,17 +27,19 @@ export const useSharedForm = () => {
         };
 
         sharedState.subscribers.add(updateState);
-        return () => sharedState.subscribers.delete(updateState);
+        return () => {
+             sharedState.subscribers.delete(updateState);
+        }
     }, []);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         sharedState.loading = true;
         sharedState.error = '';
         notifySubscribers();
 
         try {
-            const form = e.target;
+            const form = e.currentTarget;
             await fetch(form.action, {
                 method: 'POST',
                 body: new FormData(form),
@@ -41,6 +48,7 @@ export const useSharedForm = () => {
             sharedState.submitted = true;
         } catch (err) {
             sharedState.error = 'Something went wrong. Please try again later.';
+            console.error(err);
         } finally {
             sharedState.loading = false;
             notifySubscribers();

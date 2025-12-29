@@ -2,16 +2,36 @@ import { useEffect, useRef, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { Group, Mesh, MeshStandardMaterial, MeshBasicMaterial, Texture } from 'three';
+import { GLTF } from 'three-stdlib';
 
-export function Model(props) {
-    const { nodes, materials } = useGLTF('/scene.glb');
-    const laptopScreenRef = useRef();
-    const modelGroupRef = useRef();
-    const screenMeshRef = useRef();
+// Define the structure of the GLTF data
+type GLTFResult = GLTF & {
+    nodes: {
+        [key: string]: THREE.Mesh;
+    };
+    materials: {
+        [key: string]: THREE.MeshStandardMaterial;
+    };
+};
+
+interface ModelProps {
+    isOpen?: boolean;
+    screenImage?: string;
+    keyboardImage?: string;
+    [key: string]: any; // Allow other props
+}
+
+
+export function Model(props: ModelProps) {
+    const { nodes, materials } = useGLTF('/scene.glb') as GLTFResult;
+    const laptopScreenRef = useRef<Group>(null);
+    const modelGroupRef = useRef<Group>(null);
+    const screenMeshRef = useRef<Mesh>(null);
     // Use the prop if provided, otherwise default to false
     const [isOpen, setIsOpen] = useState(props.isOpen || false);
     const [isDarkMode, setIsDarkMode] = useState(false);
-    const keyboardMeshRef = useRef();
+    const keyboardMeshRef = useRef<Mesh>(null);
 
     useEffect(() => {
         const checkDarkMode = () => {
@@ -42,21 +62,21 @@ export function Model(props) {
         const materialNames = Object.keys(materials);
 
         // Dark mode color scheme with more flexible approach
-        const darkModeColors = {
+        const darkModeColors: Record<string, THREE.Color> = {
             default: isDarkMode ? new THREE.Color('#3A3A3A') : new THREE.Color('#F0F0F0'),
             surface: isDarkMode ? new THREE.Color('#404040') : new THREE.Color('#75d1ee'),
             accent: isDarkMode ? new THREE.Color('#505050') : new THREE.Color('#ADD8E6'),
             detail: isDarkMode ? new THREE.Color('#505050') : new THREE.Color('#ADD8E6')
         };
 
-        const darkModeMetalness = {
+        const darkModeMetalness: Record<string, number> = {
             default: isDarkMode ? 0 : 0.3,
             surface: isDarkMode ? 0 : 0.2,
             accent: isDarkMode ? 0 : 0.4,
             detail: isDarkMode ? 0 : 0.3
         };
 
-        const darkModeRoughness = {
+        const darkModeRoughness: Record<string, number> = {
             default: isDarkMode ? 0.9 : 0.5,
             surface: isDarkMode ? 0.9 : 0.6,
             accent: isDarkMode ? 0.9 : 0.4,
@@ -64,7 +84,7 @@ export function Model(props) {
         };
 
         // Mapping of color patterns to apply - updated for new material naming convention
-        const colorMappings = {
+        const colorMappings: Record<string, string> = {
             'back': 'default',
             'palm': 'surface',
             'trackpad': 'accent',
@@ -120,6 +140,8 @@ export function Model(props) {
                 // Create an image to draw onto the canvas
                 const image = new Image();
                 image.onload = function() {
+                    if (!context) return;
+
                     // Set canvas dimensions to match the image
                     canvas.width = image.width;
                     canvas.height = image.height;
@@ -156,7 +178,9 @@ export function Model(props) {
                     });
 
                     // Apply the new material
-                    screenMeshRef.current.material = newMaterial;
+                    if(screenMeshRef.current) {
+                        screenMeshRef.current.material = newMaterial;
+                    }
                 };
 
                 // Set image source to the texture image
@@ -176,6 +200,8 @@ export function Model(props) {
 
                 const image = new Image();
                 image.onload = function() {
+                    if (!context) return;
+
                     // Set canvas to a larger size to ensure high resolution
                     canvas.width = image.width;
                     canvas.height = image.height;
@@ -210,14 +236,16 @@ export function Model(props) {
                     adjustedTexture.offset.set(0, 0);  // Adjust offset if needed
 
                     // Create material with adjusted texture and better rendering properties
-                    keyboardMeshRef.current.material = new THREE.MeshStandardMaterial({
-                        map: adjustedTexture,
-                        side: THREE.FrontSide,
-                        metalness: 0.1,
-                        roughness: 0.7,
-                        // Add some ambient occlusion to give depth
-                        aoMapIntensity: 0.5
-                    });
+                    if (keyboardMeshRef.current) {
+                        keyboardMeshRef.current.material = new THREE.MeshStandardMaterial({
+                            map: adjustedTexture,
+                            side: THREE.FrontSide,
+                            metalness: 0.1,
+                            roughness: 0.7,
+                            // Add some ambient occlusion to give depth
+                            aoMapIntensity: 0.5
+                        });
+                    }
                 };
 
                 image.src = texture.image.src;

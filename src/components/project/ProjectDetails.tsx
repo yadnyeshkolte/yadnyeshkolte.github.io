@@ -1,10 +1,29 @@
-import  { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './ProjectDetails.css';
 import { Github, Globe, Box, Download, Gitlab, Cloud } from 'lucide-react';
 
+interface Link {
+    type: string;
+    url: string;
+    label?: string;
+}
+
+interface Project {
+    title: string;
+    summary: string;
+    links?: Link[];
+    features?: string[];
+    tags?: string[];
+    [key: string]: any;
+}
+
+interface ProjectDetailsProps {
+    project?: Project;
+}
+
 // Helper function to get the right icon based on link type
-const getLinkIcon = (type) => {
+const getLinkIcon = (type: string) => {
     switch (type.toLowerCase()) {
         case 'github':
             return <Github size={16} />;
@@ -24,9 +43,9 @@ const getLinkIcon = (type) => {
     }
 };
 
-const ProjectDetails = ({ project }) => {
+const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
     const [animationStage, setAnimationStage] = useState(0);
-    const [currentProject, setCurrentProject] = useState(null);
+    const [currentProject, setCurrentProject] = useState<Project | null>(null);
 
     // Reset animation when project changes
     useEffect(() => {
@@ -34,11 +53,11 @@ const ProjectDetails = ({ project }) => {
             setAnimationStage(0);
             setCurrentProject(project);
         }
-    }, [project]);
+    }, [project, currentProject]);
 
     // Animate through stages
     useEffect(() => {
-        let timer;
+        let timer: ReturnType<typeof setTimeout>;
         if (project) {
             if (animationStage < 5) {
                 timer = setTimeout(() => {

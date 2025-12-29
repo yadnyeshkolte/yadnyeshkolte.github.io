@@ -21,7 +21,28 @@ import structviz3dDesktopDarkImage from '../../assets/project-section-dark-theme
 import defaultIntroImage from '../../assets/project-section-light-theme/default-screen-light.webp';
 import defaultIntroDarkImage from '../../assets/project-section-dark-theme/default-screen-dark.webp';
 
-const projectsData = {
+export interface ProjectLink {
+    type: string;
+    label: string;
+    url: string;
+}
+
+export interface Project {
+    id: string;
+    title: string;
+    summary: string;
+    image: string;
+    darkImage: string;
+    links: ProjectLink[];
+    features: string[];
+    tags?: string[];
+}
+
+export interface ProjectsData {
+    [key: string]: Project;
+}
+
+const projectsData: ProjectsData = {
     'default': {
         id: 'default',
         title: 'Projects',
