@@ -1,9 +1,9 @@
-import {useCallback, useEffect, useState, useRef, lazy, Suspense} from 'react';
+import { useCallback, useEffect, useState, useRef, lazy, Suspense } from 'react';
 import './App1.css';
 import reactLogo from '../assets/yadnyesh.jpg'
 import NavigationBar from '../smallcomponents/NavigationBar';
 import SocialIcons from '../smallcomponents/SocialIcons';
-import {Cloud, Code2, Database, Loader2, Wrench} from "lucide-react";
+import { Cloud, Code2, Database, Loader2, Wrench } from "lucide-react";
 import { useSharedCarousel } from '../hooks/useSharedCarousel';
 import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.webp'
 import githubCert from '../assets/certifications/github-foundations.webp'
@@ -17,7 +17,7 @@ import ProjectDetails from './project/ProjectDetails';
 import projectsData from './project/projectsData';
 import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.webp';
 import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.webp';
-import {OrbitControls, Stage} from "@react-three/drei";
+import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 
@@ -40,34 +40,34 @@ declare global {
 
 function Loader() {
   return (
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 10
-      }}>
-        <div style={{ textAlign: 'center' }}>
-          <Loader2
-              style={{
-                animation: 'spin 1s linear infinite',
-                color: '#606060'
-              }}
-              size={48}
-          />
-          <p style={{
-            fontSize: '1.125rem',
-            fontWeight: 600,
-            color: '#4b5563'
-          }}>
-            Loading...
-          </p>
-        </div>
+    <div style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 10
+    }}>
+      <div style={{ textAlign: 'center' }}>
+        <Loader2
+          style={{
+            animation: 'spin 1s linear infinite',
+            color: '#606060'
+          }}
+          size={48}
+        />
+        <p style={{
+          fontSize: '1.125rem',
+          fontWeight: 600,
+          color: '#4b5563'
+        }}>
+          Loading...
+        </p>
       </div>
+    </div>
   );
 }
 
@@ -121,39 +121,38 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
     }, []);
 
     return (
-        <Canvas
-            shadows
-            dpr={[1, 2]}
-            camera={{ fov: cameraFov, position: cameraPosition }}
-            style={{
-              width: '50%',
-              height: '50%',
-              maxHeight: '100%',
-              minWidth:'100%',
-              opacity: isModelLoaded ? 1 : 0,
-              transition: 'opacity 0.5s ease-in-out'
-            }}
-            onPointerDownCapture={(e) => e.stopPropagation()}
-            onWheelCapture={(e) => e.stopPropagation()}
-        >
-          <Suspense fallback={null}>
-            <Stage
-                controls={ref}
-                preset="rembrandt"
-                intensity={1}
-                environment="city"
-                shadows={false}
-                adjustCamera={false}
-            >
-              <Model
-                  isOpen={laptopOpen}
-                  screenImage={currentProjectImage}
-                  keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
-              />
-            </Stage>
-            <OrbitControls ref={ref} target={[0, -0.4, 0]}/>
-          </Suspense>
-        </Canvas>
+      <Canvas
+        shadows
+        dpr={[1, 2]}
+        camera={{ fov: cameraFov, position: cameraPosition }}
+        style={{
+          width: '50%',
+          height: '50%',
+          maxHeight: '100%',
+          minWidth: '100%',
+          opacity: isModelLoaded ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out'
+        }}
+        onPointerDownCapture={(e) => e.stopPropagation()}
+        onWheelCapture={(e) => e.stopPropagation()}
+      >
+        <Suspense fallback={null}>
+          <Stage
+            preset="rembrandt"
+            intensity={1}
+            environment="city"
+            shadows={false}
+            adjustCamera={false}
+          >
+            <Model
+              isOpen={laptopOpen}
+              screenImage={currentProjectImage}
+              keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
+            />
+          </Stage>
+          <OrbitControls ref={ref} target={[0, -0.4, 0]} />
+        </Suspense>
+      </Canvas>
     );
   }
 })));
@@ -211,7 +210,7 @@ const App1 = () => {
   const animationTargetSize = useCallback(() => {
     if (!isAnimating) return 0;
 
-    switch(hoveredElementType) {
+    switch (hoveredElementType) {
       case 'intro': return 120;
       case 'certificate': return 200;
       case 'quote': return 180;
@@ -288,8 +287,8 @@ const App1 = () => {
     if (activeProject && projects[activeProject]) {
       // Select image based on dark mode
       const projectImage = isDarkMode
-          ? projects[activeProject].darkImage || projects[activeProject].image
-          : projects[activeProject].image;
+        ? projects[activeProject].darkImage || projects[activeProject].image
+        : projects[activeProject].image;
       setCurrentProjectImage(projectImage);
     }
   }, [activeProject, isDarkMode, projects]);
@@ -305,8 +304,8 @@ const App1 = () => {
         // Use the same animation speed for both growing and shrinking
         // Using a smaller value creates a smoother transition
         const delta = isAnimating
-            ? Math.min(5, (targetSize - currentSize) * 0.1) // Growing
-            : Math.max(-5, (targetSize - currentSize) * 0.1); // Shrinking
+          ? Math.min(5, (targetSize - currentSize) * 0.1) // Growing
+          : Math.max(-5, (targetSize - currentSize) * 0.1); // Shrinking
 
         // Ensure we make at least minimal progress each frame to avoid stalling
         const minStep = isAnimating ? 0.5 : -0.5;
@@ -386,7 +385,7 @@ const App1 = () => {
     if (projectSection) {
       const rect = projectSection.getBoundingClientRect();
       const isVisible = rect.top < window.innerHeight * 0.75 &&
-          rect.bottom > window.innerHeight * 0.25;
+        rect.bottom > window.innerHeight * 0.25;
       setLaptopOpen(isVisible);
     }
   }, []);
@@ -429,7 +428,7 @@ const App1 = () => {
   const handleProjectClick = useCallback((projectId: string) => {
     // If clicking the same project, deselect and go to default
     setActiveProject(prevProject =>
-        prevProject === projectId ? 'default' : projectId
+      prevProject === projectId ? 'default' : projectId
     );
 
     // Ensure laptop is open when a project is selected or when in default state
@@ -439,182 +438,182 @@ const App1 = () => {
   const [currentCert, setCurrentCert, isTransitioning] = useSharedCarousel(certifications);
 
   return (
-      <div className="app1-container" onMouseMove={throttledMouseMove}>
-        <NavigationBar
-            githubUrl="https://github.com/yadnyeshkolte"
-            blogUrl="https://yadnyeshkolte.github.io/blog/"
-        />
-        <div className="app1-scrollable" onScroll={handleScroll}>
-          <div
-              className="app1-overlay"
-              style={{
-                '--x': `${circlePosition.x + 50}px`,
-                '--y': `${circlePosition.y + 50}px`,
-                '--circle-size': `${circleSize}px`,
-              } as React.CSSProperties}
-          >
-            <div className='shader'>
-              {shouldRenderShader && (
-                  <Suspense>
-                    <ShaderModel />
-                  </Suspense>
-              )}
-            </div>
-            <section className="section intro-section">
-              <div className="intro-quote-side">
-              </div>
-              <div className="intro-content-side">
-                <div className="content-wrapper">
-                  <div className="profile-title-container hoverable">
-                    <img
-                        src={reactLogo}
-                        alt="Profile"
-                        className="profile-image"
-                    />
-                    <h1 className="intro-title">Yadnyesh Kolte</h1>
-                  </div>
-                  <p className="intro-description hoverable" onMouseEnter={() => handleTextHover('intro')} onMouseLeave={handleTextLeave}>
-                    Motivated Software Engineer with expertise in developing and deploying
-                    high-quality solutions. Proficient in full stack development, AI
-                    integration, and continuous delivery
-                  </p>
-                  <SocialIcons/>
-                </div>
-              </div>
-            </section>
-            <section className="section project-section">
-              {/* Project details sidebar - 20% width */}
-              <div className="project-info">
-                <ProjectDetails project={projects[activeProject]} />
-              </div>
-
-              {/* Container for 3D model and carousel - 80% width */}
-              <div className="project-display-container">
-                {/* Carousel area - 10% height */}
-                <div className="project-carousel-container">
-                  <ProjectCarousel
-                      projects={projects}
-                      activeProject={activeProject}
-                      onProjectChange={handleProjectClick}
-                  />
-                </div>
-                {/* 3D model area - 90% height */}
-                <div className="project-model-view">
-                  {shouldRenderModel ? (
-                      <Suspense fallback={<Loader />}>
-                        <ModelSection
-                            laptopOpen={laptopOpen}
-                            currentProjectImage={currentProjectImage}
-                            isDarkMode={isDarkMode}
-                        />
-                      </Suspense>
-                  ) : (
-                      <div className="model-placeholder flex items-center justify-center h-full">
-                        <Loader2 className="animate-spin text-blue-500 dark:text-blue-300" size={48} />
-                      </div>
-                  )}
-                </div>
-              </div>
-            </section>
-            <section className="section tech-stack-section">
-              <div className="tech-container">
-                <div className="content-wrapper">
-                  {/* Tech Stack - 70% */}
-                  <div className="tech-section">
-                    <h2 className="section-title">Technical Expertise</h2>
-
-                    <div className="tech-grid">
-                      {/* Frontend */}
-                      <div className="tech-card">
-                        <div className="card-header">
-                          <Code2/>
-                          <h3>Frontend Development</h3>
-                        </div>
-                        <div className="card-content">
-                          <p>Languages: JavaScript, HTML5, CSS3, XAML</p>
-                          <p>Libraries & Frameworks: React, Vite</p>
-                          <p>UI & Styling: Compose Multiplatform, Tailwind CSS</p>
-                        </div>
-                      </div>
-
-                      {/* Backend */}
-                      <div className="tech-card">
-                        <div className="card-header">
-                          <Database/>
-                          <h3>Backend Development</h3>
-                        </div>
-                        <div className="card-content">
-                          <p>Languages: Java, Kotlin, Python, C++</p>
-                          <p>Frameworks: Node.js</p>
-                          <p>Databases: RDBMS (SQL), PostgreSQL</p>
-                        </div>
-                      </div>
-
-                      {/* DevOps */}
-                      <div className="tech-card">
-                        <div className="card-header">
-                          <Cloud/>
-                          <h3>DevOps & Cloud</h3>
-                        </div>
-                        <div className="card-content">
-                          <p>Containerization: Docker, Kubernetes, Argo CD</p>
-                          <p>Cloud Services: AWS, Google Cloud, Firebase</p>
-                          <p>CI/CD & Automation: GitHub Actions, CI/CD</p>
-                        </div>
-                      </div>
-
-                      {/* Tools */}
-                      <div className="tech-card">
-                        <div className="card-header">
-                          <Wrench/>
-                          <h3>Tools & Technologies</h3>
-                        </div>
-                        <div className="card-content">
-                          <p>Version Control: Git, GitHub</p>
-                          <p>Operating Systems: Linux, Windows</p>
-                          <p>Development Methodologies: Agile, Scrum, OOP</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Certifications - 20% */}
-                  <div className="cert-section">
-                    <h2 className="section-title">Certifications</h2>
-
-                    <div className="cert-carousel">
-                      <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`} onMouseEnter={() => handleTextHover('certificate')} onMouseLeave={handleTextLeave}>
-                        <img
-                            src={certifications[currentCert].image}
-                            alt={certifications[currentCert].title}
-                        />
-                      </div>
-
-                      <div className="carousel-dots">
-                        {certifications.map((cert, index) => (
-                            <button
-                                key={cert.id}
-                                className={`dot ${currentCert === index ? 'active' : ''}`}
-                                onClick={() => setCurrentCert(index)}
-                            />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
+    <div className="app1-container" onMouseMove={throttledMouseMove}>
+      <NavigationBar
+        githubUrl="https://github.com/yadnyeshkolte"
+        blogUrl="https://yadnyeshkolte.github.io/blog/"
+      />
+      <div className="app1-scrollable" onScroll={handleScroll}>
         <div
-            className="peek-circle"
-            style={{
-              top: circlePosition.y - scrollY,
-              left: circlePosition.x,
-              transform: `scale(${circleSize > 0 ? 1.2 : 1})`
-            } as React.CSSProperties}
-        ></div>
+          className="app1-overlay"
+          style={{
+            '--x': `${circlePosition.x + 50}px`,
+            '--y': `${circlePosition.y + 50}px`,
+            '--circle-size': `${circleSize}px`,
+          } as React.CSSProperties}
+        >
+          <div className='shader'>
+            {shouldRenderShader && (
+              <Suspense>
+                <ShaderModel />
+              </Suspense>
+            )}
+          </div>
+          <section className="section intro-section">
+            <div className="intro-quote-side">
+            </div>
+            <div className="intro-content-side">
+              <div className="content-wrapper">
+                <div className="profile-title-container hoverable">
+                  <img
+                    src={reactLogo}
+                    alt="Profile"
+                    className="profile-image"
+                  />
+                  <h1 className="intro-title">Yadnyesh Kolte</h1>
+                </div>
+                <p className="intro-description hoverable" onMouseEnter={() => handleTextHover('intro')} onMouseLeave={handleTextLeave}>
+                  Motivated Software Engineer with expertise in developing and deploying
+                  high-quality solutions. Proficient in full stack development, AI
+                  integration, and continuous delivery
+                </p>
+                <SocialIcons />
+              </div>
+            </div>
+          </section>
+          <section className="section project-section">
+            {/* Project details sidebar - 20% width */}
+            <div className="project-info">
+              <ProjectDetails project={projects[activeProject]} />
+            </div>
+
+            {/* Container for 3D model and carousel - 80% width */}
+            <div className="project-display-container">
+              {/* Carousel area - 10% height */}
+              <div className="project-carousel-container">
+                <ProjectCarousel
+                  projects={projects}
+                  activeProject={activeProject}
+                  onProjectChange={handleProjectClick}
+                />
+              </div>
+              {/* 3D model area - 90% height */}
+              <div className="project-model-view">
+                {shouldRenderModel ? (
+                  <Suspense fallback={<Loader />}>
+                    <ModelSection
+                      laptopOpen={laptopOpen}
+                      currentProjectImage={currentProjectImage}
+                      isDarkMode={isDarkMode}
+                    />
+                  </Suspense>
+                ) : (
+                  <div className="model-placeholder flex items-center justify-center h-full">
+                    <Loader2 className="animate-spin text-blue-500 dark:text-blue-300" size={48} />
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+          <section className="section tech-stack-section">
+            <div className="tech-container">
+              <div className="content-wrapper">
+                {/* Tech Stack - 70% */}
+                <div className="tech-section">
+                  <h2 className="section-title">Technical Expertise</h2>
+
+                  <div className="tech-grid">
+                    {/* Frontend */}
+                    <div className="tech-card">
+                      <div className="card-header">
+                        <Code2 />
+                        <h3>Frontend Development</h3>
+                      </div>
+                      <div className="card-content">
+                        <p>Languages: JavaScript, HTML5, CSS3, XAML</p>
+                        <p>Libraries & Frameworks: React, Vite</p>
+                        <p>UI & Styling: Compose Multiplatform, Tailwind CSS</p>
+                      </div>
+                    </div>
+
+                    {/* Backend */}
+                    <div className="tech-card">
+                      <div className="card-header">
+                        <Database />
+                        <h3>Backend Development</h3>
+                      </div>
+                      <div className="card-content">
+                        <p>Languages: Java, Kotlin, Python, C++</p>
+                        <p>Frameworks: Node.js</p>
+                        <p>Databases: RDBMS (SQL), PostgreSQL</p>
+                      </div>
+                    </div>
+
+                    {/* DevOps */}
+                    <div className="tech-card">
+                      <div className="card-header">
+                        <Cloud />
+                        <h3>DevOps & Cloud</h3>
+                      </div>
+                      <div className="card-content">
+                        <p>Containerization: Docker, Kubernetes, Argo CD</p>
+                        <p>Cloud Services: AWS, Google Cloud, Firebase</p>
+                        <p>CI/CD & Automation: GitHub Actions, CI/CD</p>
+                      </div>
+                    </div>
+
+                    {/* Tools */}
+                    <div className="tech-card">
+                      <div className="card-header">
+                        <Wrench />
+                        <h3>Tools & Technologies</h3>
+                      </div>
+                      <div className="card-content">
+                        <p>Version Control: Git, GitHub</p>
+                        <p>Operating Systems: Linux, Windows</p>
+                        <p>Development Methodologies: Agile, Scrum, OOP</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Certifications - 20% */}
+                <div className="cert-section">
+                  <h2 className="section-title">Certifications</h2>
+
+                  <div className="cert-carousel">
+                    <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`} onMouseEnter={() => handleTextHover('certificate')} onMouseLeave={handleTextLeave}>
+                      <img
+                        src={certifications[currentCert].image}
+                        alt={certifications[currentCert].title}
+                      />
+                    </div>
+
+                    <div className="carousel-dots">
+                      {certifications.map((cert, index) => (
+                        <button
+                          key={cert.id}
+                          className={`dot ${currentCert === index ? 'active' : ''}`}
+                          onClick={() => setCurrentCert(index)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
+      <div
+        className="peek-circle"
+        style={{
+          top: circlePosition.y - scrollY,
+          left: circlePosition.x,
+          transform: `scale(${circleSize > 0 ? 1.2 : 1})`
+        } as React.CSSProperties}
+      ></div>
+    </div>
   );
 };
 

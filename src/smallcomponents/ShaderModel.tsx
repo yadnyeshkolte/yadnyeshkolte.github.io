@@ -12,10 +12,16 @@ import {
     UniformsUtils,
     WebGLRenderer,
     Light,
-    Shader,
     IUniform,
     Object3DEventMap
 } from 'three';
+
+// Custom shader type for onBeforeCompile callback
+interface ShaderType {
+    uniforms: { [uniform: string]: IUniform };
+    vertexShader: string;
+    fragmentShader: string;
+}
 import { cleanRenderer, cleanScene, removeLights } from '../shaders/three';
 import fragmentLightShader from '../shaders/fragmentlight.glsl?raw';
 import fragmentDarkShader from '../shaders/fragmentdark.glsl?raw';
@@ -24,7 +30,7 @@ import vertexShader from '../shaders/vertex.glsl?raw';
 // Extend MeshPhongMaterial to include userData.shader
 interface ExtendedMeshPhongMaterial extends MeshPhongMaterial {
     userData: {
-        shader?: Shader;
+        shader?: ShaderType;
         [key: string]: any;
     };
 }
@@ -41,7 +47,7 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
     const camera = useRef<PerspectiveCamera | null>(null);
     const scene = useRef<Scene | null>(null);
     const lights = useRef<Light[] | null>(null);
-    const uniforms = useRef<{[uniform: string]: IUniform} | null>(null);
+    const uniforms = useRef<{ [uniform: string]: IUniform } | null>(null);
     const material = useRef<ExtendedMeshPhongMaterial | null>(null);
     const geometry = useRef<SphereGeometry | null>(null);
     const sphere = useRef<ExtendedMesh | null>(null);
@@ -53,7 +59,7 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
 
     const createMaterial = useCallback((isDark: boolean): ExtendedMeshPhongMaterial => {
         const newMaterial = new MeshPhongMaterial() as ExtendedMeshPhongMaterial;
-        newMaterial.onBeforeCompile = (shader: Shader) => {
+        newMaterial.onBeforeCompile = (shader: ShaderType) => {
             uniforms.current = UniformsUtils.merge([
                 shader.uniforms,
                 { time: { value: uniforms.current ? uniforms.current.time.value : 0 } },
@@ -100,10 +106,11 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
 
         startTransition(() => {
             geometry.current = new SphereGeometry(32, 128, 128);
+            if (!geometry.current || !material.current) return;
             sphere.current = new Mesh(geometry.current, material.current) as ExtendedMesh;
             sphere.current.position.set(-30, 15, 1);
             sphere.current.modifier = Math.random();
-            if(scene.current) scene.current.add(sphere.current);
+            if (scene.current) scene.current.add(sphere.current);
         });
 
         // Lights setup
@@ -147,9 +154,9 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
             window.removeEventListener('storage', handleStorageChange);
             window.removeEventListener('mousemove', handleMouseMove);
             observer.disconnect();
-            if(scene.current) cleanScene(scene.current);
-            if(renderer.current) cleanRenderer(renderer.current);
-            if(lights.current) removeLights(lights.current);
+            if (scene.current) cleanScene(scene.current);
+            if (renderer.current) cleanRenderer(renderer.current);
+            if (lights.current) removeLights(lights.current);
         };
     }, [createMaterial, updateShader]);
 
