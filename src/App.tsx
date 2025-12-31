@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import App1 from './components/App1.jsx';
-import App2 from './components/App2.jsx';
+import App1 from './components/App1';
+import App2 from './components/App2';
 import './components/App1.css';
 import './components/App2.css';
 

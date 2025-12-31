@@ -1,4 +1,4 @@
-import { Cache, TextureLoader } from "three";
+import { Cache, TextureLoader, Scene, Material, Mesh, WebGLRenderer, Object3D, Light } from "three";
 import { DRACOLoader, GLTFLoader } from "three-stdlib";
 
 // Enable caching for all loaders
@@ -24,18 +24,18 @@ export const textureLoader = new TextureLoader();
  *   ReflectedLight reflectedLight = ReflectedLight(vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0));
  *   vec3 totalEmissiveRadiance = emissive;
  */
-export const cleanScene = (scene) => {
-  scene?.traverse((object) => {
-    if (!object.isMesh) return;
+export const cleanScene = (scene: Scene) => {
+  scene?.traverse((object: Object3D) => {
+    if (!(object instanceof Mesh)) return;
 
     object.geometry.dispose();
 
-    if (object.material.isMaterial) {
-      cleanMaterial(object.material);
-    } else {
+    if (Array.isArray(object.material)) {
       for (const material of object.material) {
         cleanMaterial(material);
       }
+    } else {
+        cleanMaterial(object.material);
     }
   });
 };
@@ -43,11 +43,11 @@ export const cleanScene = (scene) => {
 /**
  * Clean up and dispose of a material
  */
-export const cleanMaterial = (material) => {
+export const cleanMaterial = (material: Material) => {
   material.dispose();
 
   for (const key of Object.keys(material)) {
-    const value = material[key];
+    const value = (material as any)[key];
     if (value && typeof value === "object" && "minFilter" in value) {
       value.dispose();
 
@@ -60,25 +60,27 @@ export const cleanMaterial = (material) => {
 /**
  * Clean up and dispose of a renderer
  */
-export const cleanRenderer = (renderer) => {
+export const cleanRenderer = (renderer: WebGLRenderer) => {
   renderer.dispose();
-  renderer = null;
+  // renderer = null; // Cannot assign to parameter
 };
 
 /**
  * Clean up lights by removing them from their parent
  */
-export const removeLights = (lights) => {
+export const removeLights = (lights: Light[]) => {
   for (const light of lights) {
-    light.parent.remove(light);
+    if (light.parent) {
+        light.parent.remove(light);
+    }
   }
 };
 
 /**
  * Get child by name
  */
-export const getChild = (name, object) => {
-  let node;
+export const getChild = (name: string, object: Object3D) => {
+  let node: Object3D | undefined;
 
   object.traverse((child) => {
     if (child.name === name) {

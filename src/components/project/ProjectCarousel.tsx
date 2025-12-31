@@ -1,18 +1,31 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ProjectCarousel.css';
 
-const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
-    const carouselRef = useRef(null);
+interface Project {
+    title: string;
+    summary: string;
+    // Add other properties as needed
+    [key: string]: any;
+}
+
+interface ProjectCarouselProps {
+    projects: { [key: string]: Project };
+    activeProject: string;
+    onProjectChange: (id: string) => void;
+}
+
+const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, activeProject, onProjectChange }) => {
+    const carouselRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
 
     // Smoother scrolling to active project
-    const scrollToActiveProject = (projectId, smooth = true) => {
+    const scrollToActiveProject = (projectId: string, smooth = true) => {
         if (!carouselRef.current) return;
 
-        const activeElement = carouselRef.current.querySelector(`[data-project-id="${projectId}"]`);
+        const activeElement = carouselRef.current.querySelector(`[data-project-id="${projectId}"]`) as HTMLElement;
         if (!activeElement) return;
 
         const containerWidth = carouselRef.current.offsetWidth;
@@ -32,7 +45,7 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
         }
     };
     // Handle project change with smooth transition
-    const handleProjectClick = (id) => {
+    const handleProjectClick = (id: string) => {
         // If clicking the same project, deselect (go to default)
         const newActiveProject = activeProject === id ? 'default' : id;
 
@@ -63,7 +76,7 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
         if (!carousel) return;
 
         // Function handlers
-        const mouseDown = (e) => {
+        const mouseDown = (e: MouseEvent) => {
             setIsDragging(true);
             setStartX(e.pageX - carousel.offsetLeft);
             setScrollLeft(carousel.scrollLeft);
@@ -77,7 +90,7 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
             }
         };
 
-        const mouseMove = (e) => {
+        const mouseMove = (e: MouseEvent) => {
             if (!isDragging) return;
             e.preventDefault(); // Note: this means we can't use passive for mouseMove
             const x = e.pageX - carousel.offsetLeft;
@@ -85,7 +98,7 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
             carousel.scrollLeft = scrollLeft - walk;
         };
 
-        const touchStart = (e) => {
+        const touchStart = (e: TouchEvent) => {
             setIsDragging(true);
             setStartX(e.touches[0].pageX - carousel.offsetLeft);
             setScrollLeft(carousel.scrollLeft);
@@ -95,7 +108,7 @@ const ProjectCarousel = ({ projects, activeProject, onProjectChange }) => {
             setIsDragging(false);
         };
 
-        const touchMove = (e) => {
+        const touchMove = () => {
             if (!isDragging) return;
         };
 

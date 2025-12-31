@@ -21,7 +21,28 @@ import structviz3dDesktopDarkImage from '../../assets/project-section-dark-theme
 import defaultIntroImage from '../../assets/project-section-light-theme/default-screen-light.webp';
 import defaultIntroDarkImage from '../../assets/project-section-dark-theme/default-screen-dark.webp';
 
-const projectsData = {
+export interface ProjectLink {
+    type: string;
+    label: string;
+    url: string;
+}
+
+export interface Project {
+    id: string;
+    title: string;
+    summary: string;
+    image: string;
+    darkImage: string;
+    links: ProjectLink[];
+    features: string[];
+    tags?: string[];
+}
+
+export interface ProjectsData {
+    [key: string]: Project;
+}
+
+const projectsData: ProjectsData = {
     'default': {
         id: 'default',
         title: 'Projects',
@@ -61,28 +82,6 @@ const projectsData = {
             'Cross-Platform - Works on all major platforms (Windows, macOS, Linux, Android)',
             'Lightweight & Efficient - High performance, low resource usage',
             'In-App Markdown Guide - Detailed reference for developers'
-        ]
-    },
-    'structviz3d': {
-        id: 'structviz3d',
-        title: 'StructViz3D',
-        summary: 'Web-based 3D structural engineering model viewer for visualizing and interacting with STL and GLTF files directly in the browser.',
-        tags: ['Three.js', 'React', 'WebGL', '3D Visualization', 'Engineering'],
-        image: structviz3dImage,
-        darkImage: structviz3dDarkImage,
-        links: [
-            { type: 'github', label: 'Source Code', url: 'https://github.com/yadnyeshkolte/structviz3d-react' },
-            { type: 'demo', label: 'Live Demo', url: 'https://yadnyeshkolte.github.io/structviz3d-react/' },
-            { type: 'video', label: 'Video Demo', url: 'https://youtu.be/8gEaS0dXfAg' },
-            { type: 'github', label: 'API Repository', url: 'https://github.com/yadnyeshkolte/structviz3d-api' }
-        ],
-        features: [
-            'High-performance 3D rendering with Three.js',
-            'Multiple file format support (STL, GLTF/GLB)',
-            'Advanced camera controls with orthographic and perspective modes',
-            'Comprehensive viewing options including wireframe and sketch rendering',
-            'Flexible lighting system and model orientation controls',
-            'Responsive design for desktop and mobile devices'
         ]
     },
     'frontqode': {
@@ -207,6 +206,28 @@ const projectsData = {
             'Money deposit functionality',
             'Touch-based input interface',
             'Google Sheets integration for transaction logging'
+        ]
+    },
+    'structviz3d': {
+        id: 'structviz3d',
+        title: 'StructViz3D',
+        summary: 'Web-based 3D structural engineering model viewer for visualizing and interacting with STL and GLTF files directly in the browser.',
+        tags: ['Three.js', 'React', 'WebGL', '3D Visualization', 'Engineering'],
+        image: structviz3dImage,
+        darkImage: structviz3dDarkImage,
+        links: [
+            { type: 'github', label: 'Source Code', url: 'https://github.com/yadnyeshkolte/structviz3d-react' },
+            { type: 'demo', label: 'Live Demo', url: 'https://yadnyeshkolte.github.io/structviz3d-react/' },
+            { type: 'video', label: 'Video Demo', url: 'https://youtu.be/8gEaS0dXfAg' },
+            { type: 'github', label: 'API Repository', url: 'https://github.com/yadnyeshkolte/structviz3d-api' }
+        ],
+        features: [
+            'High-performance 3D rendering with Three.js',
+            'Multiple file format support (STL, GLTF/GLB)',
+            'Advanced camera controls with orthographic and perspective modes',
+            'Comprehensive viewing options including wireframe and sketch rendering',
+            'Flexible lighting system and model orientation controls',
+            'Responsive design for desktop and mobile devices'
         ]
     },
     'structviz3ddesktop': {

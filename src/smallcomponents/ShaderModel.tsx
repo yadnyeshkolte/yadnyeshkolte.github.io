@@ -1,4 +1,4 @@
-import { startTransition, useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState, HTMLAttributes, useCallback } from 'react';
 import './ShaderModel.css';
 import {
     AmbientLight,
@@ -11,35 +11,52 @@ import {
     SphereGeometry,
     UniformsUtils,
     WebGLRenderer,
+    Light,
+    Shader,
+    IUniform,
+    Object3DEventMap
 } from 'three';
 import { cleanRenderer, cleanScene, removeLights } from '../shaders/three';
 import fragmentLightShader from '../shaders/fragmentlight.glsl?raw';
 import fragmentDarkShader from '../shaders/fragmentdark.glsl?raw';
 import vertexShader from '../shaders/vertex.glsl?raw';
 
-export const ShaderModel = props => {
+// Extend MeshPhongMaterial to include userData.shader
+interface ExtendedMeshPhongMaterial extends MeshPhongMaterial {
+    userData: {
+        shader?: Shader;
+        [key: string]: any;
+    };
+}
+
+interface ExtendedMesh extends Mesh<SphereGeometry, ExtendedMeshPhongMaterial, Object3DEventMap> {
+    modifier?: number;
+}
+
+
+export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
     const start = useRef(Date.now());
-    const canvasRef = useRef();
-    const renderer = useRef();
-    const camera = useRef();
-    const scene = useRef();
-    const lights = useRef();
-    const uniforms = useRef();
-    const material = useRef();
-    const geometry = useRef();
-    const sphere = useRef();
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const renderer = useRef<WebGLRenderer | null>(null);
+    const camera = useRef<PerspectiveCamera | null>(null);
+    const scene = useRef<Scene | null>(null);
+    const lights = useRef<Light[] | null>(null);
+    const uniforms = useRef<{[uniform: string]: IUniform} | null>(null);
+    const material = useRef<ExtendedMeshPhongMaterial | null>(null);
+    const geometry = useRef<SphereGeometry | null>(null);
+    const sphere = useRef<ExtendedMesh | null>(null);
 
     // Smooth rotation tracking
     const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
     const smoothRotationX = useRef(0);
     const smoothRotationY = useRef(0);
 
-    const createMaterial = (isDark) => {
-        const newMaterial = new MeshPhongMaterial();
-        newMaterial.onBeforeCompile = shader => {
+    const createMaterial = useCallback((isDark: boolean): ExtendedMeshPhongMaterial => {
+        const newMaterial = new MeshPhongMaterial() as ExtendedMeshPhongMaterial;
+        newMaterial.onBeforeCompile = (shader: Shader) => {
             uniforms.current = UniformsUtils.merge([
                 shader.uniforms,
-                { time: { type: 'f', value: uniforms.current ? uniforms.current.time.value : 0 } },
+                { time: { value: uniforms.current ? uniforms.current.time.value : 0 } },
             ]);
 
             shader.uniforms = uniforms.current;
@@ -48,9 +65,9 @@ export const ShaderModel = props => {
             newMaterial.userData.shader = shader;
         };
         return newMaterial;
-    };
+    }, []);
 
-    const updateShader = () => {
+    const updateShader = useCallback(() => {
         const isDark = document.documentElement.classList.contains('dark');
         if (sphere.current) {
             const newMaterial = createMaterial(isDark);
@@ -58,13 +75,13 @@ export const ShaderModel = props => {
             sphere.current.material = newMaterial;
             material.current = newMaterial;
         }
-    };
+    }, [createMaterial]);
 
     useEffect(() => {
         const { innerWidth, innerHeight } = window;
 
         renderer.current = new WebGLRenderer({
-            canvas: canvasRef.current,
+            canvas: canvasRef.current!,
             antialias: false,
             alpha: true,
             powerPreference: 'high-performance',
@@ -83,10 +100,10 @@ export const ShaderModel = props => {
 
         startTransition(() => {
             geometry.current = new SphereGeometry(32, 128, 128);
-            sphere.current = new Mesh(geometry.current, material.current);
+            sphere.current = new Mesh(geometry.current, material.current) as ExtendedMesh;
             sphere.current.position.set(-30, 15, 1);
             sphere.current.modifier = Math.random();
-            scene.current.add(sphere.current);
+            if(scene.current) scene.current.add(sphere.current);
         });
 
         // Lights setup
@@ -94,10 +111,10 @@ export const ShaderModel = props => {
         const ambientLight = new AmbientLight(0xffffff, 0.4);
         dirLight.position.set(100, 100, 200);
         lights.current = [dirLight, ambientLight];
-        lights.current.forEach(light => scene.current.add(light));
+        lights.current.forEach(light => scene.current?.add(light));
 
         // Mouse movement handler
-        const handleMouseMove = (event) => {
+        const handleMouseMove = (event: MouseEvent) => {
             const position = {
                 x: event.clientX / window.innerWidth,
                 y: event.clientY / window.innerHeight,
@@ -118,7 +135,7 @@ export const ShaderModel = props => {
         });
 
         // Handle storage changes for cross-tab sync
-        const handleStorageChange = (e) => {
+        const handleStorageChange = (e: StorageEvent) => {
             if (e.key === 'darkMode') {
                 updateShader();
             }
@@ -130,14 +147,14 @@ export const ShaderModel = props => {
             window.removeEventListener('storage', handleStorageChange);
             window.removeEventListener('mousemove', handleMouseMove);
             observer.disconnect();
-            cleanScene(scene.current);
-            cleanRenderer(renderer.current);
-            removeLights(lights.current);
+            if(scene.current) cleanScene(scene.current);
+            if(renderer.current) cleanRenderer(renderer.current);
+            if(lights.current) removeLights(lights.current);
         };
-    }, []);
+    }, [createMaterial, updateShader]);
 
     useEffect(() => {
-        let animationFrame;
+        let animationFrame: number;
 
         const animate = () => {
             animationFrame = requestAnimationFrame(animate);
@@ -146,7 +163,7 @@ export const ShaderModel = props => {
             smoothRotationX.current += (mousePosition.y - smoothRotationX.current) * 0.03;
             smoothRotationY.current += (mousePosition.x - smoothRotationY.current) * 0.03;
 
-            if (sphere.current) {
+            if (sphere.current && renderer.current && scene.current && camera.current) {
                 // Update uniforms for time-based effects
                 if (uniforms.current) {
                     uniforms.current.time.value = 0.00005 * (Date.now() - start.current);

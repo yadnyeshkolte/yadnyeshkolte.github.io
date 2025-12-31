@@ -1,35 +1,43 @@
 import {useCallback, useEffect, useState, useRef, lazy, Suspense} from 'react';
 import './App1.css';
 import reactLogo from '../assets/yadnyesh.jpg'
-import NavigationBar from '../smallcomponents/NavigationBar.jsx';
-import SocialIcons from '../smallcomponents/SocialIcons.jsx';
+import NavigationBar from '../smallcomponents/NavigationBar';
+import SocialIcons from '../smallcomponents/SocialIcons';
 import {Cloud, Code2, Database, Loader2, Wrench} from "lucide-react";
-import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
+import { useSharedCarousel } from '../hooks/useSharedCarousel';
 import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.webp'
 import githubCert from '../assets/certifications/github-foundations.webp'
 import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.webp'
 import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.webp'
 import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.webp";
 // Import ProjectCarousel and ProjectDetails normally as they don't contain heavy 3D components
-import ProjectCarousel from './project/ProjectCarousel.jsx';
-import ProjectDetails from './project/ProjectDetails.jsx';
+import ProjectCarousel from './project/ProjectCarousel';
+import ProjectDetails from './project/ProjectDetails';
 // Import the projects data
-import projectsData from './project/projectsData.js';
+import projectsData from './project/projectsData';
 import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.webp';
 import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.webp';
 import {OrbitControls, Stage} from "@react-three/drei";
 import { Canvas } from '@react-three/fiber';
+import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 
 
 // Lazy load the ShaderModel component
-const ShaderModel = lazy(() => import('../smallcomponents/ShaderModel.jsx'));
+const ShaderModel = lazy(() => import('../smallcomponents/ShaderModel'));
 
 // Lazy load the Model component
-const Model = lazy(() => import('./project/Model.jsx').then(module => ({
+const Model = lazy(() => import('./project/Model').then(module => ({
   default: module.Model
 })));
 
-/*
+// Add type for window property
+declare global {
+  interface Window {
+    lastMouseEvent: MouseEvent;
+    throttleTimer: ReturnType<typeof setTimeout> | null;
+  }
+}
+
 function Loader() {
   return (
       <div style={{
@@ -62,16 +70,21 @@ function Loader() {
       </div>
   );
 }
-*/
+
+interface ModelSectionProps {
+  laptopOpen: boolean;
+  currentProjectImage: string;
+  isDarkMode: boolean;
+}
 
 const ModelSection = lazy(() => import('./project/Model').then(() => ({
-  default: ({ laptopOpen, currentProjectImage, isDarkMode }) => {
+  default: ({ laptopOpen, currentProjectImage, isDarkMode }: ModelSectionProps) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const ref = useRef();
+    const ref = useRef<OrbitControlsImpl>(null);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isModelLoaded, setIsModelLoaded] = useState(false);
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [cameraPosition, setCameraPosition] = useState([0.1, -0.6, 3]);
+    const [cameraPosition, setCameraPosition] = useState<[number, number, number]>([0.1, -0.6, 3]);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [cameraFov, setCameraFov] = useState(50);
 
@@ -283,7 +296,7 @@ const App1 = () => {
 
   // Debounced circle animation
   useEffect(() => {
-    let animationId;
+    let animationId: number;
     const targetSize = animationTargetSize();
     let currentSize = circleSize;
 
@@ -321,11 +334,11 @@ const App1 = () => {
 
   // Throttled mouse position update
   useEffect(() => {
-    let animationFrameId;
+    let animationFrameId: number;
     let lastUpdateTime = 0;
     const THROTTLE_MS = 16; // Roughly 60fps
 
-    const animate = (timestamp) => {
+    const animate = (timestamp: number) => {
       if (timestamp - lastUpdateTime >= THROTTLE_MS) {
         setCirclePosition(current => ({
           x: current.x + (targetPosition.x - current.x) * 0.1,
@@ -345,8 +358,8 @@ const App1 = () => {
   }, [targetPosition]);
 
   // Throttled scroll handler
-  const handleScroll = useCallback((e) => {
-    const scrollTop = e.target.scrollTop;
+  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    const scrollTop = (e.target as HTMLDivElement).scrollTop;
     setScrollY(scrollTop);
 
     // Only sync scroll with App2 if not on mobile
@@ -379,10 +392,10 @@ const App1 = () => {
   }, []);
 
   // Debounced mouse move handler
-  const handleMouseMove = useCallback((e) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     // Only handle mouse move if not on mobile
     if (window.innerWidth > 768) {
-      window.lastMouseEvent = e;
+      window.lastMouseEvent = e.nativeEvent;
 
       const scrollContainer = document.querySelector('.app1-scrollable');
       const scrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
@@ -395,7 +408,7 @@ const App1 = () => {
   }, []);
 
   // Use a throttled version of handleMouseMove
-  const throttledMouseMove = useCallback((e) => {
+  const throttledMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!window.throttleTimer) {
       window.throttleTimer = setTimeout(() => {
         handleMouseMove(e);
@@ -413,7 +426,7 @@ const App1 = () => {
     setIsAnimating(false);
   }, []);
 
-  const handleProjectClick = useCallback((projectId) => {
+  const handleProjectClick = useCallback((projectId: string) => {
     // If clicking the same project, deselect and go to default
     setActiveProject(prevProject =>
         prevProject === projectId ? 'default' : projectId
@@ -438,7 +451,7 @@ const App1 = () => {
                 '--x': `${circlePosition.x + 50}px`,
                 '--y': `${circlePosition.y + 50}px`,
                 '--circle-size': `${circleSize}px`,
-              }}
+              } as React.CSSProperties}
           >
             <div className='shader'>
               {shouldRenderShader && (
@@ -488,11 +501,13 @@ const App1 = () => {
                 {/* 3D model area - 90% height */}
                 <div className="project-model-view">
                   {shouldRenderModel ? (
+                      <Suspense fallback={<Loader />}>
                         <ModelSection
                             laptopOpen={laptopOpen}
                             currentProjectImage={currentProjectImage}
                             isDarkMode={isDarkMode}
                         />
+                      </Suspense>
                   ) : (
                       <div className="model-placeholder flex items-center justify-center h-full">
                         <Loader2 className="animate-spin text-blue-500 dark:text-blue-300" size={48} />
@@ -597,7 +612,7 @@ const App1 = () => {
               top: circlePosition.y - scrollY,
               left: circlePosition.x,
               transform: `scale(${circleSize > 0 ? 1.2 : 1})`
-            }}
+            } as React.CSSProperties}
         ></div>
       </div>
   );

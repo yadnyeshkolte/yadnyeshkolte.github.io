@@ -1,3 +1,4 @@
+import React from 'react';
 import './SocialIcons.css';
 import gmailIcon from './socialicons/gmail.svg';
 import linkedinIcon from './socialicons/linkedin.svg';
@@ -11,7 +12,7 @@ const SocialIcons = () => {
             <a
                 href="mailto:yadnyeshkolte@gmail.com"
                 className="social-icon-link animate-pop"
-                style={{ "--delay": "0.1s" }}
+                style={{ "--delay": "0.1s" } as React.CSSProperties}
                 aria-label="Email"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -21,7 +22,7 @@ const SocialIcons = () => {
             <a
                 href="https://www.linkedin.com/in/yadnyesh-kolte/"
                 className="social-icon-link animate-pop"
-                style={{ "--delay": "0.2s" }}
+                style={{ "--delay": "0.2s" } as React.CSSProperties}
                 aria-label="LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -31,7 +32,7 @@ const SocialIcons = () => {
             <a
                 href="https://x.com/yadnyeshkolte"
                 className="social-icon-link animate-pop"
-                style={{ "--delay": "0.5s" }}
+                style={{ "--delay": "0.5s" } as React.CSSProperties}
                 aria-label="Twitter"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -41,7 +42,7 @@ const SocialIcons = () => {
             <a
                 href="https://www.credly.com/users/yadnyesh-kolte"
                 className="social-icon-link animate-pop"
-                style={{ "--delay": "0.3s" }}
+                style={{ "--delay": "0.3s" } as React.CSSProperties}
                 aria-label="Credly"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -51,7 +52,7 @@ const SocialIcons = () => {
             <a
                 href="https://join.slack.com/shareDM/zt-2yetf1qht-wG~RsFrPYdQf8965dA~54g"
                 className="social-icon-link animate-pop"
-                style={{ "--delay": "0.4s" }}
+                style={{ "--delay": "0.4s" } as React.CSSProperties}
                 aria-label="Slack"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -1,10 +1,15 @@
-// NavigationBar.jsx
+// NavigationBar.tsx
 import React, { useState, useEffect } from 'react';
 import './NavigationBar.css';
 import OverlayContact from './OverlayContact';
 import ThemeToggle from './ThemeToggle';
 
-const NavigationBar = ({ githubUrl, blogUrl }) => {
+interface NavigationBarProps {
+    githubUrl: string;
+    blogUrl: string;
+}
+
+const NavigationBar: React.FC<NavigationBarProps> = ({ githubUrl, blogUrl }) => {
     const [isContactOpen, setIsContactOpen] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(() => {
         // Check local storage for saved preference
@@ -47,10 +52,10 @@ const NavigationBar = ({ githubUrl, blogUrl }) => {
     }, []);
 
     const toggleDarkMode = () => {
-        setIsDarkMode(prev => !prev);
+        setIsDarkMode((prev: boolean) => !prev);
     };
 
-    const scrollToSection = (sectionId) => {
+    const scrollToSection = (sectionId: string) => {
         const section = document.querySelector(`.${sectionId}-section`);
         if (section) {
             section.scrollIntoView({ behavior: 'smooth' });

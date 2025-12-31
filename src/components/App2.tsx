@@ -1,10 +1,11 @@
+import React from 'react';
 import './App2.css';
-import NavigationBar from '../smallcomponents/NavigationBar.jsx';
+import NavigationBar from '../smallcomponents/NavigationBar';
 import reactLogo from '../assets/yadnyesh.jpg'
-import SocialIcons from '../smallcomponents/SocialIcons.jsx';
-import ShaderModel from '../smallcomponents/ShaderModel.jsx';
+import SocialIcons from '../smallcomponents/SocialIcons';
+import ShaderModel from '../smallcomponents/ShaderModel';
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
-import { useSharedCarousel } from '../hooks/useSharedCarousel.js';
+import { useSharedCarousel } from '../hooks/useSharedCarousel';
 import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.webp'
 import githubCert from '../assets/certifications/github-foundations.webp'
 import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.webp'
@@ -12,10 +13,10 @@ import openSourceCert from '../assets/certifications/lfd137-open-source-contribu
 import devopsCert from '../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.webp'
 
 const App2 = () => {
-  const handleScroll = (e) => {
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const app1Scrollable = document.querySelector('.app1-scrollable');
-    if (app1Scrollable && app1Scrollable.scrollTop !== e.target.scrollTop) {
-      app1Scrollable.scrollTop = e.target.scrollTop;
+    if (app1Scrollable && app1Scrollable.scrollTop !== (e.target as HTMLDivElement).scrollTop) {
+      app1Scrollable.scrollTop = (e.target as HTMLDivElement).scrollTop;
     }
   };
 
