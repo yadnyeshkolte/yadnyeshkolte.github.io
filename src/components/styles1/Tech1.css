@@ -152,14 +152,25 @@
 @media (max-width: 768px) {
     .tech-container {
         padding: 1rem;
+        min-height: auto;
     }
 
     .tech-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     .card-header h3 {
         font-size: 1.125rem;
+    }
+
+    .card-content {
+        padding-left: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .card-content p {
+        margin-bottom: 0.25rem;
     }
 
     .cert-section {
@@ -168,6 +179,42 @@
 
     .tech-stack-section {
         padding: 2rem 1rem !important;
+        min-height: auto;
+    }
+
+    .tech-section {
+        margin-top: 2rem;
+        padding: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tech-card {
+        padding: 1rem;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+    .tech-stack-section {
+        padding: 1rem 0.5rem !important;
+    }
+
+    .tech-section {
+        padding: 1rem;
+        border-radius: 0.75rem;
+    }
+
+    .card-header h3 {
+        font-size: 1rem;
+    }
+
+    .card-content {
+        font-size: 0.85rem;
+        padding-left: 0.5rem;
     }
 }
 

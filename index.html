@@ -1,20 +1,35 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Yadnyesh Kolte</title>
-    <script>
-      // Check for saved theme preference or default to light mode
-      if (localStorage.getItem('darkMode') === 'true' ||
-              (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Yadnyesh Kolte - Software Engineer Portfolio" />
+
+  <!-- DNS Prefetch for external resources -->
+  <link rel="dns-prefetch" href="https://github.com" />
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/scene.glb" as="fetch" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/loader.css" />
+
+  <title>Yadnyesh Kolte</title>
+  <script>
+    // Check for saved theme preference or default to light mode
+    if (localStorage.getItem('darkMode') === 'true' ||
+      (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</head>
+
+<body>
+  <div class="initial-loader" id="initial-loader">
+    <div class="spinner"></div>
+  </div>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

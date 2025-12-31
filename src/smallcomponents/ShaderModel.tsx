@@ -26,6 +26,7 @@ import { cleanRenderer, cleanScene, removeLights } from '../shaders/three';
 import fragmentLightShader from '../shaders/fragmentlight.glsl?raw';
 import fragmentDarkShader from '../shaders/fragmentdark.glsl?raw';
 import vertexShader from '../shaders/vertex.glsl?raw';
+import { useNetworkStatus } from '../hooks/useNetworkStatus';
 
 // Extend MeshPhongMaterial to include userData.shader
 interface ExtendedMeshPhongMaterial extends MeshPhongMaterial {
@@ -51,6 +52,9 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
     const material = useRef<ExtendedMeshPhongMaterial | null>(null);
     const geometry = useRef<SphereGeometry | null>(null);
     const sphere = useRef<ExtendedMesh | null>(null);
+
+    // Network status for performance optimization
+    const { isSlowConnection } = useNetworkStatus();
 
     // Smooth rotation tracking
     const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
@@ -104,8 +108,10 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
         const isDark = document.documentElement.classList.contains('dark');
         material.current = createMaterial(isDark);
 
+        // Reduce geometry complexity for slow connections
+        const segments = isSlowConnection ? 64 : 128;
         startTransition(() => {
-            geometry.current = new SphereGeometry(32, 128, 128);
+            geometry.current = new SphereGeometry(32, segments, segments);
             if (!geometry.current || !material.current) return;
             sphere.current = new Mesh(geometry.current, material.current) as ExtendedMesh;
             sphere.current.position.set(-30, 15, 1);
@@ -158,7 +164,7 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
             if (renderer.current) cleanRenderer(renderer.current);
             if (lights.current) removeLights(lights.current);
         };
-    }, [createMaterial, updateShader]);
+    }, [createMaterial, updateShader, isSlowConnection]);
 
     useEffect(() => {
         let animationFrame: number;

@@ -10,8 +10,10 @@
   width: 100%;
   overflow-y: auto;
   background: radial-gradient(circle at top right, white, lightblue, #89cff0);
-  color: black; /* Light mode default */
+  color: black;
+  /* Light mode default */
   transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Dark mode styles for mobile container */
@@ -26,8 +28,16 @@
     /* Remove the mask effect for mobile */
     mask-image: none !important;
     -webkit-mask-image: none !important;
-    background: white !important; /* Light mode default */
+    background: white !important;
+    /* Light mode default */
     transition: background-color 0.3s ease, color 0.3s ease;
+    will-change: scroll-position;
+  }
+
+  /* Smooth scrolling disabled for better performance on low-end devices */
+  .mobile-app1-container,
+  .app1-scrollable {
+    scroll-behavior: auto;
   }
 
   /* Dark mode specific styles for mobile */
