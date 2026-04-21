@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, type ThreeElements } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Group, Mesh, MeshStandardMaterial, MeshBasicMaterial, Texture } from 'three';
+import { Group, Mesh } from 'three';
 import { GLTF } from 'three-stdlib';
 
 // Define the structure of the GLTF data
@@ -15,16 +15,15 @@ type GLTFResult = GLTF & {
     };
 };
 
-interface ModelProps {
+type ModelProps = ThreeElements['group'] & {
     isOpen?: boolean;
     screenImage?: string;
     keyboardImage?: string;
-    [key: string]: any; // Allow other props
-}
+};
 
 
 export function Model(props: ModelProps) {
-    const { nodes, materials } = useGLTF('/scene.glb') as GLTFResult;
+    const { nodes, materials } = useGLTF('/scene.glb') as unknown as GLTFResult;
     const laptopScreenRef = useRef<Group>(null);
     const modelGroupRef = useRef<Group>(null);
     const screenMeshRef = useRef<Mesh>(null);
@@ -130,6 +129,7 @@ export function Model(props: ModelProps) {
         if (props.screenImage && screenMeshRef.current) {
             // Create a new texture loader
             const textureLoader = new THREE.TextureLoader();
+            textureLoader.setCrossOrigin('anonymous');
 
             // Load the texture
             textureLoader.load(props.screenImage, (texture) => {
@@ -139,6 +139,7 @@ export function Model(props: ModelProps) {
 
                 // Create an image to draw onto the canvas
                 const image = new Image();
+                image.crossOrigin = 'anonymous';
                 image.onload = function() {
                     if (!context) return;
 
@@ -193,12 +194,14 @@ export function Model(props: ModelProps) {
     useEffect(() => {
         if (props.keyboardImage && keyboardMeshRef.current) {
             const textureLoader = new THREE.TextureLoader();
+            textureLoader.setCrossOrigin('anonymous');
 
             textureLoader.load(props.keyboardImage, (texture) => {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
 
                 const image = new Image();
+                image.crossOrigin = 'anonymous';
                 image.onload = function() {
                     if (!context) return;
 

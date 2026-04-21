@@ -3,20 +3,15 @@ import './App1.css';
 import reactLogo from '../assets/yadnyesh.jpg'
 import NavigationBar from '../smallcomponents/NavigationBar';
 import SocialIcons from '../smallcomponents/SocialIcons';
+import ProgressiveImage from '../smallcomponents/ProgressiveImage';
 import { Cloud, Code2, Database, Loader2, Wrench } from "lucide-react";
 import { useSharedCarousel } from '../hooks/useSharedCarousel';
-import awsCert from '../assets/certifications/aws-educate-introduction-to-cloud-101.webp'
-import githubCert from '../assets/certifications/github-foundations.webp'
-import fdc3Cert from '../assets/certifications/lfel1000-introduction-to-fdc3.webp'
-import openSourceCert from '../assets/certifications/lfd137-open-source-contribution-in-finance.webp'
-import devopsCert from "../assets/certifications/lfs162-introduction-to-devops-and-site-reliability-.webp";
 // Import ProjectCarousel and ProjectDetails normally as they don't contain heavy 3D components
 import ProjectCarousel from './project/ProjectCarousel';
 import ProjectDetails from './project/ProjectDetails';
 // Import the projects data
 import projectsData from './project/projectsData';
-import keyboardLightImage from '../assets/project-section-light-theme/keyboardlight.webp';
-import keyboardDarkImage from '../assets/project-section-dark-theme/keyboarddark.webp';
+import { certificationImages, projectDarkImages, projectLightImages } from '../constants/remoteImages';
 import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
@@ -147,7 +142,7 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
             <Model
               isOpen={laptopOpen}
               screenImage={currentProjectImage}
-              keyboardImage={isDarkMode ? keyboardDarkImage : keyboardLightImage}
+              keyboardImage={isDarkMode ? projectDarkImages.keyboardDarkImage : projectLightImages.keyboardLightImage}
             />
           </Stage>
           <OrbitControls ref={ref} target={[0, -0.4, 0]} />
@@ -161,31 +156,31 @@ const ModelSection = lazy(() => import('./project/Model').then(() => ({
 const certifications = [
   {
     id: 1,
-    image: awsCert,
+    image: certificationImages.awsCert,
     title: "AWS Educate Introduction to Cloud 101",
     skills: ["Amazon Web Services (AWS)", "AWS Cloud", "AWS Cloud Computing", "Cloud Foundations"]
   },
   {
     id: 2,
-    image: githubCert,
+    image: certificationImages.githubCert,
     title: "GitHub Foundations",
     skills: ["Build Pipeline", "Continuous Delivery", "Continuous Integration", "DevOps", "GitHub", "GitHub Actions"]
   },
   {
     id: 3,
-    image: devopsCert,
+    image: certificationImages.devopsCert,
     title: "LFS162: Introduction to DevOps and Site Reliability Engineering",
     skills: ["CI/CD", "Cloud Computing", "Containers", "DevOps", "IAC", "Kubernetes", "SRE"]
   },
   {
     id: 4,
-    image: fdc3Cert,
+    image: certificationImages.fdc3Cert,
     title: "LFEL1000: Introduction to FDC3",
     skills: ["Application Interoperability", "FDC3 Components", "FDC3 Standard"]
   },
   {
     id: 5,
-    image: openSourceCert,
+    image: certificationImages.openSourceCert,
     title: "LFD137: Open Source Contribution in Finance",
     skills: ["Open Source Readiness", "Finance", "Regulation"]
   }
@@ -465,10 +460,12 @@ const App1 = () => {
             <div className="intro-content-side">
               <div className="content-wrapper">
                 <div className="profile-title-container hoverable">
-                  <img
+                  <ProgressiveImage
                     src={reactLogo}
                     alt="Profile"
                     className="profile-image"
+                    loading="eager"
+                    fetchPriority="high"
                   />
                   <h1 className="intro-title">Yadnyesh Kolte</h1>
                 </div>
@@ -583,9 +580,11 @@ const App1 = () => {
 
                   <div className="cert-carousel">
                     <div className={`cert-card ${isTransitioning ? 'transitioning' : ''}`} onMouseEnter={() => handleTextHover('certificate')} onMouseLeave={handleTextLeave}>
-                      <img
+                      <ProgressiveImage
                         src={certifications[currentCert].image}
                         alt={certifications[currentCert].title}
+                        loading="lazy"
+                        fetchPriority="low"
                       />
                     </div>
 

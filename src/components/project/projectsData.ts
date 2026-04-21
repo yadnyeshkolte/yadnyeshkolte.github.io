@@ -1,25 +1,4 @@
-// In a new file called projectsData.js
-import crossdocsImage from '../../assets/project-section-light-theme/crossdocsImage.webp';
-import frontqodeImage from '../../assets/project-section-light-theme/frontqodeImage.webp';
-import opensourcepenImage from '../../assets/project-section-light-theme/opensourcepenImage.webp';
-import flagsImage from '../../assets/project-section-light-theme/flagsImage.webp';
-import lensImage from '../../assets/project-section-light-theme/lensImage.webp';
-import imfapiImage from '../../assets/project-section-light-theme/imfapiImage.webp';
-import telegramBotImage from '../../assets/project-section-light-theme/telegramBotImage.webp';
-import structviz3dImage from '../../assets/project-section-light-theme/structviz3dImage.webp';
-import structviz3dDesktopImage from '../../assets/project-section-light-theme/structviz3dDesktopImage.webp';
-
-import crossdocsDarkImage from '../../assets/project-section-dark-theme/crossdocsDarkImage.webp';
-import frontqodeDarkImage from '../../assets/project-section-dark-theme/frontqodeDarkImage.webp';
-import opensourcepenDarkImage from '../../assets/project-section-dark-theme/opensourcepenDarkImage.webp';
-import flagsDarkImage from '../../assets/project-section-dark-theme/flagsDarkImage.webp';
-import lensDarkImage from '../../assets/project-section-dark-theme/lensDarkImage.webp';
-import imfapiDarkImage from '../../assets/project-section-dark-theme/imfapiDarkImage.webp';
-import telegramBotDarkImage from '../../assets/project-section-dark-theme/telegramBotDarkImage.webp';
-import structviz3dDarkImage from '../../assets/project-section-dark-theme/structviz3dDarkImage.webp';
-import structviz3dDesktopDarkImage from '../../assets/project-section-dark-theme/structviz3dDesktopDarkImage.webp';
-import defaultIntroImage from '../../assets/project-section-light-theme/default-screen-light.webp';
-import defaultIntroDarkImage from '../../assets/project-section-dark-theme/default-screen-dark.webp';
+import { projectDarkImages, projectLightImages } from '../../constants/remoteImages';
 
 export interface ProjectLink {
     type: string;
@@ -41,6 +20,32 @@ export interface Project {
 export interface ProjectsData {
     [key: string]: Project;
 }
+
+const {
+    crossdocsImage,
+    frontqodeImage,
+    opensourcepenImage,
+    flagsImage,
+    lensImage,
+    imfapiImage,
+    telegramBotImage,
+    structviz3dImage,
+    structviz3dDesktopImage,
+    defaultIntroImage
+} = projectLightImages;
+
+const {
+    crossdocsDarkImage,
+    frontqodeDarkImage,
+    opensourcepenDarkImage,
+    flagsDarkImage,
+    lensDarkImage,
+    imfapiDarkImage,
+    telegramBotDarkImage,
+    structviz3dDarkImage,
+    structviz3dDesktopDarkImage,
+    defaultIntroDarkImage
+} = projectDarkImages;
 
 const projectsData: ProjectsData = {
     'default': {
