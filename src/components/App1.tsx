@@ -187,32 +187,34 @@ const certifications = [
 ];
 
 const App1 = () => {
-  const [circlePosition, setCirclePosition] = useState({ x: 200, y: 200 });
-  const [scrollY, setScrollY] = useState(0);
-  const [circleSize, setCircleSize] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [targetPosition, setTargetPosition] = useState({ x: 200, y: 200 });
-  const [hoveredElementType, setHoveredElementType] = useState('default');
+  // Use refs for high-frequency animation values to avoid re-renders
+  const circlePositionRef = useRef({ x: 200, y: 200 });
+  const scrollYRef = useRef(0);
+  const circleSizeRef = useRef(0);
+  const isAnimatingRef = useRef(false);
+  const targetPositionRef = useRef({ x: 200, y: 200 });
+  const hoveredElementTypeRef = useRef('default');
+  const peekCircleRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const [activeProject, setActiveProject] = useState('default');
   const [laptopOpen, setLaptopOpen] = useState(false);
-  const [currentProjectImage, setCurrentProjectImage] = useState(projectsData.crossdocs.image); // Default image
+  const [currentProjectImage, setCurrentProjectImage] = useState(projectsData.crossdocs.image);
   const [shouldRenderModel, setShouldRenderModel] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [shouldRenderShader, setShouldRenderShader] = useState(false);
   const projects = projectsData;
 
-  // Use memo for heavy operations
-  const animationTargetSize = useCallback(() => {
-    if (!isAnimating) return 0;
-
-    switch (hoveredElementType) {
+  // Compute target size from refs — no dependencies needed
+  const getTargetSize = () => {
+    if (!isAnimatingRef.current) return 0;
+    switch (hoveredElementTypeRef.current) {
       case 'intro': return 120;
       case 'certificate': return 200;
       case 'quote': return 180;
       case 'project': return 250;
       default: return 250;
     }
-  }, [isAnimating, hoveredElementType]);
+  };
 
   // Implement Intersection Observer to load model only when in viewport
   useEffect(() => {
@@ -288,75 +290,56 @@ const App1 = () => {
     }
   }, [activeProject, isDarkMode, projects]);
 
-  // Debounced circle animation
+  // Single stable animation loop for circle position + size — runs once, reads refs
   useEffect(() => {
     let animationId: number;
-    const targetSize = animationTargetSize();
-    let currentSize = circleSize;
 
     const animate = () => {
+      animationId = requestAnimationFrame(animate);
+
+      // Interpolate circle position toward target
+      const pos = circlePositionRef.current;
+      const target = targetPositionRef.current;
+      pos.x += (target.x - pos.x) * 0.1;
+      pos.y += (target.y - pos.y) * 0.1;
+
+      // Animate circle size toward target
+      const targetSize = getTargetSize();
+      let currentSize = circleSizeRef.current;
       if (Math.abs(currentSize - targetSize) > 0.5) {
-        // Use the same animation speed for both growing and shrinking
-        // Using a smaller value creates a smoother transition
-        const delta = isAnimating
-          ? Math.min(5, (targetSize - currentSize) * 0.1) // Growing
-          : Math.max(-5, (targetSize - currentSize) * 0.1); // Shrinking
-
-        // Ensure we make at least minimal progress each frame to avoid stalling
-        const minStep = isAnimating ? 0.5 : -0.5;
+        const delta = isAnimatingRef.current
+          ? Math.min(5, (targetSize - currentSize) * 0.1)
+          : Math.max(-5, (targetSize - currentSize) * 0.1);
+        const minStep = isAnimatingRef.current ? 0.5 : -0.5;
         const effectiveDelta = Math.abs(delta) < Math.abs(minStep) ? minStep : delta;
-
-        currentSize = currentSize + effectiveDelta;
-
-        // Ensure we never go below 0 or above max size
-        currentSize = Math.max(0, Math.min(250, currentSize));
-
-        setCircleSize(currentSize);
-        animationId = requestAnimationFrame(animate);
+        currentSize = Math.max(0, Math.min(250, currentSize + effectiveDelta));
       } else {
-        // Snap to exact target when we're very close
-        setCircleSize(targetSize);
+        currentSize = targetSize;
+      }
+      circleSizeRef.current = currentSize;
+
+      // Direct DOM updates — no React re-renders
+      if (peekCircleRef.current) {
+        peekCircleRef.current.style.top = `${pos.y - scrollYRef.current}px`;
+        peekCircleRef.current.style.left = `${pos.x}px`;
+        peekCircleRef.current.style.transform = `scale(${currentSize > 0 ? 1.2 : 1})`;
+      }
+      if (overlayRef.current) {
+        overlayRef.current.style.setProperty('--x', `${pos.x + 50}px`);
+        overlayRef.current.style.setProperty('--y', `${pos.y + 50}px`);
+        overlayRef.current.style.setProperty('--circle-size', `${currentSize}px`);
       }
     };
 
     animationId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationId);
+  }, []);
 
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
-  }, [isAnimating, hoveredElementType, circleSize, animationTargetSize]);
-
-  // Throttled mouse position update
-  useEffect(() => {
-    let animationFrameId: number;
-    let lastUpdateTime = 0;
-    const THROTTLE_MS = 16; // Roughly 60fps
-
-    const animate = (timestamp: number) => {
-      if (timestamp - lastUpdateTime >= THROTTLE_MS) {
-        setCirclePosition(current => ({
-          x: current.x + (targetPosition.x - current.x) * 0.1,
-          y: current.y + (targetPosition.y - current.y) * 0.1
-        }));
-        lastUpdateTime = timestamp;
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [targetPosition]);
-
-  // Throttled scroll handler
+  // Scroll handler
   const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
     const scrollTop = (e.target as HTMLDivElement).scrollTop;
-    setScrollY(scrollTop);
+    scrollYRef.current = scrollTop;
 
-    // Only sync scroll with App2 if not on mobile
     if (window.innerWidth > 768) {
       const app2Container = document.querySelector('.app2-container');
       if (app2Container && app2Container.scrollTop !== scrollTop) {
@@ -364,18 +347,16 @@ const App1 = () => {
       }
     }
 
-    // Only update circle position if not on mobile
     if (window.innerWidth > 768) {
       const lastKnownMouseEvent = window.lastMouseEvent;
       if (lastKnownMouseEvent) {
-        setTargetPosition({
+        targetPositionRef.current = {
           x: lastKnownMouseEvent.clientX - 50,
           y: lastKnownMouseEvent.clientY + scrollTop - 50,
-        });
+        };
       }
     }
 
-    // Check if project section is visible
     const projectSection = document.querySelector('.project-section');
     if (projectSection) {
       const rect = projectSection.getBoundingClientRect();
@@ -385,39 +366,26 @@ const App1 = () => {
     }
   }, []);
 
-  // Debounced mouse move handler
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    // Only handle mouse move if not on mobile
+  // Mouse move — update ref directly, no state
+  const throttledMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (window.innerWidth > 768) {
       window.lastMouseEvent = e.nativeEvent;
-
       const scrollContainer = document.querySelector('.app1-scrollable');
       const scrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
-
-      setTargetPosition({
+      targetPositionRef.current = {
         x: e.clientX - 50,
         y: e.clientY + scrollTop - 50,
-      });
+      };
     }
   }, []);
 
-  // Use a throttled version of handleMouseMove
-  const throttledMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!window.throttleTimer) {
-      window.throttleTimer = setTimeout(() => {
-        handleMouseMove(e);
-        window.throttleTimer = null;
-      }, 16); // ~60fps
-    }
-  }, [handleMouseMove]);
-
   const handleTextHover = useCallback((elementType = 'default') => {
-    setIsAnimating(true);
-    setHoveredElementType(elementType);
+    isAnimatingRef.current = true;
+    hoveredElementTypeRef.current = elementType;
   }, []);
 
   const handleTextLeave = useCallback(() => {
-    setIsAnimating(false);
+    isAnimatingRef.current = false;
   }, []);
 
   const handleProjectClick = useCallback((projectId: string) => {
@@ -441,11 +409,7 @@ const App1 = () => {
       <div className="app1-scrollable" onScroll={handleScroll}>
         <div
           className="app1-overlay"
-          style={{
-            '--x': `${circlePosition.x + 50}px`,
-            '--y': `${circlePosition.y + 50}px`,
-            '--circle-size': `${circleSize}px`,
-          } as React.CSSProperties}
+          ref={overlayRef}
         >
           <div className='shader'>
             {shouldRenderShader && (
@@ -606,11 +570,7 @@ const App1 = () => {
       </div>
       <div
         className="peek-circle"
-        style={{
-          top: circlePosition.y - scrollY,
-          left: circlePosition.x,
-          transform: `scale(${circleSize > 0 ? 1.2 : 1})`
-        } as React.CSSProperties}
+        ref={peekCircleRef}
       ></div>
     </div>
   );

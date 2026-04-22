@@ -25,8 +25,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ githubUrl, blogUrl }) => 
     }, [isDarkMode]);
 
     useEffect(() => {
-        // Function to update scroll progress
+        let rafId: number | null = null;
+
+        // Throttled scroll progress update using rAF
         const updateScrollProgress = () => {
+            rafId = null;
             const scrollContainer = document.querySelector('.app1-scrollable');
             if (scrollContainer) {
                 const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
@@ -35,18 +38,24 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ githubUrl, blogUrl }) => 
             }
         };
 
-        // Add scroll event listener
+        const onScroll = () => {
+            if (rafId === null) {
+                rafId = requestAnimationFrame(updateScrollProgress);
+            }
+        };
+
         const scrollContainer = document.querySelector('.app1-scrollable');
         if (scrollContainer) {
-            scrollContainer.addEventListener('scroll', updateScrollProgress);
-            // Initialize progress
+            scrollContainer.addEventListener('scroll', onScroll, { passive: true });
             updateScrollProgress();
         }
 
         return () => {
-            // Clean up event listener
             if (scrollContainer) {
-                scrollContainer.removeEventListener('scroll', updateScrollProgress);
+                scrollContainer.removeEventListener('scroll', onScroll);
+            }
+            if (rafId !== null) {
+                cancelAnimationFrame(rafId);
             }
         };
     }, []);

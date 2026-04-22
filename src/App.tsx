@@ -9,19 +9,14 @@ function App() {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        // Function to check if device is mobile
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
+        // Use matchMedia for efficient breakpoint detection — fires only when threshold crosses
+        const mql = window.matchMedia('(max-width: 768px)');
+        setIsMobile(mql.matches);
 
-        // Initial check
-        checkMobile();
+        const handleChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+        mql.addEventListener('change', handleChange);
 
-        // Add event listener for window resize
-        window.addEventListener('resize', checkMobile);
-
-        // Cleanup
-        return () => window.removeEventListener('resize', checkMobile);
+        return () => mql.removeEventListener('change', handleChange);
     }, []);
 
     // Modified App1 for mobile that doesn't use the peek effect

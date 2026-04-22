@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-type ProgressiveImageProps = React.ImgHTMLAttributes<HTMLImageElement>;
+type ProgressiveImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
+  width?: number | string;
+  height?: number | string;
+};
 
 const ProgressiveImage: React.FC<ProgressiveImageProps> = ({
+  src,
   style,
   onLoad,
   loading = 'lazy',
@@ -10,6 +14,32 @@ const ProgressiveImage: React.FC<ProgressiveImageProps> = ({
   ...imgProps
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // Use IntersectionObserver for true deferred loading (tighter threshold than native lazy)
+  useEffect(() => {
+    if (loading === 'eager') {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' } // Start loading 200px before visible
+    );
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [loading]);
 
   const handleLoad: React.ReactEventHandler<HTMLImageElement> = (event) => {
     setIsLoaded(true);
@@ -18,7 +48,9 @@ const ProgressiveImage: React.FC<ProgressiveImageProps> = ({
 
   return (
     <img
+      ref={imgRef}
       {...imgProps}
+      src={isInView ? src : undefined}
       loading={loading}
       decoding={decoding}
       onLoad={handleLoad}
@@ -34,4 +66,3 @@ const ProgressiveImage: React.FC<ProgressiveImageProps> = ({
 };
 
 export default ProgressiveImage;
-

@@ -1,6 +1,9 @@
 :root {
   font-family: Arial, sans-serif;
   line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -15,10 +18,22 @@ body {
   overflow: hidden;
 }
 
+/* Let the browser skip rendering of off-screen sections */
+.section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 100vh;
+}
+
 /* Hide the scrollbar for a cleaner look */
 ::-webkit-scrollbar {
   display: none;
 }
+
+/* Firefox scrollbar hiding */
+* {
+  scrollbar-width: none;
+}
+
 ::selection {
   background-color: #ADD8E6; /* Light blue */
   color: inherit;

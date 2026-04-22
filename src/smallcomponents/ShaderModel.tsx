@@ -1,4 +1,4 @@
-import { startTransition, useEffect, useRef, useState, HTMLAttributes, useCallback } from 'react';
+import { startTransition, useEffect, useRef, HTMLAttributes, useCallback } from 'react';
 import './ShaderModel.css';
 import {
     AmbientLight,
@@ -56,8 +56,8 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
     // Network status for performance optimization
     const { isSlowConnection } = useNetworkStatus();
 
-    // Smooth rotation tracking
-    const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
+    // Smooth rotation tracking — use ref instead of state to avoid re-renders on mouse move
+    const mousePosition = useRef({ x: 0.5, y: 0.5 });
     const smoothRotationX = useRef(0);
     const smoothRotationY = useRef(0);
 
@@ -126,13 +126,12 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
         lights.current = [dirLight, ambientLight];
         lights.current.forEach(light => scene.current?.add(light));
 
-        // Mouse movement handler
+        // Mouse movement handler — update ref directly, no state / no re-render
         const handleMouseMove = (event: MouseEvent) => {
-            const position = {
+            mousePosition.current = {
                 x: event.clientX / window.innerWidth,
                 y: event.clientY / window.innerHeight,
             };
-            setMousePosition(position);
         };
 
         window.addEventListener('mousemove', handleMouseMove);
@@ -166,15 +165,19 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
         };
     }, [createMaterial, updateShader, isSlowConnection]);
 
+    // Stable animation loop — no dependencies means it's created once and never torn down
     useEffect(() => {
         let animationFrame: number;
 
         const animate = () => {
             animationFrame = requestAnimationFrame(animate);
 
+            // Read from ref — no React re-renders needed
+            const pos = mousePosition.current;
+
             // Smooth, delayed interpolation for rotation
-            smoothRotationX.current += (mousePosition.y - smoothRotationX.current) * 0.03;
-            smoothRotationY.current += (mousePosition.x - smoothRotationY.current) * 0.03;
+            smoothRotationX.current += (pos.y - smoothRotationX.current) * 0.03;
+            smoothRotationY.current += (pos.x - smoothRotationY.current) * 0.03;
 
             if (sphere.current && renderer.current && scene.current && camera.current) {
                 // Update uniforms for time-based effects
@@ -195,7 +198,7 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
         animate();
 
         return () => cancelAnimationFrame(animationFrame);
-    }, [mousePosition]);
+    }, []); // stable — reads refs directly
 
     return (
         <canvas

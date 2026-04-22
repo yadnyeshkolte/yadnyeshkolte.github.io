@@ -1,21 +1,44 @@
-import React from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import './App2.css';
 import NavigationBar from '../smallcomponents/NavigationBar';
 import reactLogo from '../assets/yadnyesh.jpg'
 import SocialIcons from '../smallcomponents/SocialIcons';
 import ProgressiveImage from '../smallcomponents/ProgressiveImage';
-import ShaderModel from '../smallcomponents/ShaderModel';
 import {Cloud, Code2, Database, Wrench} from "lucide-react";
 import { useSharedCarousel } from '../hooks/useSharedCarousel';
 import { certificationImages } from '../constants/remoteImages';
 
+// Lazy load ShaderModel to allow proper code-splitting of Three.js
+const ShaderModel = lazy(() => import('../smallcomponents/ShaderModel'));
+
 const App2 = () => {
+  const [shouldRenderShader, setShouldRenderShader] = useState(false);
+
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const app1Scrollable = document.querySelector('.app1-scrollable');
     if (app1Scrollable && app1Scrollable.scrollTop !== (e.target as HTMLDivElement).scrollTop) {
       app1Scrollable.scrollTop = (e.target as HTMLDivElement).scrollTop;
     }
   };
+
+  // Defer shader rendering until the section is in viewport
+  useEffect(() => {
+    const shaderObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setShouldRenderShader(true);
+          shaderObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const shaderSection = document.querySelector('.app2-container .shader');
+    if (shaderSection) {
+      shaderObserver.observe(shaderSection);
+    }
+
+    return () => shaderObserver.disconnect();
+  }, []);
 
   const certifications = [
     {
@@ -60,7 +83,11 @@ const App2 = () => {
             blogUrl="https://cyberconnaught.wordpress.com/"
         />
         <div className='shader'>
-          <ShaderModel/>
+          {shouldRenderShader && (
+            <Suspense>
+              <ShaderModel/>
+            </Suspense>
+          )}
         </div>
         <section className="section intro-section">
           <div className="intro-quote-side">

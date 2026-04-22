@@ -12,12 +12,14 @@ export default defineConfig({
     compression({ algorithm: 'brotliCompress', ext: '.br' })
   ],
   build: {
+    target: 'esnext', // Smaller output for modern browsers
     rollupOptions: {
       output: {
         manualChunks: {
           'three-vendor': ['three', 'three-stdlib'],
           'react-three': ['@react-three/fiber', '@react-three/drei'],
           'framer': ['framer-motion'],
+          'icons': ['lucide-react'],
         }
       }
     },
@@ -26,8 +28,12 @@ export default defineConfig({
     terserOptions: {
       compress: {
         drop_console: true,
+        passes: 2,
       }
     }
+  },
+  optimizeDeps: {
+    include: ['three', '@react-three/fiber', '@react-three/drei', 'framer-motion'],
   },
   base: '/'
 })
