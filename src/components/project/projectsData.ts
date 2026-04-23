@@ -31,7 +31,10 @@ const {
     telegramBotImage,
     structviz3dImage,
     structviz3dDesktopImage,
-    defaultIntroImage
+    defaultIntroImage,
+    onlinevotingsystemImage,
+    contextkeeperImage,
+    readmeresurrectorImage
 } = projectLightImages;
 
 const {
@@ -44,7 +47,10 @@ const {
     telegramBotDarkImage,
     structviz3dDarkImage,
     structviz3dDesktopDarkImage,
-    defaultIntroDarkImage
+    defaultIntroDarkImage,
+    onlinevotingsystemDarkImage,
+    contextkeeperDarkImage,
+    readmeresurrectorDarkImage
 } = projectDarkImages;
 
 const projectsData: ProjectsData = {
@@ -67,6 +73,75 @@ const projectsData: ProjectsData = {
             'Multi-Platform Development in cross-platform technologies',
             'Continuous Learning and Constantly exploring new technologies and frameworks',
             'DevOps and CI/CD - Implementing modern development and deployment practices'
+        ]
+    },
+    'onlinevotingsystem': {
+        id: 'onlinevotingsystem',
+        title: 'Full-stack Online voting platform',
+        summary: 'A full-stack online voting platform built with SpringBoot and MySQL.',
+        tags: ['Java', 'SpringBoot', 'ORM', 'Hibernate', 'MySQL'],
+        image: onlinevotingsystemImage,
+        darkImage: onlinevotingsystemDarkImage,
+        links: [
+            { type: 'blog', label: 'Blog', url: 'https://yadnyeshkolte.github.io/blog/posts/online-voting-system/' },
+            { type: 'github', label: 'Repository', url: 'https://github.com/yadnyeshkolte/online-voting-system' },
+            { type: 'website', label: 'Web Application', url: 'https://onlinevotingsystem.duckdns.org/' },
+            { type: 'documentation', label: 'Documentation', url: 'https://yadnyeshkolte.github.io/online-voting-system/' }
+        ],
+        features: [
+            'User Authentication - Secure login and registration for voters and administrators',
+            'Election Management - Create, update, and delete elections',
+            'Candidate Management - Add, edit, and remove candidates from elections',
+            'Real-time Voting - Cast votes with instant confirmation',
+            'Results Dashboard - Real-time display of election results',
+            'Secure Password Hashing - Protect sensitive user credentials',
+            'Admin Panel - Manage users, elections, and candidates'
+        ]
+    },
+    'contextkeeper': {
+        id: 'contextkeeper',
+        title: 'ContextKeeper: AI-Powered Memory Layer for Development Teams',
+        summary: 'ContextKeeper is a local-first AI agent that seamlessly integrates GitHub, Slack, and Notion to build a comprehensive knowledge graph of your codebase.',
+        tags: ['JavaScript', 'TypeScript', 'AI', 'Agent', 'GitHub', 'Slack', 'Notion', 'Vercel'],
+        image: contextkeeperImage,
+        darkImage: contextkeeperDarkImage,
+        links: [
+            { type: 'github', label: 'Repository', url: 'https://github.com/yadnyeshkolte/ContextKeeper' },
+            { type: 'blog', label: 'Blog', url: 'https://yadnyeshkolte.github.io/blog/posts/context-keeper-blog/' },
+            { type: 'youtube', label: 'Youtube', url: 'https://www.youtube.com/watch?v=Jj1A36TeFkI' }
+        ],
+        features: [
+            'Context-Aware AI Analysis - Analyze code with relevant context from GitHub, Slack, and Notion',
+            'Knowledge Graph Visualization - Interactive visualization of your codebase and conversations',
+            'Code Summaries - Get concise summaries of code changes and project updates',
+            'AI-Assisted Coding - Generate code snippets and suggestions based on your project context',
+            'Cross-Platform Support - Works across different operating systems',
+            'Integration with Groq API for code completion and AI assistance',
+            'Integrated language servers for numerous programming languages',
+            'Select specific files to include in documentation or AI context',
+            'Code Intelligence - Function/class extraction and analysis capabilities',
+            'UI Automation Tools - Interact with external applications for testing or demonstrations'
+        ]
+    },
+    'readmeresurrector': {
+        id: 'readmeresurrector',
+        title: 'README Resurrector - AI-Powered README Generator',
+        summary: 'README Resurrector is an AI-powered tool that generates comprehensive README files for your projects.',
+        tags: ['JavaScript', 'TypeScript', 'AI', 'GitHub', 'Vercel'],
+        image: readmeresurrectorImage,
+        darkImage: readmeresurrectorDarkImage,
+        links: [
+            { type: 'github', label: 'Repository', url: 'https://github.com/yadnyeshkolte/readmere' },
+            { type: 'website', label: 'Web Application', url: 'https://readmere.vercel.app/' },
+            { type: 'blog', label: 'Blog', url: 'https://yadnyeshkolte.github.io/blog/posts/readme-generate-mcp/' },
+            { type: 'huggingface', label: 'HuggingFace', url: 'https://huggingface.co/spaces/yadnyeshkolte/readmere-huggingface-engine' }
+        ],
+        features: [
+            'Generate comprehensive README files for projects',
+            'Supports multiple programming languages',
+            'AI-powered content generation',
+            'Easy-to-use interface',
+            'Free to use and open-source'
         ]
     },
     'crossdocs': {
