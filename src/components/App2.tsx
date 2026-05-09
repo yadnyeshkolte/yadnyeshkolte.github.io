@@ -97,10 +97,12 @@ const App2 = () => {
               <div className="profile-title-container">
                 <ProgressiveImage
                     src={reactLogo}
-                    alt="Profile"
+                    alt="Yadnyesh Kolte profile photo"
                     className="profile-image"
                     loading="eager"
                     fetchPriority="high"
+                    width={188}
+                    height={188}
                 />
                 <h1 className="intro-title">Yadnyesh Kolte</h1>
               </div>
@@ -204,6 +206,7 @@ const App2 = () => {
                             key={cert.id}
                             className={`dot ${currentCert === index ? 'active' : ''}`}
                             onClick={() => setCurrentCert(index)}
+                            aria-label={`Go to certification ${index + 1}: ${cert.title}`}
                         />
                     ))}
                   </div>
