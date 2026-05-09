@@ -139,6 +139,8 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, activeProje
         <div
             className={`project-carousel ${isTransitioning ? 'transitioning' : ''}`}
             ref={carouselRef}
+            role="tablist"
+            aria-label="Project selector"
         >
             {Object.entries(projects)
                 .filter(([id]) => id !== 'default') // Exclude default project
@@ -148,8 +150,13 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, activeProje
                         data-project-id={id}
                         className={`project-card ${activeProject === id ? 'active' : ''}`}
                         onClick={() => handleProjectClick(id)}
+                        role="tab"
+                        aria-selected={activeProject === id}
+                        aria-label={`Select project: ${project.title}`}
+                        tabIndex={0}
+                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleProjectClick(id); } }}
                     >
-                        <h3 className="project-title">{project.title}</h3>
+                        <h4 className="project-title">{project.title}</h4>
                         <p className="project-summary">{project.summary}</p>
                     </div>
                 ))}

@@ -88,7 +88,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
         <div className="project-details">
             <AnimatePresence mode="popLayout">
                 {animationStage >= 1 && (
-                    <motion.h3
+                    <motion.h2
                         key={`title-${project.title}`}
                         initial="hidden"
                         animate="visible"
@@ -96,7 +96,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                         variants={variants}
                     >
                         {project.title}
-                    </motion.h3>
+                    </motion.h2>
                 )}
 
                 <div className="details-content">
