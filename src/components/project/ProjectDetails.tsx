@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import './ProjectDetails.css';
 import { Github, Globe, Box, Download, Gitlab, Cloud } from 'lucide-react';
 
@@ -72,7 +72,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
     if (!project) return null;
 
     // Animation variants
-    const variants = {
+    const variants: Variants = {
         hidden: { opacity: 0, x: -20 },
         visible: {
             opacity: 1,
