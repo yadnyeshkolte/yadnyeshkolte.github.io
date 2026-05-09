@@ -11,19 +11,14 @@ import ProjectCarousel from './project/ProjectCarousel';
 import ProjectDetails from './project/ProjectDetails';
 // Import the projects data
 import projectsData from './project/projectsData';
-import { certificationImages, projectDarkImages, projectLightImages } from '../constants/remoteImages';
-import { OrbitControls, Stage } from "@react-three/drei";
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
+import { certificationImages } from '../constants/remoteImages';
 
 
 // Lazy load the ShaderModel component
 const ShaderModel = lazy(() => import('../smallcomponents/ShaderModel'));
 
-// Lazy load the Model component
-const Model = lazy(() => import('./project/Model').then(module => ({
-  default: module.Model
-})));
+// Lazy load the ModelSection component — keeps all Three.js code out of the main bundle
+const ModelSection = lazy(() => import('./project/ModelSection'));
 
 // Add type for window property
 declare global {
@@ -66,91 +61,6 @@ function Loader() {
   );
 }
 
-interface ModelSectionProps {
-  laptopOpen: boolean;
-  currentProjectImage: string;
-  isDarkMode: boolean;
-}
-
-const ModelSection = lazy(() => import('./project/Model').then(() => ({
-  default: ({ laptopOpen, currentProjectImage, isDarkMode }: ModelSectionProps) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const ref = useRef<OrbitControlsImpl>(null);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [isModelLoaded, setIsModelLoaded] = useState(false);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [cameraPosition, setCameraPosition] = useState<[number, number, number]>([0.1, -0.6, 3]);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [cameraFov, setCameraFov] = useState(50);
-
-    // Set a timeout to indicate when model should be visible
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      const loadTimer = setTimeout(() => {
-        setIsModelLoaded(true);
-      }, 500);
-
-      return () => clearTimeout(loadTimer);
-    }, []);
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      // Initial check
-      const handleResize = () => {
-        if (window.innerWidth > 1024) {
-          setCameraPosition([1, -0.6, 2.5]);
-          setCameraFov(50);
-        } else {
-          // Use your default camera position for larger screens
-          setCameraPosition([0, 0, 4]); // Adjust these values as needed
-          setCameraFov(45); // Adjust as needed
-        }
-      };
-
-      // Set initial value
-      handleResize();
-
-      // Listen for window resize
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return (
-      <Canvas
-        shadows
-        dpr={[1, 2]}
-        camera={{ fov: cameraFov, position: cameraPosition }}
-        style={{
-          width: '50%',
-          height: '50%',
-          maxHeight: '100%',
-          minWidth: '100%',
-          opacity: isModelLoaded ? 1 : 0,
-          transition: 'opacity 0.5s ease-in-out'
-        }}
-        onPointerDownCapture={(e) => e.stopPropagation()}
-        onWheelCapture={(e) => e.stopPropagation()}
-      >
-        <Suspense fallback={null}>
-          <Stage
-            preset="rembrandt"
-            intensity={1}
-            environment="city"
-            shadows={false}
-            adjustCamera={false}
-          >
-            <Model
-              isOpen={laptopOpen}
-              screenImage={currentProjectImage}
-              keyboardImage={isDarkMode ? projectDarkImages.keyboardDarkImage : projectLightImages.keyboardLightImage}
-            />
-          </Stage>
-          <OrbitControls ref={ref} target={[0, -0.4, 0]} />
-        </Suspense>
-      </Canvas>
-    );
-  }
-})));
 
 // Define certifications array outside the component
 const certifications = [
