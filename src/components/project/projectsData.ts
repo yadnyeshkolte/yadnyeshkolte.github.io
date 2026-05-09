@@ -26,8 +26,6 @@ const {
     frontqodeImage,
     opensourcepenImage,
     flagsImage,
-    lensImage,
-    imfapiImage,
     telegramBotImage,
     structviz3dImage,
     structviz3dDesktopImage,
@@ -42,8 +40,6 @@ const {
     frontqodeDarkImage,
     opensourcepenDarkImage,
     flagsDarkImage,
-    lensDarkImage,
-    imfapiDarkImage,
     telegramBotDarkImage,
     structviz3dDarkImage,
     structviz3dDesktopDarkImage,
@@ -225,46 +221,6 @@ const projectsData: ProjectsData = {
             'Flag emoji conversion',
             'Country code validation',
             'Flag search and filtering'
-        ]
-    },
-    'guestbook': {
-        id: 'guestbook',
-        title: 'Guestbook App Deployment',
-        summary: 'Continuous delivery pipeline with Argo CD and GitOps for a modern, scalable guestbook application.',
-        tags: ['DevOps', 'Kubernetes', 'Docker', 'ArgoCD', 'GitOps'],
-        image: lensImage,
-        darkImage: lensDarkImage,
-        links: [
-            { type: 'github', label: 'Gist', url: 'https://gist.github.com/yadnyeshkolte/5d095713c84b9f05711c9d0ed1a8080a' },
-        ],
-        features: [
-            'GitOps-based deployment workflow',
-            'Automated CI/CD pipeline',
-            'Kubernetes-native architecture',
-            'Infrastructure as Code with Terraform',
-            'Automatic rollbacks on failed deployments'
-        ]
-    },
-    'imf-gadgets': {
-        id: 'imf-gadgets',
-        title: 'IMF Gadget Management System API',
-        summary: 'A comprehensive API for tracking and managing mission gadgets with authentication, status tracking, and self-destruct capabilities.',
-        tags: ['Node.js', 'Express.js', 'PostgreSQL', 'Sequelize', 'JWT', 'REST API'],
-        image: imfapiImage, // You'll need to update this with your actual image variable
-        darkImage: imfapiDarkImage,
-        links: [
-            { type: 'github', label: 'Repository', url: 'https://github.com/yadnyeshkolte/imf-gadgets-api' },
-            { type: 'github', label: 'Frontend Repo', url: 'https://github.com/yadnyeshkolte/imf-gadgets-dashboards' },
-            { type: 'website', label: 'Web Application', url: 'https://yadnyeshkolte.github.io/imf-gadgets-dashboards/' },
-            { type: 'api', label: 'API Documentation', url: 'https://documenter.getpostman.com/view/41932986/2sAYX9kzTN' }
-        ],
-        features: [
-            'JWT-based authentication system',
-            'Random codename generation for gadgets',
-            'Mission success probability calculation',
-            'Status tracking (Available, Deployed, Destroyed, Decommissioned)',
-            'Soft delete implementation with decommission timestamps',
-            'Self-destruct sequence for gadgets'
         ]
     },
     'esp32-telegram-atm': {
