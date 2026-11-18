@@ -90,12 +90,18 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
     useEffect(() => {
         const { innerWidth, innerHeight } = window;
 
-        renderer.current = new WebGLRenderer({
-            canvas: canvasRef.current!,
-            antialias: false,
-            alpha: true,
-            powerPreference: 'high-performance',
-        });
+        try {
+            renderer.current = new WebGLRenderer({
+                canvas: canvasRef.current!,
+                antialias: false,
+                alpha: true,
+                powerPreference: 'high-performance',
+            });
+        } catch (err) {
+            // No WebGL (hardware acceleration off, GPU blocklisted): skip the decorative background instead of crashing the page.
+            console.warn('WebGL unavailable, skipping 3D background', err);
+            return;
+        }
         renderer.current.setSize(innerWidth, innerHeight);
         renderer.current.setPixelRatio(1);
         renderer.current.outputColorSpace = LinearSRGBColorSpace;
