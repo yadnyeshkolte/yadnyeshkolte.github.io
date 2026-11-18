@@ -115,7 +115,7 @@ export const ShaderModel = (props: HTMLAttributes<HTMLCanvasElement>) => {
         material.current = createMaterial(isDark);
 
         // Reduce geometry complexity for slow connections
-        const segments = isSlowConnection ? 64 : 128;
+        const segments = isSlowConnection ? 48 : 64;
         startTransition(() => {
             geometry.current = new SphereGeometry(32, segments, segments);
             if (!geometry.current || !material.current) return;

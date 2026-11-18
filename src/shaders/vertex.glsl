@@ -168,7 +168,7 @@ float pnoise(vec3 P, vec3 rep)
 float turbulence(vec3 p) {
   float w = 100.0;
   float t = -.5;
-  for (float f = 1.0 ; f <= 10.0 ; f++) {
+  for (float f = 1.0 ; f <= 6.0 ; f++) {
     float power = pow(2.0, f);
     t += abs(pnoise(vec3(power * p), vec3(10.0, 10.0, 10.0)) / power);
   }
